@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SpiceAuction Pro v6.9 — Dual Auction | 16 Auctioneers | Spices Board of India</title>
+<title>SpiceAuction Pro v7.2 — Dual Auction | 16 Auctioneers | Spices Board of India</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -940,7 +940,7 @@ body.v59-lite #lw::before,body.v59-lite #lw::after,body.v59-lite .v59-pod{displa
 <div class="stabs"><button class="stab active" onclick="pst('pac','pool')">🏭 Pooling</button><button class="stab" onclick="pst('pac','master')">🎙️ Auction Master</button><button class="stab" onclick="pst('pac','seq')">🔢 Sequence</button><button class="stab" onclick="pst('pac','hist')">📋 History</button><button class="stab" onclick="pst('pac','fin')">💰 Finance</button><button class="stab" onclick="pst('pac','transfer')">🔄 Transfer</button><button class="stab" onclick="pst('pac','undert')">📄 Undertakings</button></div>
 <div id="pac-pool" class="pac-s"><div class="srch"><div class="sip"><span class="sip-i">🔍</span><input placeholder="Search lots..." oninput="fT('aplottbl',this.value)"></div><select id="apf" onchange="rAP()"><option value="">All Status</option><option value="pooled">Pooled</option><option value="approved">Approved</option><option value="in_auction">In Auction</option><option value="suspect">Suspect</option><option value="colored">Colored</option><option value="withdrawn">Withdrawn</option></select></div><div class="tw tall"><table class="t" id="aplottbl"><thead><tr><th>Lot No</th><th>Source</th><th>Name</th><th>Center</th><th>Qty</th><th>Bags</th><th>Basic</th><th>Reserved</th><th>QC</th><th>Status</th><th>Actions</th></tr></thead><tbody id="apbd"></tbody></table></div></div>
 <div id="pac-master" class="pac-s" style="display:none"><div class="g2">
-  <div class="card"><div class="ch"><h3>🎙️ Auction Session</h3></div><div class="fg"><div class="fi c6"><label>Auction No</label><input id="amno" placeholder="AUC/2026/001"></div><div class="fi c6"><label>Date</label><input id="amdt" type="date" onchange="onAuctionDateSelect(this.value)"></div><div class="c12" id="auction-date-info"></div><div class="fi c4"><label>Auction Type</label><select id="amty"><option value="regular">Regular (Day)</option><option value="evening">Evening</option></select></div><div class="fi c4"><label>Pooling Start</label><input id="ampst" type="time"></div><div class="fi c4"><label>Pooling End</label><input id="ampen" type="time"></div><div class="fi c6"><label>Venue</label><select id="ampc"></select></div><div class="fi c6"><label>Commodity</label><select id="amco"><option value="Cardamom">Cardamom</option><option value="Pepper">Pepper</option><option value="Mixed">Mixed</option></select></div><div class="fi c12"><label>Remarks</label><input id="amrk" placeholder="Notes"></div><div class="brow c12"><button class="btn bp" onclick="createAuction()">🏛️ Create Auction</button><button class="btn bs" onclick="addLotsToAuction()">+ Add Approved Lots</button></div></div><hr><div id="amci"></div></div>
+  <div class="card"><div class="ch"><h3>🎙️ Auction Session</h3></div><div class="fg"><div class="fi c6"><label>Auction No</label><input id="amno" placeholder="AUC/2026/001"></div><div class="fi c6"><label>Date</label><input id="amdt" type="date" onchange="onAuctionDateSelect(this.value)"></div><div class="c12" id="auction-date-info"></div><div class="fi c4"><label>Auction Type</label><select id="amty"><option value="regular">Regular (Day)</option><option value="evening">Evening</option></select></div><div class="fi c4"><label>Pooling Start</label><input id="ampst" type="time"></div><div class="fi c4"><label>Pooling Date</label><input id="ampd" type="date"></div><div class="fi c4"><label>Pooling End</label><input id="ampen" type="time"></div><div class="fi c4"><label>Auction Start (IST)</label><input id="amst" type="time"></div><div class="fi c4"><label>Auction End (IST)</label><input id="amet" type="time"></div><div class="c12" style="font-size:11px;color:#667;margin-top:-4px">Any time from 12:00 AM to 11:59 PM. Admin can change date / time later in <b>🕒 Time Control</b>. At the end time the auction closes automatically after the running lot is decided.</div><div class="fi c6"><label>Venue</label><select id="ampc"></select></div><div class="fi c6"><label>Commodity</label><select id="amco"><option value="Cardamom">Cardamom</option><option value="Pepper">Pepper</option><option value="Mixed">Mixed</option></select></div><div class="fi c12"><label>Remarks</label><input id="amrk" placeholder="Notes"></div><div class="brow c12"><button class="btn bp" onclick="createAuction()">🏛️ Create Auction</button><button class="btn bs" onclick="addLotsToAuction()">+ Add Approved Lots</button></div></div><hr><div id="amci"></div></div>
   <div class="card"><div class="ch"><h3>Current Lot <span id="amls" class="bg bga2"></span><span id="lock-badge" class="bg bgr" style="display:none">🔒 LOCKED</span></h3></div><div id="amcld"><div class="emp"><div class="emp-i">🎙️</div><p>Create an auction to start.</p></div></div><div class="acl" style="margin-top:10px"><div class="acl-t">⚡ Auction Controls</div><div class="cg"><button class="cb cblv" onclick="goLive()"><div class="cb-i">▶</div><div class="cb-l">Go Live</div></button><button class="cb cbnx" onclick="nextLot()"><div class="cb-i">→</div><div class="cb-l">Next</div></button><button class="cb cbed" onclick="endAuction()"><div class="cb-i">⏹</div><div class="cb-l">End</div></button></div>
 <div style="font-size:9.5px;font-weight:700;color:#7aad84;text-transform:uppercase;letter-spacing:.5px;margin:10px 0 6px">🏢 Puttady Decision (Primary)</div>
 <div class="cg"><button class="cb cbsd" onclick="priAccept()"><div class="cb-i">✅</div><div class="cb-l">Accept</div></button><button class="cb cbnx" onclick="priRerun()"><div class="cb-i">🔄</div><div class="cb-l">Rerun</div></button><button class="cb cbwd" onclick="priWithdraw()"><div class="cb-i">⛔</div><div class="cb-l">Withdraw</div></button><button class="cb cbnx" onclick="skipLot()"><div class="cb-i">⏭️</div><div class="cb-l">Skip</div></button></div>
@@ -967,7 +967,7 @@ body.v59-lite #lw::before,body.v59-lite #lw::after,body.v59-lite .v59-pod{displa
 </div>
 <div style="font-size:9px;color:#5a7a60;margin-top:6px;text-align:center">Set default: <a style="color:var(--a1);cursor:pointer" onclick="changeDefaultDuration()">⚙️ Change</a>
 </div></div></div><div style="margin-top:9px"><div class="bfeed"><div class="bfhdr"><span>Live Bid Feed</span><span id="bid-count">0 bids</span></div><div class="bfl" id="ambf" style="max-height:180px;overflow-y:auto"></div></div></div></div>
-</div><div class="card"><div class="ch"><h3>Lots in Auction</h3><button class="btn bs bsm" onclick="expCSV2('auc_lots')">↓ Export</button></div><div class="tw tall"><table class="t" id="amlt"><thead><tr><th>Seq</th><th>Lot No</th><th>Source</th><th>Grade</th><th>Qty</th><th>Basic</th><th>Reserved</th><th>Sold</th><th>Buyer</th><th>Status</th></tr></thead><tbody id="amlb"></tbody></table></div></div></div>
+</div><div class="card"><div class="ch"><h3>Lots in Auction</h3><button class="btn bs bsm" onclick="expCSV2('auc_lots')">↓ Export</button></div><div class="tw tall"><table class="t" id="amlt"><thead><tr><th>Seq</th><th>Lot No</th><th>Source</th><th>Grade</th><th>Qty</th><th>Basic</th><th>Reserved</th><th>Sold</th><th>Buyer</th><th>Status</th></tr></thead><tbody id="amlb"></tbody></table></div></div>
 <div id="pac-seq" class="pac-s" style="display:none"><div class="alt altw">⚠️ Sequence modifiable up to <b>2 hours before auction start</b>. After bidding begins, LOCKED.</div><div class="card"><div class="ch"><h3>🔢 Lot Sequencing <span id="seq-lock-badge" class="bg bgr" style="display:none">🔒 LOCKED</span></h3></div><div id="seq-wrap"></div></div></div>
 <div id="pac-hist" class="pac-s" style="display:none"><div class="card"><div class="ch"><h3>Auction History</h3><button class="btn bs bsm" onclick="expCSV2('auctions')">↓ CSV</button></div><div class="tw tall"><table class="t" id="acht"><thead><tr><th>Auction No</th><th>Date</th><th>Commodity</th><th>Lots</th><th>Sold</th><th>Value</th><th>Status</th><th>Reports</th></tr></thead><tbody id="achb"></tbody></table></div></div></div>
 <div id="pac-fin" class="pac-s" style="display:none"><div class="sr" id="acfs"></div><div class="g2"><div class="card"><div class="ch"><h3>Financial Summary</h3></div><div id="acfsum"></div></div><div class="card"><div class="ch"><h3>Pending Payments</h3></div><div id="acpp"></div></div></div></div>
@@ -1115,8 +1115,6 @@ body.v59-lite #lw::before,body.v59-lite #lw::after,body.v59-lite .v59-pod{displa
 <div id="pterms-privacy" class="pterms-s" style="display:none"><div id="privacy-main-content"></div></div>
 <div id="pterms-about" class="pterms-s" style="display:none"><div id="about-main-content"></div></div>
 </div>
-
-</div></div>
 
 <div class="panel" id="psac">
 <div class="alt alte" style="background:linear-gradient(135deg,#880e4f,#ad1457);color:#fff;border:none">🏢 Bodinayakanur Cardamom Auction — Secondary Location | <span class="loc-s" style="background:rgba(255,255,255,.2);color:#fff">SECONDARY</span></div>
@@ -1296,11 +1294,12 @@ body.v59-lite #lw::before,body.v59-lite #lw::after,body.v59-lite .v59-pod{displa
 <div id="pdocs-webhook" class="pa-s" style="display:none"></div>
 <div id="pdocs-2fa" class="pa-s" style="display:none"></div><div id="pdocs-templates" class="pa-s" style="display:none"></div><div id="pdocs-exportcfg" class="pa-s" style="display:none"></div><div id="pdocs-health" class="pa-s" style="display:none"></div><div id="pdocs-tally" class="pa-s" style="display:none"></div><div id="pdocs-mobileqr" class="pa-s" style="display:none"></div><div id="pdocs-report" class="pa-s" style="display:none"></div><div id="pdocs-registrations" class="pa-s" style="display:none"></div><div id="pdocs-aireport" class="pa-s" style="display:none"></div><div id="pdocs-compliance" class="pa-s" style="display:none"></div><div id="pdocs-dataquality" class="pa-s" style="display:none"></div><div id="pdocs-tickets" class="pa-s" style="display:none"></div><div id="pdocs-kb" class="pa-s" style="display:none"></div><div id="pdocs-faq" class="pa-s" style="display:none"></div><div id="pdocs-onboard" class="pa-s" style="display:none"></div><div id="pdocs-plugins" class="pa-s" style="display:none"></div><div id="pdocs-ratelimit" class="pa-s" style="display:none"></div><div id="pdocs-sessions" class="pa-s" style="display:none"></div><div id="pdocs-branding" class="pa-s" style="display:none"></div><div id="pdocs-cache" class="pa-s" style="display:none"></div><div id="pdocs-migration" class="pa-s" style="display:none"></div><div id="pdocs-auditarchive" class="pa-s" style="display:none"></div><div id="pdocs-chathistory" class="pa-s" style="display:none"></div><div id="pdocs-aimodel" class="pa-s" style="display:none"></div><div id="pdocs-notifhub" class="pa-s" style="display:none"></div><div id="pdocs-sysconn" class="pa-s" style="display:none"></div>
 </div>
+</div></div>
 <div id="parea"></div>
 <div id="twrap"></div>
 <script>
 /* v5.8.1 layout fix: panels that sat outside #app rendered below the first screen */
-(function(){var a=document.getElementById('app');['psac','panalytics','psettings','pextras','pdocs'].forEach(function(id){var e=document.getElementById(id);if(e&&a){a.appendChild(e);e.style.padding='12px 20px';}});})();
+(function(){var a=document.querySelector('#app > .ca');['psac','panalytics','psettings','pextras','pdocs'].forEach(function(id){var e=document.getElementById(id);if(e&&a&&e.parentNode!==a)a.appendChild(e);});})();
 
 
 // ═══ SUPABASE CLOUD DB ENGINE ═══
@@ -8286,6 +8285,536 @@ var _lo=window.doLogout;if(typeof _lo==='function')window.doLogout=function(){tr
 window.v69Helm={open:openHelm,close:closeHelm};
 })();
 
+
+</script>
+<script>
+// ═══ v7.0 — TIME CONTROL (auction + pooling) · AUTO-CLOSE · BID HISTORY · ADMIN WITHDRAW · REPORT UPDATES ═══
+(function(){
+if(window.__v70)return;window.__v70=1;
+var $=function(i){return document.getElementById(i);};
+function E(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function nowMs(){try{return srvNow();}catch(e){return Date.now();}}
+function ist(ms){var t=new Date(ms+19800000).toISOString();return {d:t.slice(0,10),hm:t.slice(11,16),hms:t.slice(11,19),ms3:t.slice(11,23)};}
+function atMs(d,hm){return Date.parse(d+'T'+hm+':00+05:30');}
+function t12(hm){if(!hm)return '—';var p=String(hm).split(':'),h=+p[0],m=p[1]||'00',ap=h>=12?'PM':'AM';h=h%12||12;return (h<10?'0':'')+h+':'+m+' '+ap;}
+function dmy(d){var p=String(d||'').split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:(d||'');}
+function role(){return CU?CU.role:'';}
+function isAdmin(){return !!CU&&CU.role==='admin';}
+function isActor(){return !!CU&&(CU.role==='admin'||CU.role==='auctioneer');}
+function T(m,t,d){try{toast(m,t||'info',d);}catch(e){}}
+function dur(ms){ms=Math.max(0,Math.floor(ms/1000));var h=Math.floor(ms/3600),m=Math.floor(ms%3600/60),s=ms%60;return (h?h+'h ':'')+(h||m?(m<10&&h?'0':'')+m+'m ':'')+(s<10&&(h||m)?'0':'')+s+'s';}
+var HM=/^([01]\d|2[0-3]):[0-5]\d$/;
+
+// ── windows ──────────────────────────────────────────────────
+function winOf(a){if(!a||!a.date)return null;var s=a.startTime&&HM.test(a.startTime)?atMs(a.date,a.startTime):null,e=a.endTime&&HM.test(a.endTime)?atMs(a.date,a.endTime)+59999:null;return (s!=null||e!=null)?{s:s,e:e}:null;}
+function poolWin(a){if(!a)return null;var d=a.poolDate||a.date;if(!d)return null;var s=a.poolStart&&HM.test(a.poolStart)?atMs(d,a.poolStart):null,e=a.poolEnd&&HM.test(a.poolEnd)?atMs(d,a.poolEnd)+59999:null;return (s!=null||e!=null)?{s:s,e:e,d:d}:null;}
+function curAuc(){var la=DB.g1('live_auction');if(!la||!la.id)return null;return DB.find('auctions',la.id)||la;}
+function winTxt(a){return a&&(a.startTime||a.endTime)?t12(a.startTime)+' – '+t12(a.endTime):'No time limit';}
+function poolTxt(a){var d=(a&&(a.poolDate||a.date))||'';return a&&(a.poolStart||a.poolEnd)?dmy(d)+' '+t12(a.poolStart)+' – '+t12(a.poolEnd):'—';}
+
+// ── permanent structured event log (rows in activity_log) ─────
+function evLog(ev,o){try{o=o||{};var la=DB.g1('live_auction')||{};var n=nowMs();
+  DB.add('activity_log',{n:DB.get('activity_log').length+1,msg:o.msg||ev,user:CU?(CU.name||CU.username):'system',login:CU?CU.username:'system',role:CU?CU.role:'',tableNo:CU?(CU.tableNo||''):'',location:CU?(CU.loginLocation||''):'',
+    auctionId:o.auctionId!=null?o.auctionId:(la.id||''),lotId:o.lotId||'',lotNo:o.lotNo||'',ev:ev,evMs:n,price:o.price||'',whom:o.whom||'',reason:o.reason||''});}catch(e){}}
+
+// ═════════ 1. CLOSING ENGINE ═════════
+function stampLive(){try{var la=DB.g1('live_auction');if(!la||!la.id)return;var a=DB.find('auctions',la.id)||la;var w=winOf(a);
+  var up={date:a.date,startTime:a.startTime||'',endTime:a.endTime||'',poolDate:a.poolDate||'',poolStart:a.poolStart||'',poolEnd:a.poolEnd||'',startAtMs:w&&w.s!=null?w.s:null,endAtMs:w&&w.e!=null?w.e:null};
+  var ch=false;Object.keys(up).forEach(function(k){if(la[k]!==up[k]&&!(la[k]==null&&up[k]===''))ch=true;});if(ch)DB.s1('live_auction',Object.assign({},la,up));}catch(e){}}
+function closeAuction(by,why){
+  var la=DB.g1('live_auction');if(!la||la.status!=='live')return;var A=DB.find('auctions',la.id)||la,iso=new Date(nowMs()).toISOString();
+  try{clearInterval(auctionTimer);auctionTimer=null;}catch(e){}
+  var rest=DB.where('lots',function(l){return l.auctionId===la.id&&l.status==='in_auction';});
+  rest.forEach(function(l){DB.upd('lots',l.id,{status:'approved',auctionId:'',seq:null,carriedFrom:A.auctionNo||la.auctionNo,carriedFromId:la.id,carriedAt:iso,carryReason:why});
+    evLog('CARRIED',{auctionId:la.id,lotId:l.id,lotNo:l.lotNo,msg:'Not reached — auction closed ('+why+'). Lot returned to the pool for the next auction.',reason:why});});
+  DB.upd('auctions',la.id,{status:'completed',closedAt:iso,closedBy:by,closeReason:why,lotsCarried:rest.length});
+  DB.s1('live_auction',Object.assign({},la,{status:'completed',closedAt:iso,closedBy:by,closeReason:why}));
+  try{cloudKV('timer_sync',{s:0,t:0,lot:la.currentLotId,ts:Date.now(),end:nowMs(),running:false});}catch(e){}
+  addAudit('auction','Auction closed — '+(by==='AUTO'?'AUTOMATIC':by),(A.auctionNo||'')+': '+why+(rest.length?' · '+rest.length+' lot(s) not reached, returned to pool':''),A.auctionNo||'');
+  evLog('AUC_CLOSE',{auctionId:la.id,msg:'AUCTION CLOSED ('+(by==='AUTO'?'automatic':by)+') — '+why+(rest.length?' · '+rest.length+' lot(s) not reached, returned to pool':''),reason:why});
+  try{pushNotif('🏁 Auction '+(A.auctionNo||'')+' closed — '+why,'warn');}catch(e){}
+  T('🏁 Auction '+(A.auctionNo||'')+' closed — '+why+'. No further bidding.','warn',7000);
+  try{rACH();}catch(e){}try{rAM_Status();}catch(e){}try{renderAucLots();}catch(e){}try{hsRender();}catch(e){}try{rSecPanel();}catch(e){}
+}
+function pastEnd(a){var w=winOf(a||curAuc());return !!(w&&w.e!=null&&nowMs()>=w.e);}
+function beforeStart(a){var w=winOf(a||curAuc());return !!(w&&w.s!=null&&nowMs()<w.s);}
+var _toLogged={};
+setInterval(function(){try{
+  if(!CU||typeof DB==='undefined')return;var la=DB.g1('live_auction');updatePill(la);
+  if(!la||la.status!=='live')return;var a=curAuc(),w=winOf(a);if(!w)return;
+  if(isActor()){stampLive();}
+  if(w.e==null||nowMs()<w.e)return;
+  if(!isActor())return;
+  if(!_toLogged[la.id]&&!DB.get('activity_log').some(function(r){return r.ev==='TIME_OVER'&&r.auctionId===la.id;})){_toLogged[la.id]=1;
+    evLog('TIME_OVER',{auctionId:la.id,msg:'AUCTION END TIME '+t12(a.endTime)+' REACHED — no new lot can start; the running lot (if any) will be decided, then the auction closes automatically'});
+    addAudit('auction','Auction end time reached',(a.auctionNo||'')+' · '+t12(a.endTime),a.auctionNo||'');}
+  _toLogged[la.id]=1;
+  var hs=hsState(),lot=la.currentLotId?DB.find('lots',la.currentLotId):null,running=hs.phase==='running'&&lot&&lot.status==='in_auction';
+  if(!running)closeAuction('AUTO','Auction end time '+t12(a.endTime)+' reached');
+}catch(e){}},1000);
+// after a decision the next lot never opens once time is over
+(function(){var o=window.nextLot;if(typeof o!=='function')return;window.nextLot=function(){var la=DB.g1('live_auction');
+  if(la&&la.status==='live'&&pastEnd()){closeAuction('AUTO','Auction end time '+t12((curAuc()||{}).endTime)+' reached — last lot decided');return;}return o.apply(this,arguments);};})();
+// no automatic rerun after the end time
+(function(){var o=window.onTimerZero;if(typeof o!=='function')return;window.onTimerZero=function(){var la=DB.g1('live_auction');
+  if(la&&la.status==='live'&&la.currentLotId&&pastEnd()){var n=DB.where('bids',function(b){return b.lotId===la.currentLotId;}).length;
+    if(n===0){try{logDecision('NO BID — TIME OVER',lgxSnap(),{side:'System',result:'Not sold',note:'Timer ended without a bid after the auction end time; lot returned to pool'});}catch(e){}
+      closeAuction('AUTO','Auction end time reached (last lot received no bid)');return;}}
+  return o.apply(this,arguments);};})();
+// gates: bidding cannot open before the start time or after the end time
+function gate(name,msgPre,msgPost,onlyBid){var o=window[name];if(typeof o!=='function')return;window[name]=function(){var la=DB.g1('live_auction');
+  if(la&&la.status==='live'){var a=curAuc();if(beforeStart(a)&&(onlyBid||name==='startLot'||name==='tapBid')){T('⏳ '+msgPre+' '+t12(a.startTime)+' (IST).','warn',5000);return;}
+    if(pastEnd(a)&&name!=='tapBid'){T('🏁 '+msgPost,'error',6000);return;}}
+  return o.apply(this,arguments);};}
+gate('startLot','Bidding opens at',"Auction time is over — no new lot can be started.");
+gate('processLot','','Auction time is over — no new lot can be processed.');
+gate('lotDistributed','','Auction time is over — no new lot can be distributed.');
+gate('gotoLot','','Auction time is over — no new lot can be opened.');
+(function(){var o=window.tapBid;if(typeof o!=='function')return;window.tapBid=function(){var la=DB.g1('live_auction');
+  if(la&&la.status==='live'){var a=curAuc();if(beforeStart(a)){T('⏳ Bidding opens at '+t12(a.startTime)+' (IST).','warn',4000);return;}
+    var w=winOf(a);if(w&&w.e!=null&&nowMs()>=w.e&&la.hs&&la.hs.lotId===la.currentLotId&&Number(la.hs.at)>w.e+5000){T('🏁 Auction time is over — bidding closed.','error',5000);return;}}
+  return o.apply(this,arguments);};})();
+(function(){var o=window.goLive;if(typeof o!=='function')return;window.goLive=function(){var la=DB.g1('live_auction');var a=la&&(DB.find('auctions',la.id)||la);
+  if(a&&pastEnd(a)){T('🏁 The time window of this auction ('+winTxt(a)+') is already over. Ask Admin to change the time in 🕒 Time Control.','error',7000);return;}
+  var r=o.apply(this,arguments);stampLive();return r;};})();
+// manual End Auction also returns un-auctioned lots to the pool and is logged
+(function(){var o=window.endAuction;if(typeof o!=='function')return;window.endAuction=function(){var la=DB.g1('live_auction');
+  if(la&&la.status==='live'){if(!confirm('End auction? Lots not yet auctioned will return to the pool.'))return;closeAuction('MANUAL — '+(CU?CU.username:''),'Ended by '+(CU?(CU.name||CU.username):'user'));return;}
+  return o.apply(this,arguments);};})();
+
+// ═════════ 2. LIVE PILL (everyone) ═════════
+function updatePill(la){var p=$('v70-pill');if(!CU){if(p)p.remove();return;}
+  var txt='',cls='';var n=nowMs();
+  if(la&&la.status==='live'){var a=curAuc(),w=winOf(a);
+    if(w){var base='🕒 '+(a.auctioneerName||'')+' · '+(a.auctionNo||'')+' · '+winTxt(a)+' IST';
+      if(w.s!=null&&n<w.s){txt=base+' · opens in '+dur(w.s-n);cls='w';}
+      else if(w.e!=null&&n>=w.e){txt='⏰ TIME OVER — '+(a.auctionNo||'')+': finishing the current lot, then the auction closes automatically';cls='d';}
+      else if(w.e!=null){txt=base+' · closes in '+dur(w.e-n);cls=(w.e-n)<600000?'w':'';}}}
+  if(!txt&&['pooling_center','admin','auctioneer','auctioneer_secondary'].indexOf(role())>=0){var today=ist(n).d;
+    var pw=DB.get('auctions').filter(function(a){return a.status!=='completed'&&poolWin(a)&&poolWin(a).d===today;}).map(function(a){return {a:a,w:poolWin(a)};});
+    if(pw.length){var x=pw[0],w2=x.w;
+      if(w2.s!=null&&n<w2.s){txt='📦 Pooling for '+x.a.auctionNo+' opens '+t12(x.a.poolStart)+' · in '+dur(w2.s-n);cls='w';}
+      else if(w2.e!=null&&n>w2.e){txt='📦 Pooling for '+x.a.auctionNo+' is CLOSED ('+t12(x.a.poolEnd)+')';cls='d';}
+      else if(w2.e!=null){txt='📦 Pooling for '+x.a.auctionNo+' open until '+t12(x.a.poolEnd)+' · '+dur(w2.e-n)+' left';}}}
+  if(!txt){if(p)p.style.display='none';return;}
+  if(!p){p=document.createElement('div');p.id='v70-pill';document.body.appendChild(p);}
+  p.style.display='';p.className='v70-pill '+cls;if(p.textContent!==txt)p.textContent=txt;}
+
+// ═════════ 3. POOLING WINDOW GATE ═════════
+function poolGate(){var n=nowMs(),today=ist(n).d,wins=[];
+  DB.get('auctions').forEach(function(a){if(a.status==='completed')return;var p=poolWin(a);if(p&&p.d===today)wins.push({a:a,p:p});});
+  if(!wins.length)return '';
+  var ok=wins.some(function(w){return (w.p.s==null||n>=w.p.s)&&(w.p.e==null||n<=w.p.e);});if(ok)return '';
+  return 'Pooling is allowed only inside the window set by Admin: '+wins.map(function(w){return w.a.auctionNo+' '+t12(w.a.poolStart)+' – '+t12(w.a.poolEnd);}).join(', ')+' (IST). Now it is '+t12(ist(n).hm)+'.';}
+['submitLot','submitSecLot'].forEach(function(nm){var o=window[nm];if(typeof o!=='function')return;window[nm]=function(){var m=poolGate();
+  if(m){if(isAdmin()){if(!confirm(m+'\n\nAdmin override — accept this lot anyway?'))return;try{addAudit('pooling','Pooling window overridden by Admin',m,'');}catch(e){}}else{T('🔒 '+m,'error',8000);return;}}
+  return o.apply(this,arguments);};});
+
+// ═════════ 4. CREATE-AUCTION FORM: new time fields ═════════
+function schedSlot(date,aucName){try{var s=AUCTION_SCHEDULE&&AUCTION_SCHEDULE[date];if(!s)return null;var nz=function(x){return String(x||'').toLowerCase().replace(/^m\/s\.?\s*/,'').replace(/[^a-z0-9]/g,'');};var me=nz(aucName);if(!me)return null;
+  var hit=(s.sessions||[]).filter(function(q){var a=nz(q.aucName),c=nz(q.aucCode);return a&&(a.indexOf(me)>=0||me.indexOf(a)>=0)||c&&me.indexOf(c)>=0;})[0];if(!hit)return null;var p=hit.slot.split('-');return {start:p[0],end:p[1]};}catch(e){return null;}}
+function myAucName(){try{var a=DB.get('auctioneers').find(function(x){return CU&&(x.id===CU.aucId||x.userId===CU.username);});return (a&&a.name)||(CU&&(CU.name||CU.username))||'';}catch(e){return '';}}
+(function(){var o=window.onAuctionDateSelect;if(typeof o==='function')window.onAuctionDateSelect=function(v){var r=o.apply(this,arguments);try{var sl=schedSlot(v,myAucName());if(sl){if($('amst')&&!$('amst').value)$('amst').value=sl.start;if($('amet')&&!$('amet').value)$('amet').value=sl.end;}}catch(e){}return r;};})();
+(function(){var o=window.createAuction;if(typeof o!=='function')return;window.createAuction=function(){var no=($('amno')||{}).value||'',st=($('amst')||{}).value||'',en=($('amet')||{}).value||'',pd=($('ampd')||{}).value||'',dt=($('amdt')||{}).value||'';
+  if(st&&en&&st>=en){T('Auction end time must be after the start time','error');return;}
+  var before=DB.get('auctions').length;var r=o.apply(this,arguments);var a=DB.get('auctions').filter(function(x){return x.auctionNo===no.trim();})[0];
+  if(a&&DB.get('auctions').length>before){if(!st&&!en){var sl=schedSlot(dt,a.auctioneerName||myAucName());if(sl){st=sl.start;en=sl.end;}}
+    DB.upd('auctions',a.id,{startTime:st,endTime:en,poolDate:pd||dt});var la=DB.g1('live_auction');if(la&&la.id===a.id)DB.s1('live_auction',Object.assign({},la,{startTime:st,endTime:en,poolDate:pd||dt}));stampLive();
+    evLog('AUC_CREATE',{auctionId:a.id,msg:'AUCTION CREATED '+a.auctionNo+' · '+dmy(a.date)+' · window '+(st||en?t12(st)+' – '+t12(en):'no time limit')+' · pooling '+poolTxt(DB.find('auctions',a.id))});}
+  return r;};})();
+
+// ═════════ 5. ADMIN TIME CONTROL ═════════
+function ovOpen(id,html,wide){var old=$(id);if(old)old.remove();var d=document.createElement('div');d.id=id;d.className='v70-ov';d.innerHTML='<div class="v70-box'+(wide?' wide':'')+'">'+html+'</div>';document.body.appendChild(d);return d;}
+function ovClose(id){var o=$(id);if(o)o.remove();}
+var TC={f:'open'};
+function presetOpts(){try{applySessionCfg();}catch(e){}var S=(typeof AUCTION_SESSIONS!=='undefined')?AUCTION_SESSIONS:{};
+  return '<option value="">Preset…</option><option value="'+((S.morning||{}).start||'09:30')+'|'+((S.morning||{}).end||'13:30')+'">Morning</option><option value="'+((S.afternoon||{}).start||'14:15')+'|'+((S.afternoon||{}).end||'18:15')+'">Afternoon</option><option value="'+((S.evening||{}).start||'19:00')+'|'+((S.evening||{}).end||'21:00')+'">Evening</option><option value="00:00|23:59">Full day 12:00 AM – 11:59 PM</option>';}
+window.v70TimeOpen=function(){if(!isAdmin()){T('Only Admin can change auction / pooling time','error');return;}tcRender();};
+function tcRender(){var A=DB.get('auctions').slice().sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''))||String(b.ca||'').localeCompare(String(a.ca||''));});
+  if(TC.f==='open')A=A.filter(function(a){return a.status!=='completed';});else if(TC.f==='done')A=A.filter(function(a){return a.status==='completed';});
+  var h='<div class="v70-h"><b>🕒 Auction &amp; Pooling Time Control</b><button class="btn bs bsm" onclick="v70Close(\'v70-tc\')">✕</button></div>'+
+   '<div class="alt alti" style="font-size:12px">Admin decides date and time (any time from <b>12:00 AM to 11:59 PM</b>, IST) for every <b>auction</b> and for its <b>pooling</b>. When the auction end time is reached, <b>no new lot can start</b>; the lot already running is decided, then the auction <b>closes automatically</b> and unfinished lots go back to the pool. Every change is logged with your ID and time.</div>'+
+   '<div style="margin:8px 0;display:flex;gap:6px;flex-wrap:wrap"><button class="btn '+(TC.f==='open'?'bp':'bs')+' bsm" onclick="v70TcF(\'open\')">Scheduled / Live</button><button class="btn '+(TC.f==='done'?'bp':'bs')+' bsm" onclick="v70TcF(\'done\')">Completed (locked)</button><button class="btn '+(TC.f==='all'?'bp':'bs')+' bsm" onclick="v70TcF(\'all\')">All</button></div>';
+  h+=newAucCard();
+  if(!A.length)h+='<div class="emp"><p>No auctions in this list. Use the form above to create one.</p></div>';
+  A.forEach(function(a){var lock=a.status==='completed',live=a.status==='live',dis=lock?' disabled':'',id=a.id;
+    h+='<div class="v70-card"><div class="v70-ct"><b>'+E(a.auctionNo||'')+'</b> · '+E(a.auctioneerName||'')+' · <span class="bg '+(live?'bgr':lock?'bgg':'bgb')+'">'+E(a.status||'')+'</span>'+(a.closedBy?' <span style="font-size:11px;color:#b71c1c">closed '+E(a.closedBy==='AUTO'?'automatically':a.closedBy)+' · '+E(a.closeReason||'')+'</span>':'')+'</div>'+
+    '<div class="v70-g"><div><label>Auction date</label><input type="date" id="tc-d-'+id+'" value="'+E(a.date||'')+'"'+(lock||live?' disabled':'')+'></div>'+
+    '<div><label>Auction start</label><input type="time" id="tc-s-'+id+'" value="'+E(a.startTime||'')+'"'+(lock?' disabled':'')+'></div>'+
+    '<div><label>Auction end</label><input type="time" id="tc-e-'+id+'" value="'+E(a.endTime||'')+'"'+dis+'></div>'+
+    '<div><label>Quick set</label><select onchange="v70Preset(\''+id+'\',\'s\',this)"'+dis+'>'+presetOpts()+'</select></div>'+
+    '<div><label>Pooling date</label><input type="date" id="tc-pd-'+id+'" value="'+E(a.poolDate||a.date||'')+'"'+dis+'></div>'+
+    '<div><label>Pooling start</label><input type="time" id="tc-ps-'+id+'" value="'+E(a.poolStart||'')+'"'+dis+'></div>'+
+    '<div><label>Pooling end</label><input type="time" id="tc-pe-'+id+'" value="'+E(a.poolEnd||'')+'"'+dis+'></div>'+
+    '<div><label>Quick set</label><select onchange="v70Preset(\''+id+'\',\'p\',this)"'+dis+'>'+presetOpts()+'</select></div></div>'+
+    '<div class="v70-g" style="grid-template-columns:1fr auto auto"><input id="tc-r-'+id+'" placeholder="Reason for change (recorded in the audit trail)"'+dis+'><button class="btn bp bsm" onclick="v70TcSave(\''+id+'\')"'+dis+'>💾 Save</button><button class="btn bs bsm" onclick="v70TcClear(\''+id+'\')"'+dis+'>No limit</button>'+(a.status==='scheduled'&&((DB.g1('live_auction')||{}).id!==id)?'<button class="btn bs bsm" onclick="v70MakeCur(\''+id+'\')">▶ Make current</button>':'')+'</div>'+
+    '<div style="font-size:11px;color:#666;margin-top:4px">Now: auction <b>'+E(dmy(a.date))+' '+E(winTxt(a))+'</b> · pooling <b>'+E(poolTxt(a))+'</b>'+(lock?' · <b>Completed — time can no longer be changed</b>':'')+(live?' · date cannot be changed while live; start/end can':'')+'</div></div>';});
+  ovOpen('v70-tc',h,true);}
+
+function aucNoSuggest(dt){var y=(dt||ist(nowMs()).d).slice(0,4),n=0;DB.get('auctions').forEach(function(a){var m=String(a.auctionNo||'').match(/^AUC\/(\d{4})\/(\d+)$/);if(m&&m[1]===y)n=Math.max(n,+m[2]);});return 'AUC/'+y+'/'+('00'+(n+1)).slice(-3);}
+function newAucCard(){var C=DB.get('auctioneers').filter(function(x){return x.status!=='inactive';}),d=ist(nowMs()).d;
+  return '<div class="v70-card" style="border:2px solid #ef6c00"><div class="v70-ct"><b>➕ Create a new auction (Admin)</b></div><div class="v70-g">'+
+   '<div><label>Auctioneer / company</label><select id="na-c">'+C.map(function(x){return '<option value="'+E(x.id)+'">'+E(x.name||x.id)+'</option>';}).join('')+'</select></div>'+
+   '<div><label>Auction date</label><input type="date" id="na-d" value="'+d+'" onchange="document.getElementById(\'na-n\').value=v70NoFor(this.value)"></div>'+
+   '<div><label>Auction no</label><input id="na-n" value="'+E(aucNoSuggest(d))+'"></div>'+
+   '<div><label>Venue / centre</label><input id="na-v" placeholder="optional"></div>'+
+   '<div><label>Auction start (IST)</label><input type="time" id="na-s"></div><div><label>Auction end (IST)</label><input type="time" id="na-e"></div>'+
+   '<div><label>Quick set</label><select onchange="v70NaPreset(this)">'+presetOpts()+'</select></div><div></div>'+
+   '<div><label>Pooling date</label><input type="date" id="na-pd" value="'+d+'"></div><div><label>Pooling start</label><input type="time" id="na-ps"></div><div><label>Pooling end</label><input type="time" id="na-pe"></div><div></div></div>'+
+   '<div class="v70-g" style="grid-template-columns:1fr auto"><div style="font-size:11px;color:#666">Any time 12:00 AM – 11:59 PM IST. The auctioneer of the chosen company sees it at once and can go live inside this window.</div><button class="btn bp bsm" onclick="v70NewAuc()">➕ Create auction</button></div></div>';}
+window.v70NoFor=aucNoSuggest;
+window.v70NaPreset=function(sel){var v=sel.value;if(!v)return;var p=v.split('|');$('na-s').value=p[0];$('na-e').value=p[1];sel.value='';};
+window.v70NewAuc=function(){if(!isAdmin()){T('Only Admin can create auctions here','error');return;}
+  var g=function(k){return (($('na-'+k)||{}).value||'').trim();},no=g('n'),dt=g('d'),s=g('s'),e=g('e'),pd=g('pd')||dt,ps=g('ps'),pe=g('pe'),cid=g('c');
+  if(!no||!dt){T('Auction number and date are required','error');return;}
+  if(DB.get('auctions').some(function(a){return a.auctionNo===no;})){T('Auction number already exists','error');return;}
+  if(s&&e&&s>=e){T('Auction end must be after the start','error');return;}if(ps&&pe&&ps>=pe){T('Pooling end must be after the pooling start','error');return;}
+  if(pd>dt){T('Pooling date cannot be after the auction date','error');return;}if(pd===dt&&pe&&s&&pe>s){T('On the auction day pooling must end before the auction starts','error');return;}
+  var co=DB.get('auctioneers').filter(function(x){return x.id===cid;})[0]||{};
+  var a=DB.add('auctions',{auctionNo:no,date:dt,venue:g('v'),commodity:'Cardamom',remarks:'Created by Admin',auctioneerId:co.id||'',auctioneerName:co.name||'',auctionType:'regular',startTime:s,endTime:e,poolDate:pd,poolStart:ps,poolEnd:pe,status:'scheduled',lotIds:[],createdBy:CU.username,createdByRole:'admin'});
+  var la=DB.g1('live_auction'),cur=!la||la.status!=='live';
+  if(cur)DB.s1('live_auction',Object.assign({},a,{currentLotId:null,currentPrice:0,status:'scheduled'}));stampLive();
+  addAudit('auction','Auction created by Admin',no+' · '+(co.name||'')+' · '+dmy(dt)+' '+t12(s)+'–'+t12(e),no);
+  evLog('AUC_CREATE',{auctionId:a.id,msg:'AUCTION CREATED BY ADMIN '+no+' for '+(co.name||'')+' · '+dmy(dt)+' · window '+(s||e?t12(s)+' – '+t12(e):'no time limit')+' · pooling '+poolTxt(DB.find('auctions',a.id))});
+  T('✅ Auction '+no+' created'+(cur?' and set as the current auction':' — another auction is live; use ▶ Make current when it closes'),'success',6000);try{rACH();rAM_Status();}catch(x){}tcRender();};
+window.v70MakeCur=function(id){if(!isAdmin())return;var la=DB.g1('live_auction');if(la&&la.status==='live'){T('An auction is live now — close it first','error');return;}var a=DB.find('auctions',id);if(!a||a.status!=='scheduled')return;
+  DB.s1('live_auction',Object.assign({},a,{currentLotId:null,currentPrice:0,status:'scheduled'}));stampLive();addAudit('auction','Auction set as current by Admin',a.auctionNo,a.auctionNo);T('▶ '+a.auctionNo+' is now the current auction','success');try{rACH();rAM_Status();}catch(x){}tcRender();};
+window.v70Close=ovClose;
+window.v70TcF=function(f){TC.f=f;tcRender();};
+window.v70Preset=function(id,kind,sel){var v=sel.value;if(!v)return;var p=v.split('|');if(kind==='s'){$('tc-s-'+id).value=p[0];$('tc-e-'+id).value=p[1];}else{$('tc-ps-'+id).value=p[0];$('tc-pe-'+id).value=p[1];}sel.value='';};
+window.v70TcClear=function(id){['s','e','ps','pe'].forEach(function(k){var e=$('tc-'+k+'-'+id);if(e)e.value='';});T('Times cleared — press Save to apply','info');};
+window.v70TcSave=function(id){
+  if(!isAdmin()){T('Only Admin can change time','error');return;}var a=DB.find('auctions',id);if(!a)return;if(a.status==='completed'){T('Auction already completed — time is locked','error');return;}
+  var g=function(k){return ($('tc-'+k+'-'+id)||{}).value||'';};var d=a.status==='live'?a.date:g('d'),s=g('s'),e=g('e'),pd=g('pd'),ps=g('ps'),pe=g('pe'),why=g('r').trim();
+  if(!d){T('Auction date is required','error');return;}
+  if(s&&!HM.test(s)||e&&!HM.test(e)||ps&&!HM.test(ps)||pe&&!HM.test(pe)){T('Invalid time','error');return;}
+  if(s&&e&&s>=e){T('Auction end must be after the start (same day, 12:00 AM – 11:59 PM)','error');return;}
+  if(ps&&pe&&ps>=pe){T('Pooling end must be after the pooling start','error');return;}
+  if(pd&&pd>d){T('Pooling date cannot be after the auction date','error');return;}
+  if(pd&&pd===d&&pe&&s&&pe>s){T('On the auction day pooling must end before the auction starts ('+t12(s)+')','error');return;}
+  var old={date:a.date,startTime:a.startTime||'',endTime:a.endTime||'',poolDate:a.poolDate||a.date||'',poolStart:a.poolStart||'',poolEnd:a.poolEnd||''},nw={date:d,startTime:s,endTime:e,poolDate:pd||d,poolStart:ps,poolEnd:pe};
+  var ch=[];if(old.date!==nw.date)ch.push('Date '+dmy(old.date)+' → '+dmy(nw.date));if(old.startTime!==nw.startTime||old.endTime!==nw.endTime)ch.push('Auction window '+(old.startTime||old.endTime?t12(old.startTime)+'–'+t12(old.endTime):'none')+' → '+(nw.startTime||nw.endTime?t12(nw.startTime)+'–'+t12(nw.endTime):'none'));
+  if(old.poolDate!==nw.poolDate||old.poolStart!==nw.poolStart||old.poolEnd!==nw.poolEnd)ch.push('Pooling '+dmy(old.poolDate)+' '+(old.poolStart||old.poolEnd?t12(old.poolStart)+'–'+t12(old.poolEnd):'none')+' → '+dmy(nw.poolDate)+' '+(nw.poolStart||nw.poolEnd?t12(nw.poolStart)+'–'+t12(nw.poolEnd):'none'));
+  if(!ch.length){T('No change to save','info');return;}
+  DB.upd('auctions',id,nw);var la=DB.g1('live_auction');if(la&&la.id===id)DB.s1('live_auction',Object.assign({},la,nw));stampLive();
+  var msg=a.auctionNo+': '+ch.join('; ')+(why?' — reason: '+why:'');addAudit('timing','Auction / pooling time changed by Admin',msg,a.auctionNo);evLog('TIME_CHANGE',{auctionId:id,msg:'TIME CHANGED BY ADMIN — '+ch.join('; '),reason:why});
+  T('✅ Time saved — '+ch.length+' change(s) logged','success');tcRender();};
+
+// ═════════ 6. ADMIN WITHDRAW (with reason) · only while the auction runs ═════════
+var WD_MSG='Withdrawal is possible only while the auction is running. After the auction has ended only lot Transfer is available.';
+function aucOfLot(l){return l&&l.auctionId?DB.find('auctions',l.auctionId):null;}
+function wdBlocked(l){if(!l)return 'Lot not found';if(l.status==='sold')return 'This lot is already sold. '+WD_MSG;var a=aucOfLot(l);if(a&&a.status==='completed')return 'Auction '+(a.auctionNo||'')+' has ended. '+WD_MSG;return '';}
+window.v70AdmWd=function(preId){
+  if(!isAdmin()){T('Admin only','error');return;}var la=DB.g1('live_auction');
+  if(!la||la.status!=='live'){T('⛔ '+WD_MSG,'error',7000);return;}
+  var L=DB.where('lots',function(l){return l.auctionId===la.id&&l.status==='in_auction';}).sort(function(a,b){return (a.seq||0)-(b.seq||0);});
+  if(!L.length){T('No lot left to withdraw in this auction','warn');return;}var sel=preId||la.currentLotId;
+  var h='<div class="v70-h"><b>⛔ Admin — Withdraw lot decision</b><button class="btn bs bsm" onclick="v70Close(\'v70-wd\')">✕</button></div>'+
+   '<div class="alt altw" style="font-size:12px">Admin withdraws the lot himself, without waiting for the auctioneers. <b>A reason is compulsory</b> and is printed in the Bid History, Decisions log and reports. Possible only while the auction is running.</div>'+
+   '<div class="fg"><div class="fi c12"><label>Lot</label><select id="v70-wd-lot">'+L.map(function(l){return '<option value="'+l.id+'"'+(l.id===sel?' selected':'')+'>'+E(l.lotNo)+' · '+E(l.sourceName||'')+' · '+(l.quantity||0)+' kg'+(l.id===la.currentLotId?'  (ON THE BLOCK)':'')+'</option>';}).join('')+'</select></div>'+
+   '<div class="fi c12"><label>Reason (compulsory)</label><textarea id="v70-wd-r" rows="3" placeholder="e.g. Quality complaint on the sample / seller request / wrong lot data"></textarea></div></div>'+
+   '<div class="brow"><button class="btn bd" onclick="v70DoWd()">⛔ Withdraw this lot</button><button class="btn bs" onclick="v70Close(\'v70-wd\')">Cancel</button></div>';
+  ovOpen('v70-wd',h,false);};
+window.v70DoWd=function(){if(!isAdmin())return;var id=($('v70-wd-lot')||{}).value,why=(($('v70-wd-r')||{}).value||'').trim();
+  if(why.length<5){T('Please type the reason (at least 5 characters)','error');return;}
+  var la=DB.g1('live_auction'),lot=DB.find('lots',id);if(!la||la.status!=='live'){T('⛔ '+WD_MSG,'error');return;}
+  var bl=wdBlocked(lot);if(bl){T(bl,'error',6000);return;}if(lot.status!=='in_auction'){T('Lot is not in the auction queue','error');return;}
+  var cur=la.currentLotId===lot.id,snap=lgxSnap({la:la,lot:lot}),iso=new Date(nowMs()).toISOString();
+  DB.upd('lots',lot.id,{status:'withdrawn',withdrawnBy:CU.username,withdrawnByName:CU.name||CU.username,withdrawnByRole:'admin',withdrawnFrom:'Admin',withdrawnAt:iso,withdrawReason:why});
+  try{logDecision('ADMIN WITHDRAW',snap,{side:'Admin',result:'Withdrawn',note:'Withdrawn by Admin — '+why,reason:why});}catch(e){}
+  addAudit('lot','Lot withdrawn by Admin',lot.lotNo+' — '+why,la.auctionNo);ovClose('v70-wd');
+  T('⛔ Lot '+lot.lotNo+' withdrawn by Admin','warn');try{pushNotif('⛔ Lot '+lot.lotNo+' WITHDRAWN by Admin — '+why,'error');}catch(e){}
+  if(cur){try{clearInterval(auctionTimer);auctionTimer=null;}catch(e){}DB.s1('live_auction',Object.assign({},la,{priDecision:null,secDecision:null,rerunCount:0}));
+    try{cloudKV('timer_sync',{s:0,t:0,lot:lot.id,ts:Date.now(),end:nowMs(),running:false});}catch(e){}nextLot();}
+  else{try{hsRender();renderAucLots();rAM_Status();}catch(e){}}};
+// every other withdraw path: blocked after the auction has ended; admin must give a reason
+(function(){
+  ['wdLot','priWithdraw','secWithdraw'].forEach(function(n){var o=window[n];if(typeof o!=='function')return;window[n]=function(){var la=DB.g1('live_auction');
+    if(!la||la.status!=='live'){T('⛔ '+WD_MSG,'error',7000);return;}return o.apply(this,arguments);};});
+  var wa=window.wdLotAdm;if(typeof wa==='function')window.wdLotAdm=function(id){var l=DB.find('lots',id),bl=wdBlocked(l);if(bl){T('⛔ '+bl,'error',7000);return;}
+    var la=DB.g1('live_auction');if(isAdmin()&&l&&la&&la.status==='live'&&l.auctionId===la.id&&l.status==='in_auction'){window.v70AdmWd(id);return;}
+    if(isAdmin()){var why=prompt('Reason for withdrawing lot '+(l?l.lotNo:'')+' (compulsory):','');if(!why||why.trim().length<5){T('Reason is compulsory — lot not withdrawn','error');return;}
+      var r=wa.apply(this,arguments);try{DB.upd('lots',id,{withdrawnBy:CU.username,withdrawnByName:CU.name||CU.username,withdrawnByRole:'admin',withdrawnFrom:'Admin',withdrawnAt:new Date(nowMs()).toISOString(),withdrawReason:why.trim()});addAudit('lot','Lot withdrawn by Admin (lot list)',(l?l.lotNo:'')+' — '+why.trim(),'');evLog('ADMIN_WITHDRAW',{lotId:id,lotNo:l?l.lotNo:'',auctionId:l&&l.auctionId||'',msg:'WITHDRAWN BY ADMIN from lot list — '+why.trim(),reason:why.trim()});}catch(e){}return r;}
+    return wa.apply(this,arguments);};
+  // admin button inside the live-auction block
+  var hb=window.hsBlock;if(typeof hb==='function')window.hsBlock=function(mode){var h=hb.apply(this,arguments);try{var la=DB.g1('live_auction');if(isAdmin()&&la&&la.status==='live'&&mode!=='tr'&&h)h+='<div style="margin:6px 0"><button class="btn bd bsm" onclick="v70AdmWd()">⛔ Admin: Withdraw lot (reason)</button></div>';}catch(e){}return h;};
+})();
+// transfers: logged with time; lot record carries the transfer so reports change the same day
+(function(){var rt=window.requestTransfer;if(typeof rt==='function')window.requestTransfer=function(){var n=DB.get('transfers').length;var r=rt.apply(this,arguments);var a=DB.get('transfers');
+  if(a.length>n){var t=a[a.length-1],l=DB.find('lots',t.lotId)||{};evLog('TRANSFER',{auctionId:l.auctionId||'',lotId:t.lotId||'',lotNo:t.lotNo,price:l.soldPrice||'',whom:t.origBuyer+' → '+t.newBuyer,msg:'LOT TRANSFER REQUESTED: '+t.origBuyer+' → '+t.newBuyer+' · '+(t.reason||''),reason:t.reason||''});}return r;};
+  var at=window.approveTransfer;if(typeof at==='function')window.approveTransfer=function(id,status){var t=DB.find('transfers',id);var r=at.apply(this,arguments);try{if(t){var l=DB.where('lots',function(x){return x.lotNo===t.lotNo;})[0]||{};
+    if(status==='approved'&&l.id)DB.upd('lots',l.id,{transferredAt:new Date(nowMs()).toISOString(),transferReason:t.reason||'',transferApprovedBy:CU?CU.username:'',transferFrom:t.origBuyer,transferTo:t.newBuyer});
+    evLog('TRANSFER',{auctionId:l.auctionId||'',lotId:l.id||'',lotNo:t.lotNo,price:l.soldPrice||'',whom:t.origBuyer+' → '+t.newBuyer,msg:'LOT TRANSFER '+String(status).toUpperCase()+': '+t.origBuyer+' → '+t.newBuyer+' · approved by '+(CU?CU.username:''),reason:t.reason||''});}}catch(e){}return r;};})();
+
+// ═════════ 7. BID HISTORY ═════════
+var BH={d:'',auc:'',no:'',lot:'',all:false,F:null};
+async function bhLoad(){var F={};for(var t of ['bid_log','decisions','activity_log']){try{F[t]=(typeof lgxFull==='function')?await lgxFull(t):DB.get(t);}catch(e){F[t]=DB.get(t);}}
+  F.lots=DB.get('lots');F.auctions=DB.get('auctions');F.transfers=DB.get('transfers');
+  var by=function(arr){var m={};arr.forEach(function(r){if(r.lotId)(m[r.lotId]=m[r.lotId]||[]).push(r);});return m;};
+  F.bidBy=by(F.bid_log);F.decBy=by(F.decisions);F.actBy=by(F.activity_log);F.trBy={};F.transfers.forEach(function(t){var k=t.lotId||t.lotNo;(F.trBy[k]=F.trBy[k]||[]).push(t);});
+  F.actAuc={};F.activity_log.forEach(function(r){if(!r.lotId&&r.auctionId)(F.actAuc[r.auctionId]=F.actAuc[r.auctionId]||[]).push(r);});
+  F.at=nowMs();return F;}
+function canSeeAuc(a){var r=role();if(r==='admin'||r==='board_admin'||r==='audit')return true;if(r==='auctioneer'||r==='auctioneer_secondary'||r==='support'){
+  var me=null;try{me=DB.get('auctioneers').find(function(x){return x.id===CU.aucId||x.userId===CU.username;});}catch(e){}if(!me)return true;return a.auctioneerId===me.id||a.auctioneerName===me.name;}return false;}
+function canBH(){return ['admin','board_admin','audit','auctioneer','auctioneer_secondary','support'].indexOf(role())>=0;}
+function tms(r){return r.evMs||r.timeMs||Date.parse(r.time||r.ca||'')||0;}
+function who(r){var n=r.byName||r.user||r.by||'';return n;}
+function meta(o){return [o.login?'ID '+o.login:'',o.role?String(o.role).replace(/_/g,' '):'',o.table?'table '+o.table:'',o.loc?o.loc:''].filter(Boolean).join(' · ');}
+function mkEv(o){return Object.assign({ms:0,type:'',who:'',meta:'',whom:'',what:'',price:'',round:'',last:false,note:''},o);}
+function lotEvents(L,A,F){var out=[],bids=(F.bidBy[L.id]||[]).filter(function(b){return !A||!b.auctionId||b.auctionId===A.id;}).sort(function(a,b){return tms(a)-tms(b);});
+  var maxR=0;bids.forEach(function(b){if((b.round||0)>maxR)maxR=b.round||0;});
+  var lastBid=null;bids.forEach(function(b){if((b.round||0)===maxR&&(!lastBid||b.amount>=lastBid.amount))lastBid=b;});
+  var topByRound={};
+  bids.forEach(function(b,i){var rd=b.round||0,pv=topByRound[rd];
+    out.push(mkEv({ms:tms(b),type:'BID',who:b.traderName||'',meta:meta({login:b.loginId,table:b.traderTable,loc:b.location}),whom:'Lot of '+(L.sourceName||'—'),what:'Bid ₹'+b.amount+'/kg'+(b.increment?' (+'+b.increment+')':''),price:b.amount,round:rd+1,last:b===lastBid,note:pv?'Outbids '+pv.traderName+' (₹'+pv.amount+')':'First bid of the round — above basic price'}));
+    topByRound[rd]=b;});
+  (F.actBy[L.id]||[]).forEach(function(r){if(A&&r.auctionId&&r.auctionId!==A.id)return;var m=String(r.msg||''),ms=tms(r);
+    if(r.ev){out.push(mkEv({ms:ms,type:r.ev,who:r.user||'',meta:meta({login:r.login,role:r.role,table:r.tableNo,loc:r.location}),whom:r.whom||'',what:m,price:r.price||'',note:r.reason||''}));return;}
+    var pr=(m.match(/₹\s*([\d.]+)/)||[])[1]||'';var base={ms:ms,who:r.user||'',meta:meta({role:'',loc:''}),what:m};
+    if(/PROCESS LOT/.test(m))out.push(mkEv(Object.assign(base,{type:'PROCESS',price:pr,what:'Lot processed — basic (starting) price set ₹'+pr+'/kg',whom:'Seller: '+(L.sourceName||'')})));
+    else if(/LOT DISTRIBUTED/.test(m))out.push(mkEv(Object.assign(base,{type:'DISTRIBUTED',what:'Lot distributed to the other location (basic ₹'+(L.basicPrice||'')+'/kg)'})));
+    else if(/START LOT/.test(m))out.push(mkEv(Object.assign(base,{type:'START',what:'Lot started — bidding open at both locations'})));
+    else if(/^Go to lot/.test(m))out.push(mkEv(Object.assign(base,{type:'GOTO',what:m})));});
+  (F.decBy[L.id]||[]).forEach(function(d){if(A&&d.auctionId&&d.auctionId!==A.id)return;
+    out.push(mkEv({ms:tms(d),type:d.action,who:d.byName||d.by||'',meta:meta({login:d.by,role:d.side||d.byRole,table:d.tableNo,loc:d.location}),whom:d.topTrader?d.topTrader+(d.topTraderTable?' ('+d.topTraderTable+')':''):'',what:d.action+(d.side?' — '+d.side:'')+(d.topAmount?' · top bid ₹'+d.topAmount+'/kg':'')+(d.bidCount!=null&&d.bidCount!==''?' · '+d.bidCount+' bid(s)':''),price:d.topAmount||'',round:(d.round||0)+1,note:d.reason||d.note||''}));});
+  (F.trBy[L.id]||F.trBy[L.lotNo]||[]).forEach(function(t){var hasEv=(F.actBy[L.id]||[]).some(function(r){return r.ev==='TRANSFER';});if(hasEv)return;
+    out.push(mkEv({ms:Date.parse(t.ca||'')||0,type:'TRANSFER',who:t.requestedBy||'',whom:(t.origBuyer||'')+' → '+(t.newBuyer||''),what:'LOT TRANSFER '+(t.status||'').toUpperCase(),note:t.reason||''}));});
+  var has=function(t){return out.some(function(e){return e.type===t;});};
+  if(!has('PROCESS')&&L.basicPrice)out.push(mkEv({ms:0,type:'PROCESS',what:'Basic (starting) price ₹'+L.basicPrice+'/kg (from lot record — time not recorded)',price:L.basicPrice,whom:'Seller: '+(L.sourceName||'')}));
+  if(L.status==='sold'&&!out.some(function(e){return e.type==='SOLD';}))out.push(mkEv({ms:Date.parse(L.soldAt||'')||0,type:'SOLD',who:'',whom:L.buyerName||'',what:'SOLD to '+(L.buyerName||'')+' ₹'+(L.soldPrice||'')+'/kg (from lot record)',price:L.soldPrice||''}));
+  if(L.status==='withdrawn'&&!out.some(function(e){return /WITHDRAW/.test(e.type);}))out.push(mkEv({ms:Date.parse(L.withdrawnAt||'')||0,type:'LOT WITHDRAWN',who:L.withdrawnByName||L.withdrawnBy||'',what:'Lot withdrawn'+(L.withdrawnFrom?' by '+L.withdrawnFrom:''),note:L.withdrawReason||''}));
+  var ord={PROCESS:1,DISTRIBUTED:2,START:3,GOTO:0,BID:5,'TIME UP':6};out.sort(function(a,b){return (a.ms||0)-(b.ms||0)||(ord[a.type]||7)-(ord[b.type]||7);});
+  return out;}
+function lotsOfAuc(A,F){var m={};F.lots.forEach(function(l){if(l.auctionId===A.id||l.carriedFromId===A.id)m[l.id]=l;});
+  return Object.keys(m).map(function(k){return m[k];}).sort(function(a,b){return (a.seq||9e6)-(b.seq||9e6)||String(a.lotNo).localeCompare(String(b.lotNo));});}
+function statusOf(L,A){if(L.status==='sold')return 'SOLD';if(L.status==='withdrawn')return 'WITHDRAWN'+(L.withdrawnByRole==='admin'?' (Admin)':'');if(L.carriedFromId===A.id&&L.auctionId!==A.id)return 'NOT REACHED';return String(L.status||'').toUpperCase();}
+function aucList(F){return F.auctions.filter(canSeeAuc).sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''))||String(a.auctioneerName||'').localeCompare(String(b.auctioneerName||''))||String(a.auctionNo).localeCompare(String(b.auctionNo));});}
+var LBL={PROCESS:'PROCESSED',DISTRIBUTED:'DISTRIBUTED',START:'START',BID:'BID',ACCEPT:'ACCEPT',RERUN:'RERUN','AUTO-RERUN':'AUTO-RERUN',WITHDRAW:'WITHDRAW','ADMIN WITHDRAW':'ADMIN WITHDRAW','LOT WITHDRAWN':'WITHDRAWN',SOLD:'SOLD','BELOW RESERVE':'BELOW RESERVE','TIME UP':'TIME UP',SKIP:'SKIP',TRANSFER:'TRANSFER',CARRIED:'NOT REACHED',GOTO:'GO TO LOT','NO BID — TIME OVER':'NO BID · TIME OVER',ADMIN_WITHDRAW:'ADMIN WITHDRAW'};
+function chip(t){var c=/SOLD|ACCEPT/.test(t)?'ok':/WITHDRAW|NO BID|CARRIED/.test(t)?'bad':/RERUN|SKIP|BELOW|TIME/.test(t)?'warn':t==='BID'?'bid':'';return '<span class="v70-chip '+c+'">'+E(LBL[t]||t)+'</span>';}
+function exportRows(auctions,F,onlyLot){var rows=[];auctions.forEach(function(A){lotsOfAuc(A,F).forEach(function(L){if(onlyLot&&L.id!==onlyLot)return;var evs=lotEvents(L,A,F);
+  evs.forEach(function(e,i){var p=e.ms?ist(e.ms):null;rows.push({'Auction Date':dmy(A.date),'Auctioneer':A.auctioneerName||'','Auction No':A.auctionNo||'','Auction Window (IST)':winTxt(A),'Lot No':L.lotNo,'Lot Seq':L.seq||'','Seller':(L.sourceName||'')+(L.sourceType?' ('+L.sourceType+')':''),'Qty (kg)':L.quantity||'','Lot Result':statusOf(L,A),'Event No':i+1,'Event Date':p?dmy(p.d):'','Event Time (IST)':p?p.ms3:'','Event':LBL[e.type]||e.type,'By (Who)':e.who,'ID / Role / Table / Location':e.meta,'Whom / Counter-party':e.whom,'Price (Rs/kg)':e.price,'Round':e.round,'Last Bid':e.last?'LAST BID':'','Statement / Reason':(e.what||'')+(e.note?' — '+e.note:'')});});});});return rows;}
+var BH_COLS=['Auction Date','Auctioneer','Auction No','Auction Window (IST)','Lot No','Lot Seq','Seller','Qty (kg)','Lot Result','Event No','Event Date','Event Time (IST)','Event','By (Who)','ID / Role / Table / Location','Whom / Counter-party','Price (Rs/kg)','Round','Last Bid','Statement / Reason'];
+function stmtHtml(L,A,F){var evs=lotEvents(L,A,F),bids=(F.bidBy[L.id]||[]).length;var res=statusOf(L,A);
+  var h='<div class="v70-lot"><div class="v70-lh"><div><b>Lot '+E(L.lotNo)+'</b> · seq '+E(L.seq||'—')+' · '+E(L.sourceName||'')+' ('+E(L.sourceType||'')+') · '+(L.quantity||0)+' kg · '+E(L.grade||'')+'</div>'+
+   '<div>Basic ₹'+E(L.basicPrice||'—')+' · Reserve ₹'+E(L.reservedPrice||'—')+' · <b class="'+(L.status==='sold'?'okc':L.status==='withdrawn'?'badc':'')+'">'+E(res)+'</b>'+(L.status==='sold'?' · ₹'+E(L.soldPrice)+'/kg to <b>'+E(L.buyerName||'')+'</b> · value ₹'+Math.round((L.soldPrice||0)*(L.quantity||0)).toLocaleString('en-IN'):'')+' · '+bids+' bid(s)</div>'+
+   (L.withdrawReason?'<div class="badc">Withdrawal reason: '+E(L.withdrawReason)+' — '+E(L.withdrawnByName||L.withdrawnBy||'')+'</div>':'')+(L.transferFrom?'<div>Transferred: '+E(L.transferFrom)+' → '+E(L.transferTo)+(L.transferReason?' ('+E(L.transferReason)+')':'')+'</div>':'')+'</div>';
+  h+='<div class="tw"><table class="t v70-t"><thead><tr><th>#</th><th>Date</th><th>Time (IST)</th><th>Event</th><th>By (who)</th><th>Whom</th><th>Price ₹/kg</th><th>Rnd</th><th>Statement / reason</th></tr></thead><tbody>';
+  evs.forEach(function(e,i){var p=e.ms?ist(e.ms):null;h+='<tr'+(e.last?' class="v70-last"':'')+'><td>'+(i+1)+'</td><td>'+(p?dmy(p.d):'')+'</td><td class="mono">'+(p?p.ms3:'—')+'</td><td>'+chip(e.type)+(e.last?' <span class="v70-chip ok">LAST BID</span>':'')+'</td><td>'+E(e.who)+(e.meta?'<div class="v70-m">'+E(e.meta)+'</div>':'')+'</td><td>'+E(e.whom)+'</td><td class="mono">'+E(e.price)+'</td><td>'+E(e.round)+'</td><td>'+E(e.what)+(e.note?'<div class="v70-m">'+E(e.note)+'</div>':'')+'</td></tr>';});
+  return h+'</tbody></table></div></div>';}
+window.v70BhOpen=async function(){if(!canBH()){T('Not available for your role','error');return;}
+  ovOpen('v70-bh','<div class="v70-h"><b>📜 Bid History</b><button class="btn bs bsm" onclick="v70Close(\'v70-bh\')">✕</button></div><div style="padding:30px;text-align:center">Loading complete history…</div>',true);
+  BH.F=await bhLoad();var A=aucList(BH.F);if(!BH.d&&A.length)BH.d='';bhRender();};
+window.v70BhSet=function(k,v){BH[k]=v;if(k==='d'){BH.auc='';BH.no='';BH.lot='';}if(k==='auc'){BH.no='';BH.lot='';}if(k==='no'){BH.lot='';}bhRender();};
+window.v70BhRefresh=async function(){BH.F=await bhLoad();bhRender();};
+function bhRender(){var F=BH.F;if(!F||!$('v70-bh'))return;var all=aucList(F);
+  var dates=[];all.forEach(function(a){if(a.date&&dates.indexOf(a.date)<0)dates.push(a.date);});
+  var a1=all.filter(function(a){return !BH.d||a.date===BH.d;});
+  var aucs=[];a1.forEach(function(a){var n=a.auctioneerName||'—';if(aucs.indexOf(n)<0)aucs.push(n);});
+  var a2=a1.filter(function(a){return !BH.auc||(a.auctioneerName||'—')===BH.auc;});
+  var cur=BH.no?a2.filter(function(a){return a.id===BH.no;})[0]:null;
+  var sel=function(id,val,opts,ph,fn){return '<select onchange="'+fn+'(this.value)" id="'+id+'"><option value="">'+ph+'</option>'+opts.map(function(o){return '<option value="'+E(o[0])+'"'+(o[0]===val?' selected':'')+'>'+E(o[1])+'</option>';}).join('')+'</select>';};
+  var h='<div class="v70-h"><b>📜 Bid History — Date → Auctioneer → Auction → Lot</b><span><button class="btn bs bsm" onclick="v70BhRefresh()">↻</button> <button class="btn bs bsm" onclick="v70Close(\'v70-bh\')">✕</button></span></div>';
+  h+='<div class="v70-f">'+sel('bh-d',BH.d,dates.map(function(d){return [d,dmy(d)];}),'All dates',"v70BhSet.bind(null,'d')")+sel('bh-a',BH.auc,aucs.map(function(n){return [n,n];}),'All auctioneers',"v70BhSet.bind(null,'auc')")+
+    sel('bh-n',BH.no,a2.map(function(a){return [a.id,(a.auctionNo||'')+' · '+dmy(a.date)];}),'All auctions',"v70BhSet.bind(null,'no')");
+  var L=cur?lotsOfAuc(cur,F):[];
+  h+=(cur?sel('bh-l',BH.lot,L.map(function(l){return [l.id,l.lotNo+' · '+statusOf(l,cur)];}),'All lots (full statement)',"v70BhSet.bind(null,'lot')"):'')+'</div>';
+  var scope=BH.lot?'lot':cur?'auction':'list';
+  h+='<div class="v70-f"><button class="btn bp bsm" onclick="v70BhExp(\'csv\')">📄 CSV</button><button class="btn bp bsm" onclick="v70BhExp(\'xlsx\')">📊 Excel</button><button class="btn bp bsm" onclick="v70BhExp(\'pdf\')">📑 PDF</button><button class="btn bs bsm" onclick="window.print()">🖨 Print</button><span style="font-size:11px;color:#666">Export = everything currently selected ('+(scope==='lot'?'one lot':scope==='auction'?'all lots of the auction':'all auctions in the list')+')</span></div>';
+  if(!cur){h+='<div class="tw"><table class="t"><thead><tr><th>Date</th><th>Auctioneer</th><th>Auction No</th><th>Window (IST)</th><th>Status</th><th>Lots</th><th>Sold</th><th>Withdrawn</th><th>Value ₹</th><th></th></tr></thead><tbody>';
+    if(!a2.length)h+='<tr><td colspan="10" style="text-align:center;color:#888">No auctions found</td></tr>';
+    a2.forEach(function(a){var ls=lotsOfAuc(a,F),s=ls.filter(function(l){return l.status==='sold';}),w=ls.filter(function(l){return l.status==='withdrawn';}),v=s.reduce(function(t,l){return t+(l.soldPrice||0)*(l.quantity||0);},0);
+      h+='<tr><td>'+dmy(a.date)+'</td><td>'+E(a.auctioneerName||'')+'</td><td><b>'+E(a.auctionNo)+'</b></td><td>'+E(winTxt(a))+(a.closedBy==='AUTO'?'<div class="v70-m">auto-closed</div>':'')+'</td><td>'+E(a.status)+'</td><td>'+ls.length+'</td><td>'+s.length+'</td><td>'+w.length+'</td><td class="mono">'+Math.round(v).toLocaleString('en-IN')+'</td><td><button class="btn bs bsm" onclick="v70BhSet(\'no\',\''+a.id+'\')">Open ▶</button></td></tr>';});
+    h+='</tbody></table></div>';}
+  else{var ls=L,s=ls.filter(function(l){return l.status==='sold';}),w=ls.filter(function(l){return l.status==='withdrawn';});
+    h+='<div class="alt alti" style="font-size:12px"><b>'+E(cur.auctioneerName||'')+'</b> · '+E(cur.auctionNo)+' · '+dmy(cur.date)+' · window <b>'+E(winTxt(cur))+'</b> · pooling '+E(poolTxt(cur))+' · '+E(cur.status)+(cur.closedBy?' · closed '+(cur.closedBy==='AUTO'?'automatically':'by '+E(cur.closedBy))+' ('+E(cur.closeReason||'')+')':'')+'<br>'+ls.length+' lots · '+s.length+' sold · '+w.length+' withdrawn · '+ls.filter(function(l){return statusOf(l,cur)==='NOT REACHED';}).length+' not reached</div>';
+    var auctEv=(F.actAuc[cur.id]||[]).slice().sort(function(a,b){return tms(a)-tms(b);});
+    if(auctEv.length){h+='<details><summary style="cursor:pointer;font-weight:700;font-size:12px">🏛️ Auction events ('+auctEv.length+')</summary><div class="tw"><table class="t v70-t"><tbody>'+auctEv.map(function(r){var p=ist(tms(r));return '<tr><td>'+dmy(p.d)+'</td><td class="mono">'+p.ms3+'</td><td>'+E(r.user||'')+'</td><td>'+E(r.msg||'')+'</td></tr>';}).join('')+'</tbody></table></div></details>';}
+    if(!BH.lot){h+='<div class="tw"><table class="t"><thead><tr><th>Seq</th><th>Lot No</th><th>Seller</th><th>Qty</th><th>Basic</th><th>Result</th><th>Buyer</th><th>Price</th><th>Bids</th><th></th></tr></thead><tbody>'+ls.map(function(l){return '<tr><td>'+E(l.seq||'')+'</td><td class="mono">'+E(l.lotNo)+'</td><td>'+E(l.sourceName||'')+'</td><td>'+(l.quantity||0)+'</td><td>'+E(l.basicPrice||'')+'</td><td>'+E(statusOf(l,cur))+(l.withdrawReason?'<div class="v70-m">'+E(l.withdrawReason)+'</div>':'')+'</td><td>'+E(l.buyerName||'')+'</td><td>'+E(l.soldPrice||'')+'</td><td>'+(F.bidBy[l.id]||[]).length+'</td><td><button class="btn bs bsm" onclick="v70BhSet(\'lot\',\''+l.id+'\')">Statement ▶</button></td></tr>';}).join('')+'</tbody></table></div>';
+      h+='<h4 style="margin:10px 0 4px">Full statement — every lot, one after the other</h4>'+ls.map(function(l){return stmtHtml(l,cur,F);}).join('');}
+    else{var li=L.findIndex(function(l){return l.id===BH.lot;}),lot=L[li];
+      h+='<div class="v70-f"><button class="btn bs bsm" onclick="v70BhSet(\'lot\',\''+(L[li-1]?L[li-1].id:'')+'\')"'+(li<1?' disabled':'')+'>◀ Previous lot</button><button class="btn bs bsm" onclick="v70BhSet(\'lot\',\''+(L[li+1]?L[li+1].id:'')+'\')"'+(li>=L.length-1?' disabled':'')+'>Next lot ▶</button></div>'+(lot?stmtHtml(lot,cur,F):'');}}
+  var box=$('v70-bh').firstChild;box.innerHTML=h;}
+window.v70BhExp=async function(fmt){var F=BH.F;if(!F)return;var all=aucList(F),a1=all.filter(function(a){return (!BH.d||a.date===BH.d)&&(!BH.auc||(a.auctioneerName||'—')===BH.auc)&&(!BH.no||a.id===BH.no);});
+  var rows=exportRows(a1,F,BH.lot||'');if(!rows.length){T('No history for this selection','warn');return;}
+  var nm='bid_history_'+(BH.d||'all')+'_'+ist(nowMs()).hms.replace(/:/g,''),ti='Bid History — '+(BH.d?dmy(BH.d):'All dates');
+  try{addAudit('report','Bid History exported ('+fmt+')',rows.length+' rows',CU?CU.username:'');}catch(e){}
+  if(fmt==='csv')dlCSV(nm,BH_COLS,rows);else if(fmt==='xlsx')await dlXLSX(nm,ti,BH_COLS,rows);else await dlPDF(nm,ti,BH_COLS,rows);};
+
+// ═════════ 8. REPORTS ═════════
+var MYR=[{id:'bid_history',name:'Bid History — Lot-wise Full Statement',icon:'📜',desc:'Date → Auctioneer → Auction → Lot: basic price, every bid (who, whom, price, exact time, last bid), process / distribute / start / accept / rerun / withdraw / sold / transfer, with reasons',cat:'Auction'},
+  {id:'lot_withdrawals',name:'Lot Withdrawals — with reason',icon:'⛔',desc:'Every withdrawn lot: auction, auctioneer, who withdrew (Admin / Primary / Secondary), exact time and the reason',cat:'Auction'},
+  {id:'auction_time_log',name:'Auction & Pooling Time Control',icon:'🕒',desc:'Date, start / end, pooling window, who changed it and why, and how each auction closed (manual / automatic at end time)',cat:'System'}];
+try{MYR.forEach(function(x){if(!REPORTS.some(function(r){return r.id===x.id;}))REPORTS.push(x);});}catch(e){}
+var MYIDS=MYR.map(function(x){return x.id;});
+(function(){var cs=window.lgxCanSee;window.lgxCanSee=function(id){if(MYIDS.indexOf(id)>=0)return !!CU&&['admin','board_admin','audit','auctioneer','auctioneer_secondary','support'].indexOf(CU.role)>=0&&(id!=='auction_time_log'||CU.role!=='support');return typeof cs==='function'?cs(id):true;};
+  var rc=window.rRptCounts;if(typeof rc==='function')window.rRptCounts=function(){var r=rc.apply(this,arguments);try{var set=function(id,n){var e=document.querySelector('[data-rpt="'+id+'"]');if(e)e.textContent=n;};
+    set('bid_history',DB.get('bid_log').length);set('lot_withdrawals',DB.get('lots').filter(function(l){return l.status==='withdrawn';}).length);set('auction_time_log',DB.get('auctions').length);}catch(e){}return r;};
+  var rcards=window.renderRptCards;if(typeof rcards==='function')window.renderRptCards=function(){var r=rcards.apply(this,arguments);try{document.querySelectorAll('#rpt-cards-container .rpt-card').forEach(function(c){var cnt=c.querySelector('.rpt-count'),id=cnt&&cnt.getAttribute('data-rpt');if(id&&MYIDS.indexOf(id)>=0&&!window.lgxCanSee(id))c.remove();});}catch(e){}return r;};})();
+function inRange(d,f){return (!f.from||d>=f.from)&&(!f.to||d<=f.to);}
+async function myReport(id,fmt){if(!window.lgxCanSee(id)){T('This report is not available for your role','error');return;}var f=getRptFilters(),F=await bhLoad(),rows=[],cols=[],nm=id+'_'+ist(nowMs()).d,ti='';
+  if(id==='bid_history'){var A=aucList(F).filter(function(a){return inRange(a.date||'',f)&&(!f.auc||a.auctioneerName===f.auc);});rows=exportRows(A,F,'');cols=BH_COLS;ti='Bid History — Lot-wise Full Statement';}
+  else if(id==='lot_withdrawals'){cols=['Auction Date','Auctioneer','Auction No','Lot No','Seller','Qty (kg)','Withdrawn By','Role','Date','Time (IST)','Reason'];
+    F.lots.filter(function(l){return l.status==='withdrawn';}).forEach(function(l){var A=F.auctions.filter(function(a){return a.id===l.auctionId;})[0]||{};if(A.id&&!canSeeAuc(A))return;if(!inRange(A.date||ist(Date.parse(l.withdrawnAt||l.ca||'')||0).d,f))return;if(f.auc&&A.auctioneerName!==f.auc)return;
+      var ms=Date.parse(l.withdrawnAt||'')||0,p=ms?ist(ms):null;rows.push({'Auction Date':dmy(A.date||''),'Auctioneer':A.auctioneerName||'','Auction No':A.auctionNo||'','Lot No':l.lotNo,'Seller':l.sourceName||'','Qty (kg)':l.quantity||'','Withdrawn By':l.withdrawnByName||l.withdrawnBy||l.withdrawnFrom||'','Role':l.withdrawnByRole==='admin'?'Admin':(l.withdrawnFrom||'Auctioneer'),'Date':p?dmy(p.d):'','Time (IST)':p?p.ms3:'','Reason':l.withdrawReason||'(declared by auctioneer — no reason field)'});});ti='Lot Withdrawals — with reason';}
+  else if(id==='auction_time_log'){cols=['Auction Date','Auctioneer','Auction No','Status','Auction Start','Auction End','Pooling Date','Pooling Start','Pooling End','Closed At (IST)','Closed By','Close Reason','Lots Not Reached','Time Changes (who / when / what / why)'];
+    F.auctions.filter(function(a){return canSeeAuc(a)&&inRange(a.date||'',f)&&(!f.auc||a.auctioneerName===f.auc);}).forEach(function(a){var ch=F.audit_trail_cache||null;
+      var chs=DB.get('audit_trail').filter(function(r){return r.type==='timing'&&r.ref===a.auctionNo;}).map(function(r){var p=ist(r.timeMs||Date.parse(r.time||'')||0);return dmy(p.d)+' '+p.hms+' '+(r.user||'')+': '+r.desc;}).join(' | ');
+      var cm=a.closedAt?ist(Date.parse(a.closedAt)):null;rows.push({'Auction Date':dmy(a.date||''),'Auctioneer':a.auctioneerName||'','Auction No':a.auctionNo||'','Status':a.status||'','Auction Start':t12(a.startTime),'Auction End':t12(a.endTime),'Pooling Date':dmy(a.poolDate||a.date||''),'Pooling Start':t12(a.poolStart),'Pooling End':t12(a.poolEnd),'Closed At (IST)':cm?dmy(cm.d)+' '+cm.hms:'','Closed By':a.closedBy==='AUTO'?'AUTOMATIC (end time)':(a.closedBy||''),'Close Reason':a.closeReason||'','Lots Not Reached':a.lotsCarried||'','Time Changes (who / when / what / why)':chs});});ti='Auction & Pooling Time Control';}
+  try{addAudit('report','Report downloaded',ti+' ('+rows.length+' rows, '+fmt+')',id);}catch(e){}
+  if(!rows.length){T('No data for this report with current filters. Try clearing filters.','warn');return;}
+  if(fmt==='csv')dlCSV(nm,cols,rows);else if(fmt==='xlsx')await dlXLSX(nm,ti,cols,rows);else await dlPDF(nm,ti,cols,rows);}
+// existing reports get extra columns (same-day): auction window · withdrawal reason / not reached · transfer
+var AUG={pooled_lots:1,auction_report:1,trading_history:1,price_list:1,trader_report:1,planter_payment:1,advance_planter:1,advance_dealer:1,advance_all:1,quality_analysis:1,bag_report:1,csr_report:0};
+function augment(headers,rows){try{var key=['Lot No.','Lot Number','Lot No','Lot'].filter(function(k){return headers.indexOf(k)>=0;})[0];if(!key)return [headers,rows];
+  var byNo={};DB.get('lots').forEach(function(l){byNo[l.lotNo]=l;});var A={};DB.get('auctions').forEach(function(a){A[a.id]=a;});
+  var ex=rows.map(function(r){var l=byNo[r[key]];if(!l)return {};var a=A[l.auctionId]||A[l.carriedFromId]||null,o={};
+    if(a&&(a.startTime||a.endTime))o['Auction Window (IST)']=dmy(a.date)+' '+t12(a.startTime)+' – '+t12(a.endTime);
+    if(l.status==='withdrawn')o['Withdrawal / Closure Note']='Withdrawn by '+(l.withdrawnByRole==='admin'?'Admin ('+(l.withdrawnByName||l.withdrawnBy||'')+')':(l.withdrawnFrom||'auctioneer'))+(l.withdrawReason?' — '+l.withdrawReason:'')+(l.withdrawnAt?' @ '+ist(Date.parse(l.withdrawnAt)).hms+' IST':'');
+    else if(l.carriedFrom)o['Withdrawal / Closure Note']='Not reached in '+l.carriedFrom+' ('+(l.carryReason||'auction closed')+') — returned to pool';
+    if(l.transferFrom||l.buyerOriginal)o['Transfer Note']='Transferred from '+(l.transferFrom||l.buyerOriginal)+' to '+(l.transferTo||l.buyerName)+(l.transferReason?' ('+l.transferReason+')':'');return o;});
+  var add=[];['Auction Window (IST)','Withdrawal / Closure Note','Transfer Note'].forEach(function(c){if(ex.some(function(o){return o[c];}))add.push(c);});
+  if(!add.length)return [headers,rows];return [headers.concat(add),rows.map(function(r,i){var n=Object.assign({},r);add.forEach(function(c){n[c]=ex[i][c]||'';});return n;})];}catch(e){return [headers,rows];}}
+(function(){var dr=window.dlReport;window.dlReport=async function(id,fmt){
+  if(MYIDS.indexOf(id)>=0)return myReport(id,fmt);
+  if(!AUG[id])return dr.apply(this,arguments);
+  var c=window.dlCSV,x=window.dlXLSX,p=window.dlPDF;
+  window.dlCSV=function(f,h,r){var a=augment(h,r);return c.call(this,f,a[0],a[1]);};
+  window.dlXLSX=function(f,t,h,r){var a=augment(h,r);return x.call(this,f,t,a[0],a[1]);};
+  window.dlPDF=function(f,t,h,r){var a=augment(h,r);return p.call(this,f,t,a[0],a[1]);};
+  try{return await dr.apply(this,arguments);}finally{window.dlCSV=c;window.dlXLSX=x;window.dlPDF=p;}};})();
+
+// ═════════ 9. LAUNCH BUTTONS + STYLES ═════════
+var st=document.createElement('style');st.textContent='.v70-pill{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;z-index:950;background:#1b5e20;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;box-shadow:0 2px 10px #0005;max-width:94vw;text-align:center}.v70-pill.w{background:#ef6c00}.v70-pill.d{background:#b71c1c}'+
+ '.v70-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9998;display:flex;align-items:flex-start;justify-content:center;padding:10px;overflow:auto}.v70-box{background:#fff;border-radius:12px;padding:12px;width:100%;max-width:560px;margin:auto}.v70-box.wide{max-width:1100px}'+
+ '.v70-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}.v70-card{border:1px solid #dfe6df;border-radius:10px;padding:8px;margin:8px 0;background:#fafcfa}.v70-ct{margin-bottom:6px;font-size:13px}'+
+ '.v70-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin-top:4px}.v70-g label{display:block;font-size:10px;text-transform:uppercase;color:#667;margin-bottom:2px}.v70-g input,.v70-g select{width:100%;padding:6px;border:1px solid #bbb;border-radius:6px}'+
+ '.v70-f{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0;align-items:center}.v70-f select{padding:6px;border:1px solid #bbb;border-radius:6px;max-width:100%}'+
+ '.v70-lot{border:1px solid #cfd8cf;border-radius:10px;margin:10px 0;padding:8px;background:#fff;page-break-inside:avoid}.v70-lh{font-size:12px;margin-bottom:6px;line-height:1.5}.okc{color:#1b5e20}.badc{color:#b71c1c}'+
+ '.v70-t td,.v70-t th{font-size:11.5px;vertical-align:top}.v70-m{font-size:10.5px;color:#667}.v70-last td{background:#e8f5e9;font-weight:700}'+
+ '.v70-chip{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:800;background:#eceff1;color:#37474f}.v70-chip.ok{background:#c8e6c9;color:#1b5e20}.v70-chip.bad{background:#ffcdd2;color:#b71c1c}.v70-chip.warn{background:#ffe0b2;color:#e65100}.v70-chip.bid{background:#e3f2fd;color:#0d47a1}'+
+ '@media print{body>*:not(#v70-bh){display:none!important}#v70-bh{position:static!important;background:#fff!important;padding:0!important;display:block!important}#v70-bh .v70-box{max-width:none!important;box-shadow:none}#v70-bh button,#v70-bh select,#v70-bh .v70-f{display:none!important}}';
+document.head.appendChild(st);
+setInterval(function(){try{var adm=isAdmin(),bh=!!CU&&canBH(),host=document.querySelector('.hr2'),anchor=$('rfb');
+  var mk=function(id,txt,fn,bg){var b=document.createElement('button');b.id=id;b.className='hbtn';b.textContent=txt;b.onclick=fn;b.style.cssText='background:'+bg+';border-color:transparent;white-space:nowrap';host.insertBefore(b,anchor||host.lastElementChild);return b;};
+  if(!host)return;
+  var b=$('v70-fab-t');if(adm&&!b)mk('v70-fab-t','🕒 Time Control',window.v70TimeOpen,'#ef6c00');if(!adm&&b)b.remove();
+  var h=$('v70-fab-h');if(bh&&!h)mk('v70-fab-h','📜 Bid History',window.v70BhOpen,'#1565c0');if(!bh&&h)h.remove();}catch(e){}},1500);
+// ═════════ 10. AUTO-SYNC WATCHER — whatever another device / Admin changes refreshes every open screen ═════════
+var _sig='';
+function dataSig(){try{var A=DB.get('auctions').map(function(a){return [a.id,a.status,a.date,a.startTime,a.endTime,a.poolDate,a.poolStart,a.poolEnd,a.closedAt].join('~');}).join('|'),
+  la=DB.g1('live_auction')||{},L=DB.get('lots').map(function(l){return l.status+(l.auctionId||'')+(l.buyerName||'');}).join(','),
+  hs=la.hs?la.hs.phase+':'+la.hs.lotId:'';
+  return A+'#'+[la.id,la.status,la.currentLotId,la.endAtMs,la.startAtMs,la.closedAt,la.rerunCount,hs].join('~')+'#'+L.length+':'+hashS(L)+'#'+DB.get('bid_log').length+'#'+DB.get('decisions').length+'#'+DB.get('activity_log').length;}catch(e){return '';}}
+function hashS(x){var h=0;for(var i=0;i<x.length;i++)h=(h*31+x.charCodeAt(i))|0;return h;}
+function focusIn(id){var o=$(id),f=document.activeElement;return !!(o&&f&&o.contains(f)&&/^(INPUT|TEXTAREA|SELECT)$/.test(f.tagName));}
+setInterval(function(){try{if(!CU)return;var n=dataSig();if(n===_sig)return;var first=!_sig;_sig=n;if(first)return;
+  try{updatePill(DB.g1('live_auction'));}catch(e){}
+  try{rACH();}catch(e){}try{rAM_Status();}catch(e){}try{renderAucLots();}catch(e){}try{hsRender();}catch(e){}try{rLive();}catch(e){}try{if($('psac')&&$('psac').classList.contains('active'))rSecPanel();}catch(e){}
+  if($('v70-tc')&&!focusIn('v70-tc')&&!$('v70-wd')){try{tcRender();}catch(e){}}
+  if($('v70-bh')&&!focusIn('v70-bh')){try{window.v70BhRefresh();}catch(e){}}
+}catch(e){}},2500);
+window.v70={winOf:winOf,poolWin:poolWin,closeAuction:closeAuction,poolGate:poolGate,lotEvents:lotEvents,exportRows:exportRows,bhLoad:bhLoad,augment:augment,wdBlocked:wdBlocked,pastEnd:pastEnd,tick:null};
+})();
+
+// ═══ v7.1 — SUPER ADMIN → CENTRE ADMINS → ALL OTHER LOGINS ═══════════════════════════
+// Super Admin (developer): admin + super flag. Creates the Admin of each centre. Admin (system-support engineer at the
+// auction centre) creates every other login of his own centre. Nobody below can create / edit / delete a higher login.
+(function(){
+if(window.__v71)return;window.__v71=1;
+var $=function(i){return document.getElementById(i);};
+function E(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function T(m,t,d){try{toast(m,t||'info',d);}catch(e){}}
+var LOCS=['Puttady','Bodinayakanur','Kochi'];
+var PARTY={trader:1,dealer:1,planter:1},TOP={admin:1,board_admin:1};
+function isSuper(u){u=u||CU;return !!u&&u.role==='admin'&&u.super===true;}
+function isAdm(u){u=u||CU;return !!u&&u.role==='admin'&&u.super!==true;}
+function locOf(u){return (u&&u.location)||'Puttady';}
+function prot(r){return !!r&&(r.super===true||TOP[r.role]);}
+function canManage(r){if(!CU||CU.role!=='admin'||!r)return false;if(isSuper())return true;if(prot(r))return false;if(PARTY[r.role])return true;return locOf(r)===locOf(CU)||r.createdBy===CU.username;}
+window.isSuperAdmin=function(){return isSuper();};
+function rolePretty(r){if(r.super)return '👑 SUPER ADMIN';if(r.role==='admin')return '🛠 CENTRE ADMIN';return String(r.role||'').replace(/_/g,' ');}
+function genPw(){var U='ABCDEFGHJKLMNPQRSTUVWXYZ',L='abcdefghijkmnopqrstuvwxyz',D='23456789',S='@#$%&*!?',all=U+L+D+S,a=new Uint32Array(14);crypto.getRandomValues(a);
+  var out=[U[a[0]%U.length],L[a[1]%L.length],D[a[2]%D.length],S[a[3]%S.length]];for(var i=4;i<14;i++)out.push(all[a[i]%all.length]);
+  for(var j=out.length-1;j>0;j--){var k=a[j]%(j+1),t=out[j];out[j]=out[k];out[k]=t;}return out.join('');}
+
+// ── 1. Users tab: role list by rank, location field, safe save / edit / delete ─────────
+function injectLoc(){var r=$('urol');if(!r||$('uloc'))return;var w=document.createElement('div');w.className='fi c6';w.id='uloc-w';
+  w.innerHTML='<label>Centre location</label><select id="uloc">'+LOCS.map(function(l){return '<option>'+l+'</option>';}).join('')+'</select>';
+  var host=r.closest('.fi');if(host&&host.parentNode)host.parentNode.insertBefore(w,host.nextSibling);}
+function applyRoleOpts(){var r=$('urol');if(!r)return;injectLoc();var sup=isSuper();
+  [].forEach.call(r.options,function(o){if(o.value==='admin'){o.textContent='Admin — Centre system-support engineer';o.hidden=!sup;o.disabled=!sup;}if(o.value==='board_admin'){o.hidden=!sup;o.disabled=!sup;}});
+  var lw=$('uloc-w');if(lw)lw.style.display=(sup&&r.value&&!PARTY[r.value])?'':'none';}
+(function(){var o=window.onRC;window.onRC=function(){var x=typeof o==='function'?o.apply(this,arguments):0;try{applyRoleOpts();}catch(e){}return x;};})();
+window.rUL=function(){var tb=$('utbd');if(!tb)return;applyRoleOpts();var users=DB.get('users').filter(function(u){return isSuper()||!prot(u)||u.id===(CU&&CU.id);});
+  tb.innerHTML=users.length?users.map(function(u){var m=canManage(u);
+    return '<tr><td class="mono" style="font-size:11px">'+E(u.username)+'</td><td><b>'+E(u.name||'')+'</b></td><td>'+statusBadge(rolePretty(u))+'<div style="font-size:10px;color:#667;margin-top:2px">'+(u.role==='admin'||!PARTY[u.role]?'📍 '+E(locOf(u)):'')+(u.createdBy?' · by '+E(u.createdBy):'')+'</div></td><td>'+E(u.phone||u.mobile||'—')+'</td><td>'+statusBadge(u.status)+'</td><td>'+(m?'<button class="btn bs bxs" onclick="eU(\''+u.id+'\')">Edit</button> '+(u.super?'':'<button class="btn br2 bxs" onclick="dU(\''+u.id+'\')">Del</button>'):'<span style="font-size:10px;color:#999">protected</span>')+'</td></tr>';}).join(''):'<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--tx3)">No users</td></tr>';};
+(function(){var o=window.eU;window.eU=function(id){var r=DB.find('users',id);if(!r)return;if(!canManage(r)){T('You cannot change this login','error');return;}var x=o.apply(this,arguments);try{applyRoleOpts();if($('uloc'))$('uloc').value=locOf(r);var lw=$('uloc-w');if(lw)lw.style.display=(isSuper()&&!PARTY[r.role])?'':'none';}catch(e){}return x;};})();
+window.dU=function(id){var r=DB.find('users',id);if(!r)return;if(r.super){T('The Super Admin login cannot be deleted','error');return;}if(id==='admin_001'){toast('Cannot delete admin','error');return;}
+  if(!canManage(r)){T('You cannot delete this login','error');return;}if(!confirm('Delete login '+r.username+' ('+r.name+')?'))return;DB.del('users',id);try{addAudit('user','User deleted',r.role+': '+(r.name||'')+' by '+CU.username,r.username);}catch(e){}rUL();};
+window.saveUser=async function(){
+  var g=function(i){return ($(i)||{}).value||'';},u=g('uu').trim(),pw=g('upw'),role=g('urol'),name=g('unm').trim(),status=g('ust'),eid=g('ueid');
+  if(!CU||CU.role!=='admin'){T('Only Admin or Super Admin can create logins','error');return;}
+  if(!u||!role||!name){T('User ID, Role and Name required','error');return;}
+  if(!eid&&!pw){T('Password required for new user','error');return;}
+  if(!eid&&DB.get('users').find(function(x){return x.username===u;})){T('User ID already exists','error');return;}
+  if(TOP[role]&&!isSuper()){T('Only the Super Admin can create an Admin login','error');return;}
+  if(pw&&!pwStrong(pw)){T('Password needs 8+ chars with upper, lower, digit and symbol','error');return;}
+  var ex=eid?DB.find('users',eid):null;
+  if(ex&&!canManage(ex)){T('You cannot change this login','error');return;}
+  if(ex&&ex.super&&role!=='admin'){T('Super Admin role cannot be changed','error');return;}
+  if(ex&&TOP[ex.role]&&role!==ex.role&&!isSuper()){T('Only the Super Admin can change an Admin login','error');return;}
+  var loc=isSuper()?(g('uloc')||'Puttady'):(ex?locOf(ex):locOf(CU));
+  var rec={username:u,role:role,name:name,phone:g('uph'),email:g('uem'),status:status};
+  if(!PARTY[role])rec.location=loc;
+  if(!ex){rec.createdBy=CU.username;rec.createdByName=CU.name||CU.username;rec.createdAt=new Date().toISOString();}
+  var uid=eid;if(eid){DB.upd('users',eid,rec);T('✅ User updated');}else{uid=DB.add('users',rec).id;T('✅ User created — '+rolePretty(rec)+(rec.location?' · '+rec.location:''));}
+  if(pw)await setUserPassword(uid,pw);
+  try{addAudit('user',(eid?'User updated':'User created')+' by '+(isSuper()?'Super Admin':'Admin'),role+': '+name+(rec.location?' · '+rec.location:''),u);}catch(e){}
+  ruF();rUL();};
+
+// ── 2. header badge ────────────────────────────────────────────────────────────────────
+setInterval(function(){try{if(!CU)return;applyRoleOpts();var r=$('u-rl');if(r&&CU.role==='admin'){var t=isSuper()?'SUPER ADMIN':'ADMIN · '+locOf(CU).toUpperCase();if(r.textContent!==t)r.textContent=t;}
+  var host=document.querySelector('.hr2'),anchor=$('rfb'),b=$('v71-sa');
+  if(isSuper()&&!b&&host){b=document.createElement('button');b.id='v71-sa';b.className='hbtn';b.textContent='👑 Super Admin';b.style.cssText='background:#6a1b9a;border-color:transparent;white-space:nowrap';b.onclick=window.v71SuperOpen;host.insertBefore(b,anchor||host.lastElementChild);}
+  if(!isSuper()&&b)b.remove();}catch(e){}},1500);
+
+// ── 3. Super Admin console ─────────────────────────────────────────────────────────────
+function ov(html){var old=$('v71-ov');if(old)old.remove();var d=document.createElement('div');d.id='v71-ov';d.className='v70-ov';d.innerHTML='<div class="v70-box wide">'+html+'</div>';document.body.appendChild(d);}
+var LAST=null;
+function admins(){return DB.get('users').filter(function(u){return u.role==='admin'&&!u.super;});}
+function render(){var A=admins(),sup=DB.get('users').filter(function(u){return u.super;});
+  var cards=LOCS.map(function(l){var a=A.filter(function(x){return locOf(x)===l&&x.status!=='inactive';}).length,st=DB.get('users').filter(function(x){return !prot(x)&&!PARTY[x.role]&&locOf(x)===l;}).length;
+    return '<div class="v70-card" style="min-width:170px;flex:1"><div class="v70-ct"><b>📍 '+l+'</b></div><div style="font-size:12px">'+(a?'<b>'+a+'</b> active admin'+(a>1?'s':''):'<span style="color:#c62828"><b>No admin yet</b></span>')+' · '+st+' staff login'+(st===1?'':'s')+'</div></div>';}).join('');
+  var rows=A.length?A.map(function(u){return '<tr><td class="mono">'+E(u.username)+'</td><td><b>'+E(u.name||'')+'</b></td><td>📍 '+E(locOf(u))+'</td><td>'+statusBadge(u.status||'active')+'</td><td style="font-size:11px">'+E(u.createdBy||'—')+'</td><td><button class="btn bs bxs" onclick="v71Pw(\''+u.id+'\')">🔑 Reset password</button> <button class="btn bs bxs" onclick="v71Tog(\''+u.id+'\')">'+(u.status==='inactive'?'Enable':'Disable')+'</button> <button class="btn br2 bxs" onclick="v71Del(\''+u.id+'\')">Delete</button></td></tr>';}).join(''):'<tr><td colspan="6" style="text-align:center;padding:16px;color:#888">No centre admins yet — create the first one above.</td></tr>';
+  ov('<div class="v70-h"><b>👑 Super Admin — centre admins</b><button class="btn bs bsm" onclick="v70Close(\'v71-ov\')">✕</button></div>'+
+   '<div class="alt alti" style="font-size:12px">You (developer) create one or more <b>Admins</b> for each auction centre. An Admin is the system-support engineer at that centre: he creates and manages every other login of his centre (auctioneer, trader, planter, dealer, pooling, quality, audit, support …) but <b>cannot create, change or delete another Admin</b>. Only you can.</div>'+
+   '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">'+cards+'</div>'+
+   '<div class="v70-card" style="border:2px solid #6a1b9a"><div class="v70-ct"><b>➕ Create centre Admin</b></div><div class="v70-g">'+
+   '<div><label>Centre location</label><select id="sa-l">'+LOCS.map(function(l){return '<option>'+l+'</option>';}).join('')+'</select></div>'+
+   '<div><label>Login ID</label><input id="sa-u" placeholder="admin@kochi"></div><div><label>Full name</label><input id="sa-n" placeholder="Name of the engineer"></div>'+
+   '<div><label>Mobile</label><input id="sa-p"></div><div><label>E-mail</label><input id="sa-e"></div><div><label>Password</label><div style="display:flex;gap:4px"><input id="sa-w" style="flex:1"><button class="btn bs bxs" onclick="document.getElementById(\'sa-w\').value=v71Gen()">Generate</button></div></div></div>'+
+   '<div class="v70-g" style="grid-template-columns:1fr auto"><div style="font-size:11px;color:#666">Give the login ID and password to the engineer; he should change the password after the first sign-in.</div><button class="btn bp bsm" onclick="v71Create()">➕ Create Admin</button></div>'+(LAST?'<div class="alt alts" style="margin-top:8px;font-size:12px"><b>'+E(LAST.t)+'</b><br>Login ID: <b class="mono">'+E(LAST.u)+'</b> &nbsp; Password: <b class="mono">'+E(LAST.p)+'</b><br><span style="color:#b71c1c">Shown once — copy it now.</span></div>':'')+'</div>'+
+   '<div class="tw" style="margin-top:8px"><table class="t"><thead><tr><th>Login ID</th><th>Name</th><th>Centre</th><th>Status</th><th>Created by</th><th>Actions</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+   '<div style="font-size:11px;color:#667;margin-top:6px">Super Admin logins: '+(sup.map(function(s){return E(s.username);}).join(', ')||'—')+' · the Super Admin login cannot be created, changed or deleted by anyone else.</div>');}
+window.v71SuperOpen=function(){if(!isSuper()){T('Only the Super Admin can open this','error');return;}LAST=null;render();};
+window.v71Gen=genPw;
+window.v71Create=async function(){if(!isSuper())return;var g=function(i){return ($(i)||{}).value||'';},u=g('sa-u').trim(),n=g('sa-n').trim(),pw=g('sa-w'),l=g('sa-l');
+  if(!u||!n){T('Login ID and name are required','error');return;}if(DB.get('users').some(function(x){return x.username===u;})){T('Login ID already exists','error');return;}
+  if(!pw)pw=genPw();if(!pwStrong(pw)){T('Password needs 8+ chars with upper, lower, digit and symbol','error');return;}
+  var rec=DB.add('users',{username:u,role:'admin',name:n,phone:g('sa-p'),email:g('sa-e'),status:'active',location:l,createdBy:CU.username,createdByName:CU.name||CU.username,createdAt:new Date().toISOString()});
+  await setUserPassword(rec.id,pw);try{addAudit('user','Centre Admin created by Super Admin',n+' · '+l,u);}catch(e){}
+  LAST={t:'✅ Admin created for '+l,u:u,p:pw};T('✅ Admin '+u+' created for '+l,'success');render();};
+window.v71Pw=async function(id){if(!isSuper())return;var u=DB.find('users',id);if(!u||u.super)return;if(!confirm('Reset password of '+u.username+'?'))return;var pw=genPw();await setUserPassword(id,pw);
+  try{addAudit('user','Admin password reset by Super Admin',u.username,u.username);}catch(e){}LAST={t:'🔑 New password for '+u.name,u:u.username,p:pw};render();};
+window.v71Tog=function(id){if(!isSuper())return;var u=DB.find('users',id);if(!u||u.super)return;var s=u.status==='inactive'?'active':'inactive';DB.upd('users',id,{status:s});
+  try{addAudit('user','Admin '+(s==='active'?'enabled':'disabled')+' by Super Admin',u.username,u.username);}catch(e){}render();};
+window.v71Del=function(id){if(!isSuper())return;var u=DB.find('users',id);if(!u||u.super)return;if(!confirm('Delete Admin login '+u.username+'? Logins he created stay active.'))return;DB.del('users',id);
+  try{addAudit('user','Admin deleted by Super Admin',u.username,u.username);}catch(e){}render();};
+// local demo copy opened from a file only: a Super Admin so the hierarchy can be tried offline (never on a hosted address)
+setTimeout(async function(){try{if(location.protocol!=='file:'||typeof DB==='undefined')return;if(DB.get('users').some(function(u){return u.super;}))return;
+  var r=DB.add('users',{username:'superadmin',role:'admin',super:true,name:'Super Administrator (demo)',status:'active',location:'Puttady',createdBy:'developer'});await setUserPassword(r.id,'Super@Demo#2026');}catch(e){}},1200);
+window.v71={isSuper:isSuper,canManage:canManage,locOf:locOf};
+})();
 
 </script>
 </body></html>
