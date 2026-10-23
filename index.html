@@ -8928,6 +8928,7 @@ window.v73={pa:pa,inr:inr,post:post,syncSales:syncSales,balanceOf:balanceOf,acco
 // ═══ v7.3 part 2 — screens: pay · receipts · payouts · ledger · day book · reconciliation · settings · gateway ═══
 (function(){
 if(window.__v73b||!window.v73)return;window.__v73b=1;var X=window.v73;
+(function(){try{var st=document.createElement('style');st.textContent='#v73-btn{flex:0 0 auto}@media(max-width:760px){#v73-btn{font-size:0!important;padding:6px 9px!important}#v73-btn::before{content:"\\1F4B3";font-size:14px}.hr2{min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none}.hr2::-webkit-scrollbar{display:none}.hr2>*{flex:0 0 auto}}';document.head.appendChild(st);}catch(e){}})();
 var $=function(i){return document.getElementById(i);};
 function E(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function T(m,t,d){try{toast(m,t||'info',d);}catch(e){}}
@@ -9104,10 +9105,11 @@ X.online=async function(txnId,gw){var tx=DB.find('pay_txn',txnId);if(!tx)return;
   S.tab='mine';render();};
 
 // ── button, auto-posting, live refresh ───────────────────────────────────
+(function(){var st=document.createElement('style');st.textContent='@media(max-width:1180px){#v73-btn .v73t{display:none}}@media(max-width:768px){.hr2{overflow-x:auto;max-width:64vw;scrollbar-width:none}.hr2::-webkit-scrollbar{display:none}.hr2>*{flex-shrink:0}#v73-btn{order:-1}}#v73-ov .v70-box{overflow-x:auto}';document.head.appendChild(st);})();
 var _sig='',_sale='';
 function sigOf(){try{return X.legs().length+':'+DB.get('pay_txn').map(function(t){return t.status;}).join('')+':'+DB.get('pay_txn').length;}catch(e){return '';}}
 setInterval(function(){try{if(!CU)return;var host=document.querySelector('.hr2'),anchor=$('rfb'),b=$('v73-btn');
-  if(!b&&host){b=document.createElement('button');b.id='v73-btn';b.className='hbtn';b.textContent='💳 Payments';b.style.cssText='background:#00695c;border-color:transparent;white-space:nowrap';b.onclick=window.v73Open;host.insertBefore(b,anchor||host.lastElementChild);}
+  if(!b&&host){b=document.createElement('button');b.id='v73-btn';b.className='hbtn';b.innerHTML='💳<span class="v73t"> Payments</span>';b.title='Payments & Ledger';b.style.cssText='background:#00695c;border-color:transparent;white-space:nowrap';b.onclick=window.v73Open;host.insertBefore(b,anchor||host.lastElementChild);}
   if(canAct()){var s=DB.get('lots').filter(function(l){return l.status==='sold';}).map(function(l){return l.id+(l.buyerName||'')+l.soldPrice;}).join('|');if(s!==_sale){_sale=s;X.syncSales();}}
   var n=sigOf();if(n!==_sig){_sig=n;var o=$('v73-ov');if(o&&!(document.activeElement&&o.contains(document.activeElement)&&/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName))&&!/^(pf-|rr-|po-)/.test((document.activeElement||{}).id||'')){if(['pay','mine','led','over','rcpt','out','led','book'].indexOf(S.tab)>=0&&!$('pf-a')&&!$('rr-p')&&!$('po-a'))render();}}
 }catch(e){}},2000);
