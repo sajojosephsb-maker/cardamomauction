@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SpiceAuction Pro v7.2 — Dual Auction | 16 Auctioneers | Spices Board of India</title>
+<title>SpiceAuction Pro v7.3 — Dual Auction | 16 Auctioneers | Spices Board of India</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -1334,7 +1334,7 @@ async function cloudFetchTable(tbl,opts){
   return out;
 }
 async function loadFromCloud(){
-  const TBLS=['users','planters','traders','dealers','auctioneers','pooling_centers','bg_records','lots','auctions','bids','payments','transfers','undertakings','slots','challans','ewaybills','notices','applications','blacklist','qc_reports','audit_trail','self_bid_log','activity_log','email_queue','emd','file_uploads','lot_classification_history','messages','villages','v5_notifs','v5_role_perms','inventory','transporters','invoices','v51_alerts','v51_reminders','v51_webhooks','v51_messages','v51_export_docs','login_log','bid_log','decisions','trader_ctl','tx_review','net_log','sys_log','net_dev','trader_link','planter_log','bank_accounts','statement_archive'];
+  const TBLS=['users','planters','traders','dealers','auctioneers','pooling_centers','bg_records','lots','auctions','bids','payments','transfers','undertakings','slots','challans','ewaybills','notices','applications','blacklist','qc_reports','audit_trail','self_bid_log','activity_log','email_queue','emd','file_uploads','lot_classification_history','messages','villages','v5_notifs','v5_role_perms','inventory','transporters','invoices','v51_alerts','v51_reminders','v51_webhooks','v51_messages','v51_export_docs','login_log','bid_log','decisions','trader_ctl','tx_review','net_log','sys_log','net_dev','trader_link','planter_log','bank_accounts','statement_archive','ledger','pay_txn'];
   const LOGT=['audit_trail','login_log','bid_log','decisions','activity_log','trader_ctl','tx_review','net_log','sys_log','net_dev','planter_log'];
   for(const tbl of TBLS){
     const recs=await cloudFetchTable(tbl,LOGT.includes(tbl)?{latest:true,cap:2000}:{cap:100000});
@@ -7495,7 +7495,7 @@ window.v66Api={build:build,planterEvents:planterEvents,partyEvents:partyEvents,c
 // Active only when the worker reports secure:true (secrets set). Otherwise the app behaves exactly as v6.6.
 (function(){
 var G=window.GW={on:false,tok:null,cursor:'',ready:false,q:[],polling:false,denied:[],stats:{writes:0,denied:0,polls:0}};
-var TB=['users','planters','traders','dealers','auctioneers','pooling_centers','bg_records','lots','auctions','bids','payments','transfers','undertakings','slots','challans','ewaybills','notices','applications','blacklist','qc_reports','audit_trail','self_bid_log','activity_log','email_queue','emd','file_uploads','lot_classification_history','messages','villages','v5_notifs','v5_role_perms','inventory','transporters','invoices','v51_alerts','v51_reminders','v51_webhooks','v51_messages','v51_export_docs','login_log','bid_log','decisions','trader_ctl','tx_review','net_log','sys_log','net_dev','trader_link','planter_log','bank_accounts','statement_archive','bank_change_req','import_log','slip_log'];
+var TB=['users','planters','traders','dealers','auctioneers','pooling_centers','bg_records','lots','auctions','bids','payments','transfers','undertakings','slots','challans','ewaybills','notices','applications','blacklist','qc_reports','audit_trail','self_bid_log','activity_log','email_queue','emd','file_uploads','lot_classification_history','messages','villages','v5_notifs','v5_role_perms','inventory','transporters','invoices','v51_alerts','v51_reminders','v51_webhooks','v51_messages','v51_export_docs','login_log','bid_log','decisions','trader_ctl','tx_review','net_log','sys_log','net_dev','trader_link','planter_log','bank_accounts','statement_archive','ledger','pay_txn','bank_change_req','import_log','slip_log'];
 G.TB=TB;
 var LOGT=['audit_trail','login_log','bid_log','decisions','activity_log','trader_ctl','tx_review','net_log','sys_log','net_dev','planter_log'];
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}return null;}
@@ -7697,7 +7697,7 @@ async function decrypt(obj,pass){var key=await aesKey(pass,unb64(obj.salt));var 
 X.sha256=sha256;
 
 // ── gather / apply ──
-function TBL(){return (window.GW&&GW.TB)||['users','planters','traders','dealers','auctioneers','pooling_centers','bg_records','lots','auctions','bids','payments','transfers','undertakings','slots','challans','ewaybills','notices','applications','blacklist','qc_reports','audit_trail','self_bid_log','activity_log','email_queue','emd','file_uploads','lot_classification_history','messages','villages','v5_notifs','v5_role_perms','inventory','transporters','invoices','v51_alerts','v51_reminders','v51_webhooks','v51_messages','v51_export_docs','login_log','bid_log','decisions','trader_ctl','tx_review','net_log','sys_log','net_dev','trader_link','planter_log','bank_accounts','statement_archive','bank_change_req','import_log','pay_slips'];}
+function TBL(){return (window.GW&&GW.TB)||['users','planters','traders','dealers','auctioneers','pooling_centers','bg_records','lots','auctions','bids','payments','transfers','undertakings','slots','challans','ewaybills','notices','applications','blacklist','qc_reports','audit_trail','self_bid_log','activity_log','email_queue','emd','file_uploads','lot_classification_history','messages','villages','v5_notifs','v5_role_perms','inventory','transporters','invoices','v51_alerts','v51_reminders','v51_webhooks','v51_messages','v51_export_docs','login_log','bid_log','decisions','trader_ctl','tx_review','net_log','sys_log','net_dev','trader_link','planter_log','bank_accounts','statement_archive','ledger','pay_txn','bank_change_req','import_log','pay_slips'];}
 var LOCAL_KV=['live_auction','timer_sync','primary_plan','timing_cfg','sessions_cfg','tax_cfg','slip_cfg','bank_cfg'];
 async function gatherAll(){
   var store=[],kv=[];
@@ -8814,6 +8814,303 @@ window.v71Del=function(id){if(!isSuper())return;var u=DB.find('users',id);if(!u|
 setTimeout(async function(){try{if(location.protocol!=='file:'||typeof DB==='undefined')return;if(DB.get('users').some(function(u){return u.super;}))return;
   var r=DB.add('users',{username:'superadmin',role:'admin',super:true,name:'Super Administrator (demo)',status:'active',location:'Puttady',createdBy:'developer'});await setUserPassword(r.id,'Super@Demo#2026');}catch(e){}},1200);
 window.v71={isSuper:isSuper,canManage:canManage,locOf:locOf};
+})();
+
+// ═══ v7.3 — PAYMENTS · GATEWAY · DOUBLE-ENTRY LEDGER between every party ════════════════════════════
+// Money chain per auction house (auctioneer company), all amounts in paise:
+//   lot sold  →  Dr Buyer a/c (trader/dealer)   Cr Seller a/c (net)  Cr Commission  Cr GST  Cr Board user fee
+//   buyer pays →  Dr Bank                         Cr Buyer a/c          (UPI / NEFT / RTGS / IMPS / cheque / Razorpay / Cashfree)
+//   seller paid → Dr Seller a/c                   Cr Bank
+//   remittance →  Dr GST / Board fee              Cr Bank
+// Ledger rows are append-only (the Worker refuses edits and deletes). Corrections are reversing journals.
+(function(){
+if(window.__v73)return;window.__v73=1;
+var $=function(i){return document.getElementById(i);};
+function E(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function T(m,t,d){try{toast(m,t||'info',d);}catch(e){}}
+function nowMs(){try{return srvNow();}catch(e){return Date.now();}}
+function istD(ms){return new Date(ms+19800000).toISOString().slice(0,10);}
+function istT(ms){return new Date(ms+19800000).toISOString().slice(11,19);}
+function fyOf(ms){var d=new Date(ms+19800000),y=d.getUTCFullYear(),s=d.getUTCMonth()>=3?y:y-1;return s+'-'+String(s+1).slice(2);}
+function dmy(d){var p=String(d||'').split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:(d||'');}
+function pa(x){return Math.round((parseFloat(x)||0)*100);}
+function inr(p){var n=(p||0)/100,neg=n<0;n=Math.abs(n);var s=n.toFixed(2),ip=s.split('.')[0],fp=s.split('.')[1],l=ip.slice(-3),r=ip.slice(0,-3);if(r)l=r.replace(/\B(?=(\d{2})+(?!\d))/g,',')+','+l;return (neg?'-':'')+'₹'+l+'.'+fp;}
+function nn(s){return String(s||'').toLowerCase().replace(/^m\/s\.?\s*/,'').replace(/[^a-z0-9]/g,'');}
+function role(){return CU?CU.role:'';}
+function isAdm(){return role()==='admin'||role()==='board_admin';}
+function isAucStaff(){return role()==='auctioneer'||role()==='auctioneer_secondary';}
+function isParty(){return role()==='trader'||role()==='dealer'||role()==='planter';}
+function canAct(){return role()==='admin'||isAucStaff();}
+function scope(){try{return (window.v63Api&&v63Api.scope)?v63Api.scope():null;}catch(e){return null;}}
+function myAucId(){var s=scope();return s&&s.id&&!s.none?s.id:'';}
+function aucName(id){var a=DB.find('auctioneers',id);return a?a.name:(id||'—');}
+function allAuc(){return DB.get('auctioneers');}
+function lotAuc(l){try{return v63Api.lotCompanyId(l)||'';}catch(e){return l&&l.auctioneerId||'';}}
+function uid(p){return p+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function addAud(a,b,c){try{addAudit('payment',a,b,c||'');}catch(e){}}
+
+// ── config ────────────────────────────────────────────────────────────────
+function cfg(){var c=DB.g1('pay_cfg')||{};return {ufee:parseFloat(c.ufee)||0,methods:Object.assign({upi:true,neft:true,rtgs:true,imps:true,cheque:true,cash:false,razorpay:false,cashfree:false},c.methods||{}),cashMax:parseFloat(c.cashMax)||200000,recv:c.recv||{}};}
+function saveCfg(c){DB.s1('pay_cfg',c);}
+function tax(){try{return (window.v68&&v68.taxCfg)?v68.taxCfg():{comm:1,gst:18};}catch(e){return {comm:1,gst:18};}}
+
+// ── parties ───────────────────────────────────────────────────────────────
+function partyOfBuyer(l){var n=nn(l.buyerName);if(!n)return null;var t=DB.get('traders').filter(function(x){return nn(x.name)===n;})[0];if(t)return {key:'T:'+t.id,id:t.id,kind:'trader',name:t.name};
+  var d=DB.get('dealers').filter(function(x){return nn(x.name)===n;})[0];if(d)return {key:'D:'+d.id,id:d.id,kind:'dealer',name:d.name};return {key:'N:'+n,id:'',kind:'trader',name:l.buyerName};}
+function partyOfSeller(l){if(l.sourceType==='Dealer'){var d=DB.find('dealers',l.sourceId)||DB.get('dealers').filter(function(x){return nn(x.name)===nn(l.sourceName);})[0];if(d)return {key:'D:'+d.id,id:d.id,kind:'dealer',name:d.name};}
+  var p=DB.find('planters',l.sourceId)||DB.get('planters').filter(function(x){return nn(x.name)===nn(l.sourceName);})[0];if(p)return {key:'P:'+p.id,id:p.id,kind:'planter',name:p.name};
+  return {key:'N:'+nn(l.sourceName),id:'',kind:l.sourceType==='Dealer'?'dealer':'planter',name:l.sourceName};}
+function myParty(){if(!CU)return null;var ids={};[CU.id,CU.username,CU.partyId,CU.userCode].forEach(function(x){if(x)ids[x]=1;});var nm=nn(CU.name);
+  var L=[['trader','traders'],['dealer','dealers'],['planter','planters']];var o=[];
+  L.forEach(function(p){DB.get(p[1]).forEach(function(r){if(ids[r.id]||ids[r.partyId]||ids[r.userId]||ids[r.userCode]||ids[r.planterCode]||(nm&&nn(r.name)===nm))o.push({kind:p[0],id:r.id,name:r.name,key:(p[0]==='trader'?'T:':p[0]==='dealer'?'D:':'P:')+r.id});});});
+  var want=role()==='planter'?'planter':role()==='dealer'?'dealer':'trader';return o.filter(function(x){return x.kind===want;})[0]||o[0]||null;}
+
+// ── ledger ────────────────────────────────────────────────────────────────
+function acct(type,aid,key){return type+'|'+aid+'|'+(key||'');}
+function parse(a){var p=String(a||'').split('|');return {type:p[0],aid:p[1],key:p[2]||''};}
+function legs(){return DB.get('ledger');}
+function sign(type){return (type==='BUY'||type==='BANK')?1:-1;}   // asset: dr-cr ; liability/income: cr-dr
+function bal(list){var d=0,c=0;list.forEach(function(r){d+=r.dr||0;c+=r.cr||0;});return {dr:d,cr:c};}
+function balanceOf(a){var b=bal(legs().filter(function(r){return r.acct===a;}));return sign(parse(a).type)*(b.dr-b.cr);}
+function hasJ(jid){return legs().some(function(r){return r.jid===jid;});}
+function post(j){ // j:{jid,type,aid,ts,memo,ref,by,legs:[{acct,dr,cr,pid,pkind,memo}]}
+  if(hasJ(j.jid))return false;var D=0,C=0;j.legs.forEach(function(l){D+=l.dr||0;C+=l.cr||0;});if(D!==C||D<=0)throw new Error('Unbalanced journal '+j.jid+' '+D+' vs '+C);
+  var ts=j.ts||nowMs(),dt=istD(ts),fy=fyOf(ts);
+  j.legs.forEach(function(l,i){var r={id:'lg_'+j.jid+'_'+(i+1),jid:j.jid,seq:i+1,jtype:j.type,ts:ts,date:dt,time:istT(ts),fy:fy,auctioneerId:j.aid,acct:l.acct,atype:parse(l.acct).type,partyId:l.pid||'',partyKind:l.pkind||'',dr:l.dr||0,cr:l.cr||0,memo:l.memo||j.memo||'',lref:j.ref&&j.ref.lot||'',lotNo:j.ref&&j.ref.lotNo||'',txn:j.ref&&j.ref.txn||'',by:j.by||(CU?CU.username:'system'),meta:l.meta||null};
+    if(!DB.find('ledger',r.id))DB.add('ledger',r);});
+  return true;}
+
+// ── automatic sale journals ───────────────────────────────────────────────
+function saleJournals(lotId){return legs().filter(function(r){return r.lref===lotId&&(r.jtype==='SALE')&&r.atype==='BUY';});}
+function reversedSet(){var s={};legs().forEach(function(r){if(r.jtype==='REVERSAL'&&r.meta&&r.meta.of)s[r.meta.of]=1;});return s;}
+function syncSales(){var did=0;if(!CU||!(canAct()))return 0;var t=tax(),c=cfg(),rev=reversedSet();
+  DB.get('lots').forEach(function(l){if(l.status!=='sold'||!(l.soldPrice>0)||!(l.quantity>0)||!l.buyerName)return;var aid=lotAuc(l)||myAucId();if(!aid)return;var sc=scope();if(sc&&sc.id!==aid)return;
+    var B=partyOfBuyer(l),S=partyOfSeller(l);if(!B||!S)return;var gross=pa(l.soldPrice*l.quantity),comm=Math.round(gross*t.comm/100),gst=Math.round(comm*t.gst/100),fee=Math.round(gross*c.ufee/100),net=gross-comm-gst-fee;
+    var js=saleJournals(l.id).filter(function(r){return !rev[r.jid];}),act=js[js.length-1];
+    if(act&&act.acct===acct('BUY',aid,B.key)&&act.dr===gross&&legs().some(function(r){return r.jid===act.jid&&r.acct===acct('SELL',aid,S.key);}))return;
+    if(act){ // buyer / price changed (lot transfer): reverse the old journal, book the new one
+      var old=legs().filter(function(r){return r.jid===act.jid;});
+      post({jid:'REV-'+act.jid,type:'REVERSAL',aid:aid,ts:nowMs(),memo:'Reversal of '+act.jid+' — lot '+l.lotNo+' changed',ref:{lot:l.id,lotNo:l.lotNo},legs:old.map(function(o){return {acct:o.acct,dr:o.cr,cr:o.dr,pid:o.partyId,pkind:o.partyKind,memo:'Reversal — lot '+l.lotNo,meta:{of:act.jid}};})});}
+    var n=legs().filter(function(r){return r.lref===l.id&&r.jtype==='SALE'&&r.seq===1;}).length+1,jid='SALE-'+l.id+'-'+n,m=null;
+    var memo='Lot '+l.lotNo+' · '+l.quantity+' kg @ ₹'+l.soldPrice+'/kg';
+    var L=[{acct:acct('BUY',aid,B.key),dr:gross,pid:B.id,pkind:B.kind,memo:'Purchase '+memo,meta:m},{acct:acct('SELL',aid,S.key),cr:net,pid:S.id,pkind:S.kind,memo:'Sale '+memo+' (net of commission, GST'+(fee?', fee':'')+')',meta:m}];
+    if(comm)L.push({acct:acct('COMM',aid,''),cr:comm,memo:'Commission '+t.comm+'% — '+memo});if(gst)L.push({acct:acct('GST',aid,''),cr:gst,memo:'GST '+t.gst+'% on commission — '+memo});if(fee)L.push({acct:acct('FEE',aid,''),cr:fee,memo:'Board user fee '+c.ufee+'% — '+memo});
+    var sd=Date.parse(l.soldAt||'')||nowMs();
+    try{if(post({jid:jid,type:'SALE',aid:aid,ts:sd,memo:memo,ref:{lot:l.id,lotNo:l.lotNo},legs:L}))did++;}catch(e){}});
+  if(did)syncLegacy();return did;}
+// keep the older "payments" list in step: oldest sales are paid first
+function syncLegacy(){try{var by={};legs().filter(function(r){return r.atype==='BUY';}).forEach(function(r){var k=r.acct;(by[k]=by[k]||[]).push(r);});
+  Object.keys(by).forEach(function(k){var L=by[k].slice().sort(function(a,b){return a.ts-b.ts||a.seq-b.seq;}),paid=0;L.forEach(function(r){if(r.jtype==='RECEIPT'||(r.jtype==='ADJ'&&r.cr))paid+=r.cr-r.dr;});
+    L.filter(function(r){return r.jtype==='SALE';}).forEach(function(r){var cov=paid>=r.dr;paid-=Math.min(paid,r.dr);if(r.lotNo){DB.get('payments').filter(function(p){return p.type==='received'&&p.lotNo===r.lotNo;}).forEach(function(p){var s=cov?'paid':(p.status==='paid'?'pending':p.status);if(p.status!==s)DB.upd('payments',p.id,{status:s,paidAt:cov?new Date(nowMs()).toISOString():p.paidAt});});}});});}catch(e){}}
+
+// ── dues & statements ─────────────────────────────────────────────────────
+function accounts(filter){var m={};legs().forEach(function(r){if(!filter||filter(r)){var a=m[r.acct]=m[r.acct]||{acct:r.acct,dr:0,cr:0};a.dr+=r.dr;a.cr+=r.cr;}});return Object.keys(m).map(function(k){var a=m[k],p=parse(k);a.type=p.type;a.aid=p.aid;a.key=p.key;a.bal=sign(p.type)*(a.dr-a.cr);return a;});}
+function partyName(key){var p=String(key||'').split(':');if(p[0]==='T'){var t=DB.find('traders',p[1]);return t?t.name:key;}if(p[0]==='D'){var d=DB.find('dealers',p[1]);return d?d.name:key;}if(p[0]==='P'){var q=DB.find('planters',p[1]);return q?q.name:key;}if(p[0]==='N'){var l=DB.get('lots');for(var i=0;i<l.length;i++){if(nn(l[i].buyerName)===p[1])return l[i].buyerName;if(nn(l[i].sourceName)===p[1])return l[i].sourceName;}}return key;}
+function stmt(a,from,to){var rows=legs().filter(function(r){return r.acct===a;}).sort(function(x,y){return x.ts-y.ts||x.seq-y.seq;}),s=sign(parse(a).type),run=0,out=[],open=0;
+  rows.forEach(function(r){var d=r.date;if(from&&d<from){open+=s*(r.dr-r.cr);run=open;return;}if(to&&d>to)return;run+=s*(r.dr-r.cr);out.push({r:r,run:run});});return {open:open,rows:out,close:run};}
+function jnoMap(){var js={},list=[];legs().forEach(function(r){if(!js[r.jid]){js[r.jid]={jid:r.jid,ts:r.ts,fy:r.fy,aid:r.auctioneerId};list.push(js[r.jid]);}});list.sort(function(a,b){return a.ts-b.ts||(a.jid<b.jid?-1:1);});var c={},m={};list.forEach(function(j){var k=j.aid+'|'+j.fy;c[k]=(c[k]||0)+1;m[j.jid]='JV/'+j.fy+'/'+('0000'+c[k]).slice(-5);});return m;}
+
+// ── payments (pay_txn) ────────────────────────────────────────────────────
+var METH={upi:'UPI',neft:'NEFT',rtgs:'RTGS',imps:'IMPS',cheque:'Cheque / DD',cash:'Cash at counter',razorpay:'Razorpay (online)',cashfree:'Cashfree (online)'};
+function txns(){return DB.get('pay_txn');}
+function newTxn(o){var r=Object.assign({kind:'IN',status:'submitted',createdBy:CU?CU.username:'',createdAt:new Date(nowMs()).toISOString(),ts:nowMs()},o);r.id=r.id||uid('pt');return DB.add('pay_txn',r);}
+function postReceipt(tx,amt){var aid=tx.auctioneerId,key=tx.partyKey;var jid='RC-'+tx.id;
+  return post({jid:jid,type:'RECEIPT',aid:aid,ts:nowMs(),memo:'Receipt '+(METH[tx.method]||tx.method)+(tx.utr?' · UTR '+tx.utr:''),ref:{txn:tx.id},legs:[
+    {acct:acct('BANK',aid,''),dr:amt,memo:'Received from '+tx.partyName+' by '+(METH[tx.method]||tx.method)+(tx.utr?' · '+tx.utr:'')},
+    {acct:acct('BUY',aid,key),cr:amt,pid:tx.payerId,pkind:tx.partyKind,memo:'Payment received — '+(METH[tx.method]||tx.method)+(tx.utr?' · UTR '+tx.utr:'')}]});}
+function postPayout(tx,amt){var aid=tx.auctioneerId,key=tx.partyKey;return post({jid:'PO-'+tx.id,type:'PAYOUT',aid:aid,ts:nowMs(),memo:'Payout '+(METH[tx.method]||tx.method)+(tx.utr?' · UTR '+tx.utr:''),ref:{txn:tx.id},legs:[
+  {acct:acct('SELL',aid,key),dr:amt,pid:tx.payerId,pkind:tx.partyKind,memo:'Paid to you by '+(METH[tx.method]||tx.method)+(tx.utr?' · UTR '+tx.utr:'')},
+  {acct:acct('BANK',aid,''),cr:amt,memo:'Paid to '+tx.partyName+' by '+(METH[tx.method]||tx.method)+(tx.utr?' · '+tx.utr:'')}]});}
+
+window.v73={pa:pa,inr:inr,post:post,syncSales:syncSales,balanceOf:balanceOf,accounts:accounts,stmt:stmt,legs:legs,acct:acct,parse:parse,cfg:cfg,saveCfg:saveCfg,newTxn:newTxn,postReceipt:postReceipt,postPayout:postPayout,myParty:myParty,partyName:partyName,jnoMap:jnoMap,syncLegacy:syncLegacy,partyOfBuyer:partyOfBuyer,partyOfSeller:partyOfSeller,txns:txns,METH:METH};
+})();
+
+// ═══ v7.3 part 2 — screens: pay · receipts · payouts · ledger · day book · reconciliation · settings · gateway ═══
+(function(){
+if(window.__v73b||!window.v73)return;window.__v73b=1;var X=window.v73;
+var $=function(i){return document.getElementById(i);};
+function E(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function T(m,t,d){try{toast(m,t||'info',d);}catch(e){}}
+function nowMs(){try{return srvNow();}catch(e){return Date.now();}}
+function istD(ms){return new Date(ms+19800000).toISOString().slice(0,10);}
+function dmy(d){var p=String(d||'').split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:(d||'');}
+var inr=X.inr,pa=X.pa,METH=X.METH;
+function role(){return CU?CU.role:'';}
+function isAdm(){return role()==='admin';}
+function isAucStaff(){return role()==='auctioneer'||role()==='auctioneer_secondary';}
+function canAct(){return isAdm()||isAucStaff();}
+function isParty(){return role()==='trader'||role()==='dealer'||role()==='planter';}
+function isStaffView(){return !isParty();}
+function scope(){try{return v63Api.scope();}catch(e){return null;}}
+function myAid(){var s=scope();return s&&s.id&&!s.none?s.id:'';}
+function aucName(id){var a=DB.find('auctioneers',id);return a?a.name:(id||'—');}
+function csvEsc(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function dl(name,rows){var b=new Blob(['﻿'+rows.map(function(r){return r.map(csvEsc).join(',');}).join('\r\n')],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},400);}
+var S={tab:'',aid:'',acct:'',from:'',to:'',type:'BUY',q:''};
+function ov(html){var old=$('v73-ov');var keep=old&&old.querySelector('.v70-box')?old.querySelector('.v70-box').scrollTop:0;if(old)old.remove();var d=document.createElement('div');d.id='v73-ov';d.className='v70-ov';d.innerHTML='<div class="v70-box wide" style="max-width:1100px">'+html+'</div>';document.body.appendChild(d);d.querySelector('.v70-box').scrollTop=keep;}
+function tabs(list){return '<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">'+list.map(function(t){return '<button class="btn '+(S.tab===t[0]?'bp':'bs')+' bsm" onclick="v73Tab(\''+t[0]+'\')">'+t[1]+'</button>';}).join('')+'</div>';}
+function aucSel(){if(isAdm()||!myAid()){var A=DB.get('auctioneers');return '<label style="font-size:11px">Company </label><select onchange="v73Aid(this.value)" style="margin-right:8px"><option value="">All companies</option>'+A.map(function(a){return '<option value="'+E(a.id)+'"'+(S.aid===a.id?' selected':'')+'>'+E(a.name)+'</option>';}).join('')+'</select>';}return '';}
+function curAid(){return myAid()||S.aid;}
+function inScope(r){var a=curAid();return !a||r.auctioneerId===a||r.aid===a;}
+function aucOf(r){return r.auctioneerId||r.aid;}
+
+// ── entry ─────────────────────────────────────────────────────────────
+window.v73Open=function(){if(!CU)return;try{X.syncSales();}catch(e){}if(!S.tab)S.tab=isParty()?'pay':'over';if(isParty()&&['pay','mine','led'].indexOf(S.tab)<0)S.tab='pay';render();};
+window.v73Tab=function(t){S.tab=t;render();};window.v73Aid=function(a){S.aid=a;render();};
+function render(){var h='<div class="v70-h"><b>💳 Payments &amp; Ledger</b><span style="font-size:11px;color:#667">'+E(CU.name||CU.username)+(isParty()?'':' · '+(myAid()?E(aucName(myAid())):'all companies'))+'</span><button class="btn bs bsm" onclick="v70Close(\'v73-ov\')">✕</button></div>';
+  var body='';
+  if(isParty()){h+=tabs([['pay',role()==='planter'?'💰 Payable to me':'💳 My dues & Pay'],['mine','🧾 My payments'],['led','📒 My ledger']]);body=S.tab==='pay'?vParty():S.tab==='mine'?vMine():vMyLedger();}
+  else{var t=[['over','📊 Overview'],['rcpt','📥 Receipts'],['out','📤 Payouts'],['led','📒 Ledger'],['book','📔 Day book'],['rec','🏦 Bank match'],['set','⚙️ Settings']];h+=tabs(t);h+='<div style="margin:4px 0 8px">'+aucSel()+'</div>';
+    body=S.tab==='over'?vOver():S.tab==='rcpt'?vRcpt():S.tab==='out'?vOut():S.tab==='led'?vLed():S.tab==='book'?vBook():S.tab==='rec'?vRec():vSet();}
+  ov(h+body);}
+function stat(l,v,c){return '<div class="v70-card" style="flex:1;min-width:150px"><div style="font-size:11px;color:#667">'+l+'</div><div style="font-size:19px;font-weight:800;color:'+(c||'#1b5e20')+'">'+v+'</div></div>';}
+
+// ── party screens ───────────────────────────────────────────────────────
+function myAccts(){var me=X.myParty();if(!me)return [];return X.accounts(function(r){return r.acct.split('|')[2]===me.key&&(r.atype==='BUY'||r.atype==='SELL');});}
+function recvBox(aid){var c=X.cfg().recv[aid]||{},rows=[['Pay to',c.name||aucName(aid)],['UPI ID',c.vpa],['Bank',c.bank],['Account no',c.acc],['IFSC',c.ifsc],['Branch',c.branch]].filter(function(x){return x[1];});
+  return rows.length>1?'<div style="font-size:12px;background:#f1f8e9;border-radius:8px;padding:8px;margin:6px 0">'+rows.map(function(x){return '<div><span style="color:#667">'+x[0]+':</span> <b>'+E(x[1])+'</b></div>';}).join('')+'</div>':'<div class="alt altw" style="font-size:12px">'+E(aucName(aid))+' has not yet entered its receiving bank / UPI details. Ask the auction house.</div>';}
+function vParty(){var me=X.myParty();if(!me)return '<div class="alt altw">Your login is not linked to a '+role()+' record yet — ask Admin / the pooling centre.</div>';
+  var A=myAccts().filter(function(a){return role()==='planter'?a.type==='SELL':a.type==='BUY';}),h='';
+  if(role()==='planter'){h+='<div class="alt alti" style="font-size:12px">Amounts the auction house owes you after commission, GST and fees. They are paid by bank transfer to your account on file; each payment appears in your ledger with its reference.</div>';
+    h+=A.length?'<div class="tw"><table class="t"><thead><tr><th>Auction house</th><th>Sales credited</th><th>Paid to you</th><th>Still payable</th></tr></thead><tbody>'+A.map(function(a){return '<tr><td>'+E(aucName(a.aid))+'</td><td class="mono">'+inr(a.cr)+'</td><td class="mono">'+inr(a.dr)+'</td><td class="mono"><b>'+inr(a.bal)+'</b></td></tr>';}).join('')+'</tbody></table></div>':'<div class="emp"><p>No settlements yet.</p></div>';return h;}
+  h+='<div class="alt alti" style="font-size:12px">What you owe each auction house for lots you bought. Pay by UPI, bank transfer, cheque, or online. The auction house confirms receipt against its bank statement and your ledger updates.</div>';
+  if(!A.length)return h+'<div class="emp"><p>You have no purchases yet.</p></div>';
+  A.forEach(function(a){var p=X.txns().filter(function(t){return t.payerId===me.id&&t.auctioneerId===a.aid&&(t.status==='submitted'||t.status==='initiated'||t.status==='pending_gateway');}).reduce(function(s,t){return s+(t.amount||0);},0);
+    h+='<div class="v70-card"><div class="v70-ct"><b>'+E(aucName(a.aid))+'</b> · purchases '+inr(a.dr)+' · paid '+inr(a.cr)+' · <span style="color:'+(a.bal>0?'#c62828':'#2e7d32')+'"><b>due '+inr(a.bal)+'</b></span>'+(p?' · <span style="color:#e65100">'+inr(p)+' awaiting confirmation</span>':'')+'</div>'+(a.bal>0?'<button class="btn bp bsm" onclick="v73PayForm(\''+a.aid+'\')">💳 Pay now</button>':'<span style="font-size:12px;color:#2e7d32">✔ Nothing due</span>')+'</div>';});
+  return h;}
+window.v73PayForm=function(aid){var me=X.myParty(),a=X.balanceOf(X.acct('BUY',aid,me.key)),c=X.cfg(),m=c.methods,pend=null;
+  var opts=Object.keys(METH).filter(function(k){return m[k]&&k!=='cash';}).map(function(k){return '<option value="'+k+'">'+METH[k]+'</option>';}).join('');
+  ov('<div class="v70-h"><b>💳 Pay '+E(aucName(aid))+'</b><button class="btn bs bsm" onclick="v73Tab(\'pay\')">← Back</button></div><div style="font-size:13px">Amount due: <b>'+inr(a)+'</b></div>'+recvBox(aid)+
+   '<div class="v70-g"><div><label>Amount (₹)</label><input id="pf-a" type="number" step="0.01" value="'+(a/100)+'"></div><div><label>Method</label><select id="pf-m" onchange="v73PfM()">'+opts+'</select></div><div id="pf-r1"><label>UTR / reference no</label><input id="pf-u"></div><div id="pf-r2" style="display:none"><label>Cheque date</label><input id="pf-d" type="date"></div></div><div id="pf-upi" style="margin:6px 0"></div>'+
+   '<div class="v70-g" style="grid-template-columns:1fr auto"><div style="font-size:11px;color:#666" id="pf-hint"></div><button class="btn bp bsm" onclick="v73PaySubmit(\''+aid+'\')">Submit payment</button></div>');window.v73PfM();};
+window.v73PfM=function(){var m=$('pf-m').value,aid=null;var on=m==='razorpay'||m==='cashfree';$('pf-r1').style.display=on?'none':'';$('pf-r2').style.display=m==='cheque'?'':'none';$('pf-r1').firstChild.textContent=m==='cheque'?'Cheque / DD no':'UTR / reference no';
+  $('pf-hint').textContent=on?'You will be taken to the secure payment page. Your ledger updates automatically once the bank confirms.':m==='upi'?'Pay with your UPI app, then enter the UPI reference (12 digits).':'Pay from your bank, then enter the UTR so the auction house can match it.';
+  var box=$('pf-upi');if(m==='upi'){var rv=X.cfg().recv,vp='';Object.keys(rv).forEach(function(k){});box.innerHTML='<button class="btn bs bsm" onclick="v73Upi()">📱 Open UPI app</button>';}else box.innerHTML='';};
+window.v73Upi=function(){var a=$('pf-a').value,btn=document.querySelector('[onclick^="v73PaySubmit"]'),aid=(btn.getAttribute('onclick').match(/'([^']*)'/)||[])[1],c=X.cfg().recv[aid]||{};if(!c.vpa){T('The auction house has not entered its UPI ID','error');return;}
+  location.href='upi://pay?pa='+encodeURIComponent(c.vpa)+'&pn='+encodeURIComponent(c.name||aucName(aid))+'&am='+encodeURIComponent(a)+'&cu=INR&tn='+encodeURIComponent('Auction dues '+((X.myParty()||{}).name||''));};
+window.v73PaySubmit=async function(aid){var me=X.myParty(),m=$('pf-m').value,amt=pa($('pf-a').value),due=X.balanceOf(X.acct('BUY',aid,me.key)),u=($('pf-u')||{}).value||'';u=u.trim();
+  if(!(amt>0)){T('Enter the amount','error');return;}if(amt>due){T('Amount is more than the '+inr(due)+' due','error');return;}
+  var on=m==='razorpay'||m==='cashfree';if(!on&&!u){T('Enter the UTR / reference number','error');return;}
+  if(m==='cheque'&&!($('pf-d').value)){T('Enter the cheque date','error');return;}
+  if(!on&&X.txns().some(function(t){return t.utr&&t.utr.toLowerCase()===u.toLowerCase()&&t.auctioneerId===aid&&t.status!=='rejected';})){T('This reference number is already submitted','error');return;}
+  var tx=X.newTxn({kind:'IN',method:m,auctioneerId:aid,payerId:me.id,partyKey:me.key,partyKind:me.kind,partyName:me.name,amount:amt,utr:u,chequeDate:($('pf-d')||{}).value||'',status:on?'initiated':'submitted'});
+  try{addAudit('payment','Payment submitted',me.name+' '+inr(amt)+' via '+METH[m]+(u?' · '+u:''),tx.id);}catch(e){}
+  if(on){await X.online(tx.id,m);}else{T('✅ Payment submitted — the auction house will confirm it against its bank statement','success',6000);S.tab='mine';render();}};
+function vMine(){var me=X.myParty();var L=X.txns().filter(function(t){return me&&t.payerId===me.id;}).sort(function(a,b){return b.ts-a.ts;});
+  return L.length?'<div class="tw"><table class="t"><thead><tr><th>Date</th><th>Auction house</th><th>Method</th><th>Reference</th><th>Amount</th><th>Status</th></tr></thead><tbody>'+L.map(function(t){return '<tr><td>'+E(dmy(istD(t.ts)))+' '+E(new Date(t.ts+19800000).toISOString().slice(11,16))+'</td><td>'+E(aucName(t.auctioneerId))+'</td><td>'+E(METH[t.method]||t.method)+'</td><td class="mono">'+E(t.utr||t.gatewayOrderId||'')+'</td><td class="mono">'+inr(t.amount)+'</td><td>'+stBadge(t)+'</td></tr>';}).join('')+'</tbody></table></div>':'<div class="emp"><p>No payments yet.</p></div>';}
+function stBadge(t){var m={submitted:['Awaiting confirmation','#e65100'],initiated:['Not completed','#757575'],pending_gateway:['Awaiting bank','#e65100'],verified:['✔ Confirmed','#2e7d32'],success:['✔ Paid online','#2e7d32'],paid:['✔ Paid','#2e7d32'],rejected:['✖ Rejected','#c62828'],failed:['✖ Failed','#c62828']}[t.status]||[t.status,'#666'];return '<b style="color:'+m[1]+';font-size:12px">'+m[0]+'</b>'+(t.rejectReason?'<div style="font-size:10px;color:#c62828">'+E(t.rejectReason)+'</div>':'');}
+function stmtTable(a,from,to,title){var s=X.stmt(a,from,to),jm=X.jnoMap(),sg=X.parse(a).type;var rows=s.rows;
+  return '<div class="v70-card"><div class="v70-ct"><b>'+E(title)+'</b> · opening '+inr(s.open)+' · closing <b>'+inr(s.close)+'</b></div><div class="tw"><table class="t" style="font-size:12px"><thead><tr><th>Date</th><th>Voucher</th><th>Narration</th><th>Debit</th><th>Credit</th><th>Balance</th></tr></thead><tbody>'+
+   (rows.length?rows.map(function(x){var r=x.r;return '<tr><td style="white-space:nowrap">'+E(dmy(r.date))+' '+E(r.time.slice(0,5))+'</td><td class="mono" style="font-size:10px">'+E(jm[r.jid]||r.jid)+'<div style="color:#999">'+E(r.jtype)+'</div></td><td>'+E(r.memo)+'</td><td class="mono">'+(r.dr?inr(r.dr):'')+'</td><td class="mono">'+(r.cr?inr(r.cr):'')+'</td><td class="mono"><b>'+inr(x.run)+'</b></td></tr>';}).join(''):'<tr><td colspan="6" style="text-align:center;color:#888;padding:12px">No entries</td></tr>')+'</tbody></table></div></div>';}
+function vMyLedger(){var me=X.myParty();if(!me)return '<div class="alt altw">Not linked to a party record.</div>';var A=myAccts();
+  var flt='<div class="v70-g" style="grid-template-columns:auto auto auto 1fr"><div><label>From</label><input type="date" value="'+S.from+'" onchange="v73Rng(\'from\',this.value)"></div><div><label>To</label><input type="date" value="'+S.to+'" onchange="v73Rng(\'to\',this.value)"></div><div style="align-self:end"><button class="btn bs bsm" onclick="v73Csv()">⬇ CSV</button> <button class="btn bs bsm" onclick="window.print()">🖨 Print</button></div><div></div></div>';
+  return flt+(A.length?A.map(function(a){return stmtTable(a.acct,S.from,S.to,aucName(a.aid)+' — '+(a.type==='BUY'?'purchases & payments':'sales & payments received'));}).join(''):'<div class="emp"><p>No ledger entries yet.</p></div>');}
+window.v73Rng=function(k,v){S[k]=v;render();};
+window.v73Csv=function(){var accts=[];if(isParty())accts=myAccts().map(function(a){return a.acct;});else if(S.acct)accts=[S.acct];var jm=X.jnoMap(),rows=[['Account','Date','Time (IST)','Voucher','Type','Narration','Debit','Credit','Balance']];
+  accts.forEach(function(a){X.stmt(a,S.from,S.to).rows.forEach(function(x){var r=x.r;rows.push([aucName(X.parse(a).aid)+' '+X.parse(a).type+' '+X.partyName(X.parse(a).key),r.date,r.time,jm[r.jid]||r.jid,r.jtype,r.memo,(r.dr/100).toFixed(2),(r.cr/100).toFixed(2),(x.run/100).toFixed(2)]);});});
+  if(rows.length<2){T('Nothing to export','warn');return;}dl('ledger_'+istD(nowMs())+'.csv',rows);};
+
+// ── staff: overview ───────────────────────────────────────────────────────
+function tot(type){return X.accounts(function(r){return inScope(r)&&r.atype===type;}).reduce(function(s,a){return s+a.bal;},0);}
+function vOver(){var dsum=X.legs().filter(inScope).reduce(function(s,r){return s+r.dr;},0),csum=X.legs().filter(inScope).reduce(function(s,r){return s+r.cr;},0),ok=dsum===csum;
+  var debt=X.accounts(function(r){return inScope(r)&&r.atype==='BUY';}).filter(function(a){return a.bal>0;}).sort(function(a,b){return b.bal-a.bal;}),cred=X.accounts(function(r){return inScope(r)&&r.atype==='SELL';}).filter(function(a){return a.bal>0;}).sort(function(a,b){return b.bal-a.bal;});
+  var pend=X.txns().filter(function(t){return inScope({auctioneerId:t.auctioneerId})&&t.status==='submitted';}).length;
+  var h='<div style="display:flex;gap:8px;flex-wrap:wrap">'+stat('Receivable from buyers',inr(tot('BUY')),'#c62828')+stat('Payable to sellers',inr(tot('SELL')),'#e65100')+stat('Bank balance',inr(tot('BANK')))+stat('Commission earned',inr(tot('COMM')))+stat('GST payable',inr(tot('GST')))+stat('Board user fee payable',inr(tot('FEE')))+'</div>'+
+   '<div class="alt '+(ok?'alts':'altd')+'" style="font-size:12px;margin-top:8px">'+(ok?'✔ Books balanced — total debits '+inr(dsum)+' = total credits '+inr(csum):'✖ Books do NOT balance: debits '+inr(dsum)+' vs credits '+inr(csum))+(pend?' · <b>'+pend+' payment(s) awaiting your confirmation</b> (Receipts tab)':'')+'</div>';
+  h+='<div class="g2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="v70-card"><div class="v70-ct"><b>Buyers who owe</b></div>'+(debt.length?'<table class="t" style="font-size:12px"><tbody>'+debt.slice(0,12).map(function(a){return '<tr><td>'+E(X.partyName(a.key))+'<div style="font-size:10px;color:#888">'+E(aucName(a.aid))+'</div></td><td class="mono"><b>'+inr(a.bal)+'</b></td><td>'+(canAct()?'<button class="btn bs bxs" onclick="v73RecvFor(\''+a.aid+'\',\''+a.key+'\')">Record receipt</button>':'')+'</td></tr>';}).join('')+'</tbody></table>':'<div class="emp"><p>No dues</p></div>')+'</div>'+
+   '<div class="v70-card"><div class="v70-ct"><b>Sellers to be paid</b></div>'+(cred.length?'<table class="t" style="font-size:12px"><tbody>'+cred.slice(0,12).map(function(a){return '<tr><td>'+E(X.partyName(a.key))+'<div style="font-size:10px;color:#888">'+E(aucName(a.aid))+'</div></td><td class="mono"><b>'+inr(a.bal)+'</b></td><td>'+(canAct()?'<button class="btn bs bxs" onclick="v73PayOutForm(\''+a.aid+'\',\''+a.key+'\')">Pay</button>':'')+'</td></tr>';}).join('')+'</tbody></table>':'<div class="emp"><p>Nothing payable</p></div>')+'</div></div>';
+  if(canAct()){h+='<div class="v70-card"><div class="v70-ct"><b>Remit GST / Board fee</b> (money leaves the bank)</div><div class="v70-g"><div><label>Type</label><select id="rm-t"><option value="GST">GST to government</option><option value="FEE">Board user fee to Spices Board</option></select></div><div><label>Amount (₹)</label><input id="rm-a" type="number" step="0.01"></div><div><label>Reference / challan</label><input id="rm-r"></div><div style="align-self:end"><button class="btn bp bsm" onclick="v73Remit()">Post</button></div></div></div>';}
+  return h;}
+window.v73Remit=function(){var aid=curAid();if(!aid){T('Choose a company first','error');return;}var t=$('rm-t').value,a=pa($('rm-a').value),ref=$('rm-r').value.trim();if(!(a>0)||!ref){T('Amount and reference are required','error');return;}
+  var due=X.balanceOf(X.acct(t,aid,''));if(a>due){T('More than the '+inr(due)+' payable','error');return;}
+  X.post({jid:'RM-'+Date.now().toString(36),type:'REMIT',aid:aid,ts:nowMs(),memo:(t==='GST'?'GST remitted':'Board user fee remitted')+' · '+ref,legs:[{acct:X.acct(t,aid,''),dr:a,memo:'Remitted · '+ref},{acct:X.acct('BANK',aid,''),cr:a,memo:(t==='GST'?'GST':'Board fee')+' paid · '+ref}]});
+  try{addAudit('payment','Remittance',t+' '+inr(a)+' '+ref,aid);}catch(e){}T('✅ Remittance posted','success');render();};
+
+// ── staff: receipts ───────────────────────────────────────────────────────
+function vRcpt(){var L=X.txns().filter(function(t){return t.kind==='IN'&&inScope({auctioneerId:t.auctioneerId});}).sort(function(a,b){return b.ts-a.ts;}),pend=L.filter(function(t){return t.status==='submitted'||t.status==='pending_gateway'||t.status==='initiated';}),done=L.filter(function(t){return pend.indexOf(t)<0;});
+  var row=function(t,act){return '<tr><td style="white-space:nowrap">'+E(dmy(istD(t.ts)))+' '+E(new Date(t.ts+19800000).toISOString().slice(11,16))+'</td><td>'+E(t.partyName)+'<div style="font-size:10px;color:#888">'+E(aucName(t.auctioneerId))+'</div></td><td>'+E(METH[t.method]||t.method)+'</td><td class="mono">'+E(t.utr||t.gatewayOrderId||'')+(t.chequeDate?'<div style="font-size:10px">cheque '+E(dmy(t.chequeDate))+'</div>':'')+'</td><td class="mono"><b>'+inr(t.amount)+'</b></td><td>'+stBadge(t)+'</td><td>'+act+'</td></tr>';};
+  var h=(canAct()?'<button class="btn bp bsm" onclick="v73RecvFor(\''+curAid()+'\',\'\')">➕ Record a receipt (cheque / cash / bank credit)</button>':'')+'<h4 style="margin:10px 0 4px">Waiting for confirmation ('+pend.length+')</h4>';
+  h+=pend.length?'<div class="tw"><table class="t" style="font-size:12px"><thead><tr><th>Date</th><th>Payer</th><th>Method</th><th>Reference</th><th>Amount</th><th>Status</th><th></th></tr></thead><tbody>'+pend.map(function(t){return row(t,canAct()&&t.status!=='initiated'?'<button class="btn bp bxs" onclick="v73Verify(\''+t.id+'\')">Verify</button> <button class="btn br2 bxs" onclick="v73Reject(\''+t.id+'\')">Reject</button>':'');}).join('')+'</tbody></table></div>':'<div class="emp"><p>Nothing waiting.</p></div>';
+  h+='<h4 style="margin:10px 0 4px">Confirmed / closed</h4>'+(done.length?'<div class="tw"><table class="t" style="font-size:12px"><tbody>'+done.slice(0,60).map(function(t){return row(t,'');}).join('')+'</tbody></table></div>':'<div class="emp"><p>None yet.</p></div>');return h;}
+window.v73Verify=function(id){if(!canAct())return;var tx=DB.find('pay_txn',id);if(!tx||tx.status==='verified')return;if(myAid()&&tx.auctioneerId!==myAid()){T('Not your company','error');return;}
+  var v=prompt('Amount actually credited in the bank (₹) — payer submitted '+(tx.amount/100).toFixed(2),(tx.amount/100).toFixed(2));if(v==null)return;var amt=pa(v);if(!(amt>0)){T('Invalid amount','error');return;}
+  var due=X.balanceOf(X.acct('BUY',tx.auctioneerId,tx.partyKey));if(amt>due&&!confirm('Amount is more than the '+inr(due)+' due — the excess will show as an advance (credit balance). Continue?'))return;
+  X.postReceipt(tx,amt);DB.upd('pay_txn',id,{status:'verified',amount:amt,verifiedBy:CU.username,verifiedAt:new Date(nowMs()).toISOString(),ledgerJid:'RC-'+id});X.syncLegacy();try{addAudit('payment','Receipt verified',tx.partyName+' '+inr(amt),id);}catch(e){}T('✅ Receipt posted to the ledger','success');render();};
+window.v73Reject=function(id){if(!canAct())return;var tx=DB.find('pay_txn',id);if(!tx)return;var w=prompt('Reason for rejecting (the payer will see it):','Not found in bank statement');if(w==null)return;w=w.trim();if(w.length<3){T('Reason required','error');return;}
+  DB.upd('pay_txn',id,{status:'rejected',rejectReason:w,verifiedBy:CU.username,verifiedAt:new Date(nowMs()).toISOString()});try{addAudit('payment','Receipt rejected',tx.partyName+' · '+w,id);}catch(e){}render();};
+window.v73RecvFor=function(aid,key){if(!canAct())return;if(!aid){T('Choose a company first','error');return;}var B=X.accounts(function(r){return r.auctioneerId===aid&&r.atype==='BUY';});
+  ov('<div class="v70-h"><b>➕ Record a receipt — '+E(aucName(aid))+'</b><button class="btn bs bsm" onclick="v73Tab(\'rcpt\')">← Back</button></div><div class="v70-g"><div><label>Buyer</label><select id="rr-p">'+B.map(function(a){return '<option value="'+E(a.key)+'"'+(a.key===key?' selected':'')+'>'+E(X.partyName(a.key))+' — due '+inr(a.bal)+'</option>';}).join('')+'</select></div><div><label>Method</label><select id="rr-m">'+Object.keys(METH).filter(function(k){return k!=='razorpay'&&k!=='cashfree'&&(k!=='cash'||X.cfg().methods.cash);}).map(function(k){return '<option value="'+k+'">'+METH[k]+'</option>';}).join('')+'</select></div><div><label>Amount (₹)</label><input id="rr-a" type="number" step="0.01"></div><div><label>UTR / cheque no</label><input id="rr-u"></div></div><div class="v70-g" style="grid-template-columns:1fr auto"><div style="font-size:11px;color:#666">Use this when money reached the bank (or counter) without the buyer submitting it first. It posts to the ledger immediately.</div><button class="btn bp bsm" onclick="v73RecvSave(\''+aid+'\')">Post receipt</button></div>');};
+window.v73RecvSave=function(aid){var key=$('rr-p').value,m=$('rr-m').value,amt=pa($('rr-a').value),u=$('rr-u').value.trim();if(!key||!(amt>0)){T('Choose the buyer and amount','error');return;}if(m!=='cash'&&!u){T('Enter the UTR / cheque number','error');return;}
+  if(m==='cash'&&amt>pa(X.cfg().cashMax)){T('Cash above '+inr(pa(X.cfg().cashMax))+' is not allowed','error');return;}
+  var p=key.split(':'),kind=p[0]==='D'?'dealer':'trader',tx=X.newTxn({kind:'IN',method:m,auctioneerId:aid,payerId:p[1]&&p[0]!=='N'?p[1]:'',partyKey:key,partyKind:kind,partyName:X.partyName(key),amount:amt,utr:u,status:'verified',verifiedBy:CU.username,verifiedAt:new Date(nowMs()).toISOString(),direct:true,ledgerJid:''});
+  DB.upd('pay_txn',tx.id,{ledgerJid:'RC-'+tx.id});X.postReceipt(tx,amt);X.syncLegacy();try{addAudit('payment','Receipt recorded',tx.partyName+' '+inr(amt),tx.id);}catch(e){}T('✅ Receipt posted','success');S.tab='rcpt';render();};
+
+// ── staff: payouts ────────────────────────────────────────────────────────
+function bankOfSeller(key,aid){try{var p=key.split(':'),kind=p[0]==='P'?'planter':'party',oid=p[0]==='D'?(window.v65Api&&v65Api.partyIdOfDealer?v65Api.partyIdOfDealer(p[1]):p[1]):p[1];var b=window.v65Api&&v65Api.bankFor?v65Api.bankFor(kind,oid,aid):null;if(b&&b.accountNo)return b;}catch(e){}
+  var r=(p0(key)||{});if(r.bank)return {accountNo:r.bank,ifsc:r.ifsc,bankname:r.bankname,holder:r.accountName||r.name};return null;}
+function p0(key){var p=key.split(':');return p[0]==='P'?DB.find('planters',p[1]):p[0]==='D'?DB.find('dealers',p[1]):null;}
+function vOut(){var cred=X.accounts(function(r){return inScope(r)&&r.atype==='SELL';}).filter(function(a){return a.bal>0;}).sort(function(a,b){return b.bal-a.bal;});
+  var po=X.txns().filter(function(t){return t.kind==='OUT'&&inScope({auctioneerId:t.auctioneerId});}).sort(function(a,b){return b.ts-a.ts;});
+  var h='<div style="margin-bottom:8px"><button class="btn bs bsm" onclick="v73BankFile()">⬇ Bank bulk-payment file (CSV)</button> <span style="font-size:11px;color:#667">for NEFT/RTGS upload in net-banking; then record each payment with its UTR below.</span></div>';
+  h+='<div class="tw"><table class="t" style="font-size:12px"><thead><tr><th>Seller</th><th>Auction house</th><th>Payable</th><th>Bank account</th><th></th></tr></thead><tbody>'+(cred.length?cred.map(function(a){var b=bankOfSeller(a.key,a.aid);return '<tr><td>'+E(X.partyName(a.key))+'</td><td>'+E(aucName(a.aid))+'</td><td class="mono"><b>'+inr(a.bal)+'</b></td><td style="font-size:11px">'+(b?E((b.bankname||'Bank')+' ••••'+String(b.accountNo).replace(/\D/g,'').slice(-4)+(b.ifsc?' '+b.ifsc:'')):'<span style="color:#c62828">no bank on file</span>')+'</td><td>'+(canAct()?'<button class="btn bp bxs" onclick="v73PayOutForm(\''+a.aid+'\',\''+a.key+'\')">Pay</button>':'')+'</td></tr>';}).join(''):'<tr><td colspan="5" style="text-align:center;padding:12px;color:#888">Nothing payable.</td></tr>')+'</tbody></table></div>';
+  h+='<h4 style="margin:10px 0 4px">Payments made</h4>'+(po.length?'<div class="tw"><table class="t" style="font-size:12px"><tbody>'+po.slice(0,60).map(function(t){return '<tr><td>'+E(dmy(istD(t.ts)))+'</td><td>'+E(t.partyName)+'</td><td>'+E(METH[t.method]||t.method)+'</td><td class="mono">'+E(t.utr||'')+'</td><td class="mono"><b>'+inr(t.amount)+'</b></td><td>'+stBadge(t)+'</td></tr>';}).join('')+'</tbody></table></div>':'<div class="emp"><p>None yet.</p></div>');return h;}
+window.v73BankFile=function(){var cred=X.accounts(function(r){return inScope(r)&&r.atype==='SELL';}).filter(function(a){return a.bal>0;}),rows=[['Beneficiary name','Account no','IFSC','Amount (INR)','Narration','Auction house','Payment type']],miss=0;
+  cred.forEach(function(a){var b=bankOfSeller(a.key,a.aid);if(!b)miss++;rows.push([b&&b.holder||X.partyName(a.key),b?b.accountNo:'',b?b.ifsc||'':'',(a.bal/100).toFixed(2),'Cardamom auction settlement',aucName(a.aid),a.bal>=20000000?'RTGS':'NEFT']);});
+  if(rows.length<2){T('Nothing payable','warn');return;}dl('bank_payments_'+istD(nowMs())+'.csv',rows);if(miss)T(miss+' seller(s) have no bank account on file','warn',6000);};
+window.v73PayOutForm=function(aid,key){if(!canAct())return;var due=X.balanceOf(X.acct('SELL',aid,key)),bank=X.balanceOf(X.acct('BANK',aid,''));
+  ov('<div class="v70-h"><b>📤 Pay '+E(X.partyName(key))+'</b><button class="btn bs bsm" onclick="v73Tab(\'out\')">← Back</button></div><div style="font-size:13px">'+E(aucName(aid))+' · payable <b>'+inr(due)+'</b> · bank balance '+inr(bank)+'</div><div class="v70-g"><div><label>Amount (₹)</label><input id="po-a" type="number" step="0.01" value="'+(due/100)+'"></div><div><label>Method</label><select id="po-m">'+['neft','rtgs','imps','upi','cheque'].map(function(k){return '<option value="'+k+'">'+METH[k]+'</option>';}).join('')+'</select></div><div><label>UTR / cheque no</label><input id="po-u"></div></div><div class="v70-g" style="grid-template-columns:1fr auto"><div style="font-size:11px;color:#666">Posted to the ledger at once and shown to the seller with this reference.</div><button class="btn bp bsm" onclick="v73PayOutSave(\''+aid+'\',\''+key+'\')">Post payment</button></div>');};
+window.v73PayOutSave=function(aid,key){var due=X.balanceOf(X.acct('SELL',aid,key)),amt=pa($('po-a').value),m=$('po-m').value,u=$('po-u').value.trim();if(!(amt>0)||!u){T('Amount and UTR / cheque number are required','error');return;}if(amt>due){T('More than the '+inr(due)+' payable','error');return;}
+  if(amt>X.balanceOf(X.acct('BANK',aid,''))&&!confirm('The recorded bank balance is lower than this payment (receipts may not be posted yet). Continue?'))return;
+  var p=key.split(':'),tx=X.newTxn({kind:'OUT',method:m,auctioneerId:aid,payerId:p[0]==='N'?'':p[1],partyKey:key,partyKind:p[0]==='D'?'dealer':'planter',partyName:X.partyName(key),amount:amt,utr:u,status:'paid',verifiedBy:CU.username,verifiedAt:new Date(nowMs()).toISOString()});
+  X.postPayout(tx,amt);try{addAudit('payment','Seller paid',tx.partyName+' '+inr(amt)+' · '+u,tx.id);}catch(e){}T('✅ Payment posted','success');S.tab='out';render();};
+
+// ── staff: ledger / day book / bank match / settings ──────────────────────
+function vLed(){var all=X.accounts(function(r){return inScope(r);}).filter(function(a){return !S.type||a.type===S.type;}).sort(function(a,b){return (X.partyName(a.key)||'')<(X.partyName(b.key)||'')?-1:1;});
+  var T2={BUY:'Buyers (trader / dealer)',SELL:'Sellers (planter / dealer)',COMM:'Commission income',GST:'GST payable',FEE:'Board user fee',BANK:'Bank'};
+  if(S.acct&&!all.some(function(a){return a.acct===S.acct;}))S.acct='';
+  var h='<div class="v70-g" style="grid-template-columns:repeat(4,1fr)"><div><label>Account type</label><select onchange="v73Typ(this.value)">'+Object.keys(T2).map(function(k){return '<option value="'+k+'"'+(S.type===k?' selected':'')+'>'+T2[k]+'</option>';}).join('')+'</select></div><div><label>Account</label><select onchange="v73Acc(this.value)"><option value="">— choose —</option>'+all.map(function(a){return '<option value="'+E(a.acct)+'"'+(S.acct===a.acct?' selected':'')+'>'+E((a.key?X.partyName(a.key)+' · ':'')+aucName(a.aid)+' · '+inr(a.bal))+'</option>';}).join('')+'</select></div><div><label>From</label><input type="date" value="'+S.from+'" onchange="v73Rng(\'from\',this.value)"></div><div><label>To</label><input type="date" value="'+S.to+'" onchange="v73Rng(\'to\',this.value)"></div></div>';
+  if(S.acct){h+='<div style="margin:6px 0"><button class="btn bs bsm" onclick="v73Csv()">⬇ CSV</button> <button class="btn bs bsm" onclick="window.print()">🖨 Print</button></div>'+stmtTable(S.acct,S.from,S.to,(X.parse(S.acct).key?X.partyName(X.parse(S.acct).key)+' · ':'')+aucName(X.parse(S.acct).aid)+' · '+T2[X.parse(S.acct).type]);}else h+='<div class="emp"><p>Choose an account to see its statement. '+all.length+' account(s) in this list.</p></div>';return h;}
+window.v73Typ=function(v){S.type=v;S.acct='';render();};window.v73Acc=function(v){S.acct=v;render();};
+function vBook(){var jm=X.jnoMap(),by={};X.legs().filter(inScope).forEach(function(r){(by[r.jid]=by[r.jid]||[]).push(r);});var J=Object.keys(by).map(function(k){return by[k];}).filter(function(L){return (!S.from||L[0].date>=S.from)&&(!S.to||L[0].date<=S.to);}).sort(function(a,b){return b[0].ts-a[0].ts;});
+  var nm=function(r){var p=X.parse(r.acct);return ({BUY:'Buyer',SELL:'Seller',COMM:'Commission',GST:'GST',FEE:'Board fee',BANK:'Bank'}[p.type])+(p.key?' — '+X.partyName(p.key):'');};
+  return '<div class="v70-g" style="grid-template-columns:auto auto auto 1fr"><div><label>From</label><input type="date" value="'+S.from+'" onchange="v73Rng(\'from\',this.value)"></div><div><label>To</label><input type="date" value="'+S.to+'" onchange="v73Rng(\'to\',this.value)"></div><div style="align-self:end"><button class="btn bs bsm" onclick="v73BookCsv()">⬇ CSV</button></div><div></div></div><div class="tw"><table class="t" style="font-size:12px"><thead><tr><th>Date / time (IST)</th><th>Voucher</th><th>Type</th><th>Entries</th><th>Amount</th></tr></thead><tbody>'+(J.length?J.slice(0,300).map(function(L){var f=L[0],amt=L.reduce(function(s,r){return s+r.dr;},0);return '<tr><td style="white-space:nowrap">'+E(dmy(f.date))+' '+E(f.time)+'</td><td class="mono" style="font-size:10px">'+E(jm[f.jid]||f.jid)+'</td><td>'+E(f.jtype)+'<div style="font-size:10px;color:#888">'+E(aucName(f.auctioneerId))+'</div></td><td style="font-size:11px">'+L.map(function(r){return (r.dr?'Dr ':'Cr ')+E(nm(r))+' '+inr(r.dr||r.cr);}).join('<br>')+'<div style="color:#667">'+E(f.memo)+'</div></td><td class="mono"><b>'+inr(amt)+'</b></td></tr>';}).join(''):'<tr><td colspan="5" style="text-align:center;padding:12px;color:#888">No journals</td></tr>')+'</tbody></table></div>';}
+window.v73BookCsv=function(){var jm=X.jnoMap(),rows=[['Date','Time (IST)','Voucher','Type','Auction house','Account','Party','Debit','Credit','Narration','Entered by']];X.legs().filter(inScope).sort(function(a,b){return a.ts-b.ts||a.seq-b.seq;}).forEach(function(r){if(S.from&&r.date<S.from||S.to&&r.date>S.to)return;var p=X.parse(r.acct);rows.push([r.date,r.time,jm[r.jid]||r.jid,r.jtype,aucName(r.auctioneerId),p.type,p.key?X.partyName(p.key):'',(r.dr/100).toFixed(2),(r.cr/100).toFixed(2),r.memo,r.by]);});if(rows.length<2){T('Nothing to export','warn');return;}dl('day_book_'+istD(nowMs())+'.csv',rows);};
+function vRec(){return '<div class="alt alti" style="font-size:12px">Paste lines from your bank statement (one per line, any column order — it looks for the UTR / reference and the credited amount). Pending payments whose UTR and amount appear are matched, and you can verify them all at once.</div><textarea id="rc-t" rows="7" style="width:100%;font-family:monospace;font-size:12px" placeholder="21/10/2026,NEFT-SBIN0123456789-KERALA SPICE,150000.00,..."></textarea><div style="margin:6px 0"><button class="btn bp bsm" onclick="v73Match()">Find matches</button></div><div id="rc-o"></div>';}
+window.v73Match=function(){var lines=($('rc-t').value||'').split(/\r?\n/).filter(function(x){return x.trim();}),pend=X.txns().filter(function(t){return t.kind==='IN'&&t.status==='submitted'&&inScope({auctioneerId:t.auctioneerId});}),hit=[];
+  pend.forEach(function(t){var u=(t.utr||'').toLowerCase();if(!u)return;lines.forEach(function(l){var s=l.toLowerCase();if(s.indexOf(u)<0)return;var nums=(l.match(/\d[\d,]*\.?\d*/g)||[]).map(function(x){return pa(x.replace(/,/g,''));});if(nums.indexOf(t.amount)>=0&&!hit.some(function(h){return h.t.id===t.id;}))hit.push({t:t,line:l});});});
+  $('rc-o').innerHTML=hit.length?'<div class="alt alts" style="font-size:12px"><b>'+hit.length+' payment(s) matched</b> the statement.</div><table class="t" style="font-size:12px"><tbody>'+hit.map(function(h){return '<tr><td>'+E(h.t.partyName)+'</td><td class="mono">'+inr(h.t.amount)+'</td><td class="mono">'+E(h.t.utr)+'</td><td style="font-size:10px;color:#667">'+E(h.line.slice(0,80))+'</td></tr>';}).join('')+'</tbody></table>'+(canAct()?'<button class="btn bp bsm" onclick="v73MatchPost()">✔ Verify all matched</button>':''):'<div class="alt altw" style="font-size:12px">No pending payment matched ('+pend.length+' waiting).</div>';window.__v73hit=hit.map(function(h){return h.t.id;});};
+window.v73MatchPost=function(){if(!canAct())return;var n=0;(window.__v73hit||[]).forEach(function(id){var tx=DB.find('pay_txn',id);if(!tx||tx.status!=='submitted')return;if(myAid()&&tx.auctioneerId!==myAid())return;X.postReceipt(tx,tx.amount);DB.upd('pay_txn',id,{status:'verified',verifiedBy:CU.username,verifiedAt:new Date(nowMs()).toISOString(),ledgerJid:'RC-'+id,matchedBank:true});n++;});X.syncLegacy();try{addAudit('payment','Bank statement matched',n+' receipt(s) verified','');}catch(e){}T('✅ '+n+' receipt(s) verified from the bank statement','success');S.tab='rcpt';render();};
+var GWST=null;
+function vSet(){var c=X.cfg(),aid=curAid(),r=c.recv[aid]||{},m=c.methods;
+  if(!GWST){fetch('/api/pay/status',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+((window.GW&&GW.tok)||'')},body:'{}'}).then(function(x){return x.json();}).then(function(j){GWST=j||{};if(S.tab==='set')render();}).catch(function(){GWST={};});}
+  var g=GWST||{};
+  var h='<div class="v70-card"><div class="v70-ct"><b>Receiving details of '+(aid?E(aucName(aid)):'(choose a company above)')+'</b> — shown to buyers when they pay</div>'+(aid?'<div class="v70-g"><div><label>Payee name</label><input id="st-n" value="'+E(r.name||aucName(aid))+'"></div><div><label>UPI ID</label><input id="st-v" value="'+E(r.vpa||'')+'" placeholder="name@bank"></div><div><label>Bank</label><input id="st-b" value="'+E(r.bank||'')+'"></div><div><label>Account no</label><input id="st-a" value="'+E(r.acc||'')+'"></div><div><label>IFSC</label><input id="st-i" value="'+E(r.ifsc||'')+'"></div><div><label>Branch</label><input id="st-r" value="'+E(r.branch||'')+'"></div></div><button class="btn bp bsm" onclick="v73SaveRecv()"'+(canAct()?'':' disabled')+'>💾 Save</button>':'')+'</div>';
+  if(isAdm()){h+='<div class="v70-card"><div class="v70-ct"><b>Admin — methods &amp; fees</b></div><div style="display:flex;gap:14px;flex-wrap:wrap;font-size:13px">'+Object.keys(METH).map(function(k){var gw=k==='razorpay'||k==='cashfree',ok=!gw||g[k];return '<label'+(ok?'':' style="color:#999"')+'><input type="checkbox" id="sm-'+k+'"'+(m[k]?' checked':'')+(ok?'':' disabled')+'> '+METH[k]+(gw&&!ok?' (not configured on server)':'')+'</label>';}).join('')+'</div><div class="v70-g" style="margin-top:8px"><div><label>Spices Board user fee % (on sale value, deducted from seller)</label><input id="sm-f" type="number" step="0.001" value="'+c.ufee+'"></div><div><label>Cash limit per receipt (₹)</label><input id="sm-c" type="number" value="'+c.cashMax+'"></div></div><button class="btn bp bsm" onclick="v73SaveMeth()">💾 Save</button><div style="font-size:11px;color:#667;margin-top:6px">Commission % and GST % come from Admin ▸ Tax Statements ▸ Rates. A change applies to lots sold from now on; earlier journals are never altered.</div></div>';
+    h+='<div class="v70-card"><div class="v70-ct"><b>Online gateways</b></div><div style="font-size:12px">Razorpay: <b style="color:'+(g.razorpay?'#2e7d32':'#c62828')+'">'+(g.razorpay?'connected':'not configured')+'</b> · Cashfree: <b style="color:'+(g.cashfree?'#2e7d32':'#c62828')+'">'+(g.cashfree?'connected':'not configured')+'</b><br>To switch one on: create the merchant account with the provider, add its keys as Worker secrets and set the webhook URL to <span class="mono">'+E(location.origin)+'/api/pay/webhook/razorpay</span> (or <span class="mono">/cashfree</span>). See <b>PAYMENT_GATEWAY_SETUP.txt</b>.</div></div>';}
+  return h;}
+window.v73SaveRecv=function(){var aid=curAid();if(!aid||!canAct())return;var c=X.cfg(),rc=Object.assign({},c.recv);rc[aid]={name:$('st-n').value.trim(),vpa:$('st-v').value.trim(),bank:$('st-b').value.trim(),acc:$('st-a').value.trim(),ifsc:$('st-i').value.trim().toUpperCase(),branch:$('st-r').value.trim()};
+  var raw=DB.g1('pay_cfg')||{};raw.recv=rc;X.saveCfg(raw);try{addAudit('payment','Receiving details saved',aucName(aid),aid);}catch(e){}T('✅ Saved','success');render();};
+window.v73SaveMeth=function(){if(!isAdm())return;var raw=DB.g1('pay_cfg')||{},m={};Object.keys(METH).forEach(function(k){var e=$('sm-'+k);m[k]=e?e.checked:false;});raw.methods=m;raw.ufee=parseFloat($('sm-f').value)||0;raw.cashMax=parseFloat($('sm-c').value)||200000;X.saveCfg(raw);try{addAudit('payment','Payment settings changed',JSON.stringify({ufee:raw.ufee}),'');}catch(e){}T('✅ Saved','success');render();};
+
+// ── online gateway (Razorpay / Cashfree) ─────────────────────────────────
+function loadJs(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=function(){rej(new Error('load'));};document.head.appendChild(s);});}
+X.online=async function(txnId,gw){var tx=DB.find('pay_txn',txnId);if(!tx)return;var j;
+  try{var r=await fetch('/api/pay/order',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+((window.GW&&GW.tok)||'')},body:JSON.stringify({txnId:txnId,gateway:gw})});j=await r.json();if(!r.ok||!j.ok)throw new Error(j.message||j.error||'failed');}
+  catch(e){DB.upd('pay_txn',txnId,{status:'failed',rejectReason:String(e.message||e).slice(0,120)});T('Online payment could not be started — '+(e.message||e),'error',7000);S.tab='mine';render();return;}
+  DB.upd('pay_txn',txnId,{status:'pending_gateway',gateway:gw,gatewayOrderId:j.orderId});
+  try{if(gw==='razorpay'){await loadJs('https://checkout.razorpay.com/v1/checkout.js');var rz=new Razorpay({key:j.keyId,order_id:j.orderId,amount:j.amount,currency:'INR',name:'SpiceAuction Pro',description:'Auction dues',handler:function(){T('Payment sent — waiting for bank confirmation. Your ledger updates automatically.','success',7000);},modal:{ondismiss:function(){T('Payment window closed','info');}}});rz.open();}
+    else{await loadJs('https://sdk.cashfree.com/js/v3/cashfree.js');var cf=Cashfree({mode:j.mode==='production'?'production':'sandbox'});cf.checkout({paymentSessionId:j.sessionId,redirectTarget:'_modal'});}}
+  catch(e){T('Could not open the payment page — '+(e.message||e),'error');}
+  S.tab='mine';render();};
+
+// ── button, auto-posting, live refresh ───────────────────────────────────
+var _sig='',_sale='';
+function sigOf(){try{return X.legs().length+':'+DB.get('pay_txn').map(function(t){return t.status;}).join('')+':'+DB.get('pay_txn').length;}catch(e){return '';}}
+setInterval(function(){try{if(!CU)return;var host=document.querySelector('.hr2'),anchor=$('rfb'),b=$('v73-btn');
+  if(!b&&host){b=document.createElement('button');b.id='v73-btn';b.className='hbtn';b.textContent='💳 Payments';b.style.cssText='background:#00695c;border-color:transparent;white-space:nowrap';b.onclick=window.v73Open;host.insertBefore(b,anchor||host.lastElementChild);}
+  if(canAct()){var s=DB.get('lots').filter(function(l){return l.status==='sold';}).map(function(l){return l.id+(l.buyerName||'')+l.soldPrice;}).join('|');if(s!==_sale){_sale=s;X.syncSales();}}
+  var n=sigOf();if(n!==_sig){_sig=n;var o=$('v73-ov');if(o&&!(document.activeElement&&o.contains(document.activeElement)&&/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName))&&!/^(pf-|rr-|po-)/.test((document.activeElement||{}).id||'')){if(['pay','mine','led','over','rcpt','out','led','book'].indexOf(S.tab)>=0&&!$('pf-a')&&!$('rr-p')&&!$('po-a'))render();}}
+}catch(e){}},2000);
 })();
 
 </script>
