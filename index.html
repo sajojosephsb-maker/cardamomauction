@@ -3,7 +3,7 @@ const HTML = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SpiceAuction Pro v7.5 — Dual Auction | 16 Auctioneers | Spices Board of India</title>
+<title>SpiceAuction Pro v7.6 — Dual Auction | 16 Auctioneers | Spices Board of India</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -1601,8 +1601,8 @@ function apvLot(id){DB.upd('lots',id,{status:'approved',qcStatus:'approved'});ad
 function wdLotAdm(id){if(!confirm('Withdraw?'))return;DB.upd('lots',id,{status:'withdrawn'});toast('Lot withdrawn','warn');rAP();}
 function vLotD(id){const l=DB.find('lots',id);if(!l)return;oMo('Lot Details — '+l.lotNo,\`<div class="fg">\${[['Lot No',l.lotNo],['Source',l.sourceType],['Seller',l.sourceName],['Commodity',l.commodity],['Grade',l.grade],['Bags',l.bags],['Qty',l.quantity+'kg'],['Litre Wt',l.litreWeight+'g'],['Moisture',l.moisture+'%'],['Basic','₹'+l.basicPrice+'/kg'],['Reserved','₹'+l.reservedPrice+'/kg'],['QC',l.qcStatus],['Status',l.status]].map(([k,v])=>\`<div class="fi c6"><label>\${k}</label><input readonly value="\${v||'—'}"></div>\`).join('')}</div>\${l.status==='sold'?\`<div class="alt alts">SOLD TO: \${l.buyerName} at ₹\${l.soldPrice}/kg — \${fmtINR((l.soldPrice||0)*(l.quantity||0))}</div>\`:''}<div style="margin-top:10px"><button class="btn bp" onclick="printCropReceipt('\${l.id}')">🧾 Crop Receipt</button></div>\`);}
 // AUCTION ENGINE
-function createAuction(){const no=document.getElementById('amno').value.trim(),dt=document.getElementById('amdt').value;if(!no||!dt){toast('Auction number and date required','error');return;}if(DB.get('auctions').find(a=>a.auctionNo===no)){toast('Auction number exists','error');return;}const bgRec=DB.where('bg_records',b=>b.bgType==='day')[0];if(bgRec&&bgRec.bgExpiry&&new Date(bgRec.bgExpiry)<new Date()){toast('BG expired! Cannot create auction.','error');return;}const auc=DB.add('auctions',{auctionNo:no,date:dt,venue:document.getElementById('ampc').value,commodity:document.getElementById('amco').value,remarks:document.getElementById('amrk').value,auctioneerId:((DB.get('auctioneers').find(a=>a.id===CU.aucId||a.userId===CU.username)||{}).id)||'',auctioneerName:((DB.get('auctioneers').find(a=>a.id===CU.aucId||a.userId===CU.username)||{}).name)||CU.name||CU.username,auctionType:(document.getElementById('amty')||{}).value||'regular',poolStart:(document.getElementById('ampst')||{}).value||'',poolEnd:(document.getElementById('ampen')||{}).value||'',status:'scheduled',lotIds:[]});DB.s1('live_auction',{...auc,currentLotId:null,currentPrice:0,status:'scheduled'});addAudit('auction','Auction Created',no,dt);toast('✅ Auction '+no+' created');rACH();rAM_Status();}
-function addLotsToAuction(){const la=DB.g1('live_auction');if(!la){toast('Create an auction first','error');return;}const avail=DB.where('lots',l=>l.status==='approved'&&!l.auctionId&&l.auctionType!=='evening');if(!avail.length){toast('No approved lots available','warn');return;}if(la.poolEnd&&la.date===new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'})){const nowT=new Date().toLocaleTimeString('en-GB',{timeZone:'Asia/Kolkata',hour12:false}).slice(0,5);if(nowT<la.poolEnd&&!confirm('Pooling is open until '+la.poolEnd+'. Close pooling now and shuffle lots?'))return;}for(let i=avail.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[avail[i],avail[j]]=[avail[j],avail[i]];}let seq=1;avail.forEach(l=>{DB.upd('lots',l.id,{status:'in_auction',auctionId:la.id,seq:seq++});});const updated={...la,lotIds:[...la.lotIds,...avail.map(l=>l.id)]};DB.s1('live_auction',updated);DB.upd('auctions',la.id,{lotIds:updated.lotIds});addAudit('auction','Pooling closed — lots shuffled',\`\${avail.length} lots randomised\`,la.auctionNo);toast('✅ '+avail.length+' lots added & shuffled');rAM_Status();renderAucLots();}
+function createAuction(){const no=document.getElementById('amno').value.trim(),dt=document.getElementById('amdt').value;if(!no||!dt){toast('Auction number and date required','error');return;}if(DB.get('auctions').find(a=>a.auctionNo===no)){toast('Auction number exists','error');return;}const _bt=((document.getElementById('amty')||{}).value==='evening')?'evening':'day';const bgRec=DB.where('bg_records',b=>b.bgType===_bt)[0];if(bgRec&&bgRec.bgExpiry&&new Date(bgRec.bgExpiry)<new Date()){toast('BG expired! Cannot create auction.','error');return;}const auc=DB.add('auctions',{auctionNo:no,date:dt,venue:document.getElementById('ampc').value,commodity:document.getElementById('amco').value,remarks:document.getElementById('amrk').value,auctioneerId:((DB.get('auctioneers').find(a=>a.id===CU.aucId||a.userId===CU.username)||{}).id)||'',auctioneerName:((DB.get('auctioneers').find(a=>a.id===CU.aucId||a.userId===CU.username)||{}).name)||CU.name||CU.username,auctionType:(document.getElementById('amty')||{}).value||'regular',poolStart:(document.getElementById('ampst')||{}).value||'',poolEnd:(document.getElementById('ampen')||{}).value||'',status:'scheduled',lotIds:[]});DB.s1('live_auction',{...auc,currentLotId:null,currentPrice:0,status:'scheduled'});addAudit('auction','Auction Created',no,dt);toast('✅ Auction '+no+' created');rACH();rAM_Status();}
+function addLotsToAuction(){const la=DB.g1('live_auction');if(!la){toast('Create an auction first','error');return;}const _ev=(la.auctionType==='evening');const avail=DB.where('lots',l=>l.status==='approved'&&!l.auctionId&&(_ev?l.auctionType==='evening':l.auctionType!=='evening'));if(!avail.length){toast('No approved lots available','warn');return;}if(la.poolEnd&&la.date===new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'})){const nowT=new Date().toLocaleTimeString('en-GB',{timeZone:'Asia/Kolkata',hour12:false}).slice(0,5);if(nowT<la.poolEnd&&!confirm('Pooling is open until '+la.poolEnd+'. Close pooling now and shuffle lots?'))return;}for(let i=avail.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[avail[i],avail[j]]=[avail[j],avail[i]];}let seq=1;avail.forEach(l=>{DB.upd('lots',l.id,{status:'in_auction',auctionId:la.id,seq:seq++});});const updated={...la,lotIds:[...la.lotIds,...avail.map(l=>l.id)]};DB.s1('live_auction',updated);DB.upd('auctions',la.id,{lotIds:updated.lotIds});addAudit('auction','Pooling closed — lots shuffled',\`\${avail.length} lots randomised\`,la.auctionNo);toast('✅ '+avail.length+' lots added & shuffled');rAM_Status();renderAucLots();}
 function goLive(){const la=DB.g1('live_auction');if(!la){toast('Create an auction first','error');return;}/* dual-location: add scheduled time if set */const lots=DB.where('lots',l=>l.auctionId===la.id&&l.status==='in_auction').sort((a,b)=>(a.seq||0)-(b.seq||0));if(!lots.length){toast('No lots in auction','error');return;}const updated={...la,status:'live',currentLotId:lots[0].id,currentPrice:lots[0].basicPrice};DB.s1('live_auction',updated);DB.upd('auctions',la.id,{status:'live'});addAudit('auction','Auction Live',la.auctionNo,'');pushNotif('🔴 Auction '+la.auctionNo+' LIVE — Bodi: check your panel!','warn');
   sysMsgToRoles(['auctioneer','auctioneer_secondary','admin'],'🔴 Auction '+la.auctionNo+' has gone LIVE. '+PL()+' is running it. Secondary: open your Live panel and be ready to record decisions.');toast('🔴 Auction LIVE at BOTH locations!');startLotTimer();rAM_Status();renderAucLots();rSecPanel();}
 function nextLot(){const la=DB.g1('live_auction');if(!la||la.status!=='live'){toast('No live auction','error');return;}const lots=DB.where('lots',l=>l.auctionId===la.id&&l.status==='in_auction').sort((a,b)=>(a.seq||0)-(b.seq||0));if(!lots.length){toast('No more lots. Click End Auction.','warn');return;}DB.s1('live_auction',{...la,currentLotId:lots[0].id,currentPrice:lots[0].basicPrice});toast('➡️ Next lot: '+lots[0].lotNo,'info');rAM_Status();renderAucLots();}
@@ -1664,7 +1664,7 @@ function finalizeDualAccept(){
   DB.upd('bids',top.id,{winning:true});
   DB.upd('lots',la.currentLotId,{status:'sold',soldPrice:top.amount,buyerName:top.traderName,soldAt:new Date().toISOString(),dualAccepted:true,priAcceptedBy:la.priBy,secAcceptedBy:la.secBy,rerunCount:la.rerunCount||0,bidLocation:top.location||'Puttady'});
   DB.add('payments',{type:'received',lotId:la.currentLotId,lotNo:lot.lotNo,party:top.traderName,amount:top.amount*lot.quantity,status:'pending',date:new Date().toISOString(),reference:la.auctionNo});
-  const bgRec=DB.where('bg_records',b=>b.bgType==='day')[0];
+  const bgRec=DB.where('bg_records',b=>b.bgType===(((DB.g1('live_auction')||{}).auctionType==='evening')?'evening':'day'))[0];
   if(bgRec)DB.upd('bg_records',bgRec.id,{usedExposure:(bgRec.usedExposure||0)+(top.amount*lot.quantity/10000000)});
   clearInterval(auctionTimer);
   DB.s1('live_auction',{...la,priDecision:null,secDecision:null,rerunCount:0,timeExtended:0});
@@ -1822,7 +1822,7 @@ var addCount=0;
 function startLotTimer(dur){
   clearInterval(auctionTimer);
   timerPaused=false;timerDecisionShown=false;
-  timerTotal=dur||getTiming().dayBidSec;addCount=0;
+  timerTotal=dur||(((DB.g1('live_auction')||{}).auctionType==='evening')?getTiming().eveBidSec:getTiming().dayBidSec);addCount=0;
   timerSeconds=timerTotal;
   const la=DB.g1('live_auction');_ownTimerLot=la&&la.currentLotId;
   lastBidCount=la&&la.currentLotId?DB.where('bids',b=>b.lotId===la.currentLotId).length:0;
@@ -1854,9 +1854,9 @@ function timerTick(){
     const curBids=DB.where('bids',b=>b.lotId===la.currentLotId).length;
     if(curBids>lastBidCount){
       // Add-on rule (admin-set): +N s per new bid, only while ≤ W s remain (W=0 → any time), at most M times per lot (M=0 → unlimited)
-      const T=getTiming();let added=0;
+      const T=getTiming();let added=0;const _E=la.auctionType==='evening',_aS=_E?T.eveAddSec:T.dayAddSec,_aW=_E?T.eveAddWithin:T.dayAddWithin,_aM=_E?T.eveMaxAdds:T.dayMaxAdds;
       for(let i=lastBidCount;i<curBids;i++){
-        if(T.dayAddSec>0&&(T.dayAddWithin<=0||timerSeconds+added<=T.dayAddWithin)&&(T.dayMaxAdds<=0||addCount<T.dayMaxAdds)){added+=T.dayAddSec;addCount++;}
+        if(_aS>0&&(_aW<=0||timerSeconds+added<=_aW)&&(_aM<=0||addCount<_aM)){added+=_aS;addCount++;}
       }
       lastBidCount=curBids;
       if(added>0){
@@ -9194,6 +9194,68 @@ var ol=window.launchApp;window.launchApp=function(){var r=ol.apply(this,argument
  function hide(){if(demo)return;document.querySelectorAll('.lcred').forEach(function(e){e.remove();});}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hide);else hide();
  window.ql=demo?window.ql:function(){};})();
+
+// ═══ v7.6 — Evening auction uses the SAME live bidding as the day auction (only pooling differs) + ⚡ Speed check ═══
+(function(){
+if(window.__v76)return;window.__v76=1;
+var $=function(i){return document.getElementById(i);};
+function istDate(){return new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'});}
+// ---- evening auction through the normal live flow ----
+function eveBgOk(){var bg=DB.where('bg_records',function(b){return b.bgType==='evening';})[0];
+  if(!bg||!(bg.bgAmount>=5)){toast('Evening BG not configured (min ₹5 Cr required)','error');return false;}
+  if(bg.bgExpiry&&new Date(bg.bgExpiry)<new Date()){toast('Evening BG expired!','error');return false;}return true;}
+window.eveGoLive=function(){
+  if(!eveBgOk())return;
+  var cur=DB.g1('live_auction');if(cur&&cur.status==='live'){toast('An auction is already live — end it first','error');return;}
+  var lots=DB.where('lots',function(l){return l.auctionType==='evening'&&l.status==='approved'&&!l.auctionId;});
+  if(!lots.length){toast('No approved evening lots','error');return;}
+  var d=istDate().replace(/-/g,'/'),n=1,no;do{no='EVE/'+d+'/'+String(n++).padStart(3,'0');}while(DB.get('auctions').some(function(a){return a.auctionNo===no;}));
+  var au=DB.get('auctioneers').find(function(a){return a.id===CU.aucId||a.userId===CU.username;})||{};
+  var auc=DB.add('auctions',{auctionNo:no,date:istDate(),venue:'',commodity:'Cardamom',remarks:'Evening auction',auctioneerId:au.id||'',auctioneerName:au.name||CU.name||CU.username,auctionType:'evening',poolStart:'',poolEnd:'',status:'scheduled',lotIds:[]});
+  DB.s1('live_auction',Object.assign({},auc,{currentLotId:null,currentPrice:0,status:'scheduled'}));
+  addAudit('auction','Evening Auction Created',no,istDate());
+  addLotsToAuction();goLive();
+  toast('🌙 Evening auction LIVE — bidding and decisions work exactly like the day auction (Live panel)','success',5000);};
+window.eveNext=function(){nextLot();};window.eveSOLD=function(){priAccept();};window.eveWD=function(){priWithdraw();};window.eveEnd=function(){endAuction();};
+var oc=window.createAuction;
+window.createAuction=function(){var t=$('amty');if(t&&t.value==='evening'&&!eveBgOk())return;return oc.apply(this,arguments);};
+var ot=window.tapBid;
+window.tapBid=function(inc){try{var la=DB.g1('live_auction');if(la&&la.auctionType==='evening'&&CU&&CU.role==='planter'){toast('Planters are not permitted in the Evening auction','error');return;}}catch(e){}return ot.apply(this,arguments);};
+// evening sales count against the Evening bank-guarantee exposure (same as before)
+var ou=DB.upd;
+DB.upd=function(k,id,u){try{if(k==='lots'&&u&&u.status==='sold'){var l=DB.find('lots',id);if(l&&l.status!=='sold'&&l.auctionType==='evening'){var bg=DB.where('bg_records',function(b){return b.bgType==='evening';})[0];var sp=u.soldPrice||l.soldPrice||0;if(bg)ou.call(DB,'bg_records',bg.id,{usedExposure:(bg.usedExposure||0)+(sp*l.quantity/10000000)});}}}catch(e){}return ou.apply(this,arguments);};
+// ---- speed check ----
+var LOAD=null;
+(function hookLoad(){var t=setInterval(function(){try{var G=window.GW;if(!G||!G.loadAll||G.__v76)return;G.__v76=1;var o=G.loadAll;G.loadAll=async function(){var t0=performance.now();var r=await o.apply(this,arguments);var rows=0;try{Object.keys(localStorage).forEach(function(k){if(k.indexOf('sap_')===0){try{var a=JSON.parse(localStorage.getItem(k));if(Array.isArray(a))rows+=a.length;}catch(e){}}});}catch(e){}LOAD={ms:Math.round(performance.now()-t0),rows:rows};return r;};clearInterval(t);}catch(e){}},300);setTimeout(function(){clearInterval(t);},60000);})();
+function med(a){var s=a.slice().sort(function(x,y){return x-y;});return s[Math.floor(s.length/2)];}
+function grade(ms,g,o){return ms<=g?'🟢 Good':ms<=o?'🟡 OK':'🔴 Slow';}
+async function timeIt(fn,n){var a=[];for(var i=0;i<n;i++){var t=performance.now();try{await fn();}catch(e){return null;}a.push(Math.round(performance.now()-t));}return a;}
+function row(l,v,g){return '<tr><td style="padding:6px 8px">'+l+'</td><td style="padding:6px 8px;text-align:right;font-family:monospace">'+v+'</td><td style="padding:6px 8px">'+(g||'')+'</td></tr>';}
+function liveState(){var G=window.GW;if(!G||!G.on)return '⚠️ Local mode (not connected to the server)';if(G._ws&&G._ws.readyState===1)return '✅ ON — changes appear on every screen automatically (live connection open)';return '🟡 Live connection reconnecting — screens refresh by polling meanwhile';}
+window.v76Run=async function(){var box=$('v76-res');if(!box)return;box.innerHTML='<div style="padding:14px">Testing… (about 10 seconds)</div>';
+  var G=window.GW,h='<div style="margin:6px 0 10px"><b>Automatic update:</b> '+liveState()+'</div><table style="width:100%;border-collapse:collapse;font-size:13px"><tbody>';
+  if(!G||!G.on||!G.tok){box.innerHTML=h+'<tr><td>This copy is not signed in to the secure server, so there is nothing to measure.</td></tr></tbody></table>';return;}
+  var hdr={'Content-Type':'application/json',Authorization:'Bearer '+G.tok};
+  var p=await timeIt(function(){return fetch('/api/health',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();});},5);
+  if(p){var m=med(p);h+=row('Server reply (ping, median of 5)',m+' ms',grade(m,250,600))+row('&nbsp;&nbsp;fastest / slowest',Math.min.apply(0,p)+' / '+Math.max.apply(0,p)+' ms','');}else h+=row('Server reply','failed','🔴');
+  var r=await timeIt(function(){return fetch('/api/sec/table',{method:'POST',headers:hdr,body:JSON.stringify({tbl:'lots',limit:200,offset:0})}).then(function(x){if(!x.ok)throw 0;return x.json();});},3);
+  if(r){var m2=med(r);h+=row('Read 200 lots from the database (median of 3)',m2+' ms',grade(m2,500,1200));}else h+=row('Read from database','failed','🔴');
+  var k0=(G.stats&&G.stats.kicks)||0;var w=await timeIt(async function(){DB.s1('v76_probe',{t:Date.now()});await G.flushNow();},3);
+  if(w){var m3=med(w);h+=row('Save a change to the server (median of 3)',m3+' ms',grade(m3,500,1200));}else h+=row('Save a change','failed','🔴');
+  var t0=performance.now(),got=null;for(var i=0;i<30;i++){if(((G.stats&&G.stats.kicks)||0)>k0){got=Math.round(performance.now()-t0);break;}await new Promise(function(z){setTimeout(z,100);});}
+  h+=row('Live update reaching this screen after a save',got===null?'not seen in 3 s':'≈ '+got+' ms',got===null?'ℹ️ the sender may not echo to itself; check on a 2nd device':grade(got,800,2000));
+  if(LOAD)h+=row('Sign-in data load ('+LOAD.rows.toLocaleString('en-IN')+' records)',(LOAD.ms/1000).toFixed(1)+' s',grade(LOAD.ms,4000,10000));else h+=row('Sign-in data load','sign out and in again to measure','');
+  var sz=0;try{Object.keys(localStorage).forEach(function(k){if(k.indexOf('sap_')===0)sz+=(localStorage.getItem(k)||'').length;});}catch(e){}
+  h+=row('Data stored on this device',(sz/1048576).toFixed(1)+' MB',sz>4.5e6?'🟡 Near the browser limit':'🟢 Good');
+  h+='</tbody></table><div style="margin-top:10px;font-size:12px;color:#667">Tested from this device and network just now. Good = under about ½ second for a screen action. Run it again from a phone to see mobile speed.</div>';
+  box.innerHTML=h;};
+window.v76Open=function(){var o=$('v76-ov');if(o)o.remove();o=document.createElement('div');o.id='v76-ov';o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px';
+  o.innerHTML='<div style="background:var(--bg,#fff);color:inherit;border-radius:12px;max-width:640px;width:100%;max-height:90vh;overflow:auto;padding:16px;box-shadow:0 10px 40px rgba(0,0,0,.3)"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">⚡ Speed &amp; live-update check</h3><button class="btn" onclick="document.getElementById(\\'v76-ov\\').remove()">✕</button></div><div style="margin:8px 0">'+'<button class="btn bp" onclick="v76Run()">▶ Run speed test</button></div><div id="v76-res"><div style="padding:8px">'+liveState()+'</div></div></div>';
+  document.body.appendChild(o);};
+setInterval(function(){try{if(!CU||!/^(admin|support|board_admin)$/.test(CU.role||''))return;var host=document.querySelector('.hr2'),a=$('v73-btn')||$('rfb'),b=$('v76-btn');
+  if(!b&&host){b=document.createElement('button');b.id='v76-btn';b.className='hbtn';b.innerHTML='⚡<span class="v73t"> Speed</span>';b.title='Speed & live-update check';b.style.cssText='background:#5d4037;border-color:transparent;white-space:nowrap';b.onclick=window.v76Open;host.insertBefore(b,a||host.lastElementChild);}
+  if(b){var on=window.GW&&GW.on&&GW._ws&&GW._ws.readyState===1;b.style.boxShadow=on?'0 0 0 2px #43a047 inset':'0 0 0 2px #ef6c00 inset';}}catch(e){}},2500);
+})();
 
 </script>
 </body></html>
@@ -18259,7 +18321,7 @@ async function helmChat(request, env, url) {
   return json({ error: "no_model", message: "No model is connected. Set the ANTHROPIC_API_KEY secret on the worker." }, 503);
 }
 
-const VERSION = "7.5";
+const VERSION = "7.6";
 const BUILD = (() => { let h = 5381; for (let i = 0; i < HTML.length; i += 7) h = ((h << 5) + h + HTML.charCodeAt(i)) | 0; return VERSION + "." + (h >>> 0).toString(36); })();
 const SEC = {
   "X-Frame-Options": "DENY",
